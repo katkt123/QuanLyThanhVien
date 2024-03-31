@@ -17,12 +17,12 @@ import javax.persistence.Table;
  * @author ASUS
  */
 @Entity
-@Table(name = "ThanhVien")
+@Table(name = "thanhvien")
 public class ThanhVienDTO {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DepartmentID")
+    @Column(name = "MaTV")
     private int MaTV;
 
     @Column(name = "HoTen")
