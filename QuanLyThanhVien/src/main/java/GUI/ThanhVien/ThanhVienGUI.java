@@ -58,6 +58,10 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             jTable_ThanhVien.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
         loadThanhVien();
+        setIconAdd();
+        setIconEdit();
+        setIconRefresh();
+        setIconSearch();
     }
     
     public void setIconAdd(){

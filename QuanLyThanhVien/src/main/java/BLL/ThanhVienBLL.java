@@ -4,10 +4,19 @@
  */
 package BLL;
 
+import DAL.ThanhVienDAL;
+import DTO.ThanhVienDTO;
+import java.util.ArrayList;
+
 /**
  *
  * @author ASUS
  */
 public class ThanhVienBLL {
+    ThanhVienDAL tvDAL =  new ThanhVienDAL();
     
+    
+    public ArrayList<ThanhVienDTO> listThanhVien(){
+        return tvDAL.listThanhVien();
+    }
 }
