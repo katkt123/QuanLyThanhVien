@@ -8,6 +8,6 @@ package BLL;
  *
  * @author ASUS
  */
-public class ThanhVienBLL4 {
+public class ThanhVienBLL {
     
 }

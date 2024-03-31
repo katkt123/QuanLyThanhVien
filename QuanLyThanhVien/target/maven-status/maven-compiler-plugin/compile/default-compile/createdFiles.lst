@@ -1,7 +1,11 @@
+GUI\ThanhVienGUI$1.class
 GUI\MainGUI$3.class
+BLL\ThanhVienBLL.class
 GUI\MainGUI$1.class
 GUI\MainGUI$4.class
 GUI\MainGUI.class
+DTO\ThanhVienDTO.class
+DAL\ThanhVienDAL.class
 com\mycompany\quanlythanhvien\QuanLyThanhVien.class
 GUI\MainGUI$2.class
 GUI\ThanhVienGUI.class

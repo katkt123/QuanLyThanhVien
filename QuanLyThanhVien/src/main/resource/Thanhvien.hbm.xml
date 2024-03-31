@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this template
--->
 
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
+<hibernate-mapping>
+   <class name = "DTO.ThanhVienDTO" table = "thanhvien">
+   
+<meta attribute = "class-description">
+         This class contains the ThanhVien detail. 
+      </meta>
+      
 
-<root>
-    
-</root>
-
+      <id name = "MaTV" type = "int" column = "MaTV">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "HoTen" column = "HoTen" type = "string"/>
+      <property name="Khoa" column="Khoa" type="string"/>
+      <property name = "Nganh" column = "Nganh" type = "string"/>
+      <property name = "SDT" column = "SDT" type = "int"/>
+      
+   </class>
+</hibernate-mapping>
