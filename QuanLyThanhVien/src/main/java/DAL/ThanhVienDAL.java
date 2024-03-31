@@ -32,13 +32,14 @@ public class ThanhVienDAL {
             throw new ExceptionInInitializerError(ex);
         }
     }
+    
     public ArrayList<ThanhVienDTO> listThanhVien() {
         Session session = factory.openSession();
         ArrayList<ThanhVienDTO> List = new ArrayList<>();
         Transaction tx = null;
          try{
              tx = session.beginTransaction();
-             List employess = session.createQuery("FROM ThanhVien").list();
+             List employess = session.createQuery("FROM ThanhVienDTO").list();
              for (Iterator iterator = employess.iterator(); iterator.hasNext();) {
                  ThanhVienDTO tv = (ThanhVienDTO) iterator.next();
                  List.add(tv);
