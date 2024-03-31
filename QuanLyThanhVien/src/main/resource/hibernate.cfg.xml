@@ -7,7 +7,11 @@
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+<<<<<<< HEAD
         <property name="connection.url">jdbc:mysql://localhost:3306/quanlythanhvien?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8</property>
+=======
+        <property name="connection.url">jdbc:mysql://localhost:3306/qlthanhvien?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8</property>
+>>>>>>> 98925dd36eb18d8b1f827a81a925f2a07f49276b
         <property name="connection.username">root</property>
         <property name="connection.password"></property>
         <!-- JDBC connection pool (use the built-in) -->
@@ -19,8 +23,11 @@
         <property name="hibernate.hbm2ddl.auto">validate</property> <!-- Fixed property name -->
         <!-- Show all executed SQL to console -->
         <property name="show_sql">true</property>
+        
+        
         <!-- Entity mapping -->
-        <!-- <mapping class="demopl.DAL.Course" /> -->
-        <mapping resource="Department.hbm.xml"/> <!-- Fixed resource attribute -->
+        <mapping class="DTO.ThietBiDTO" /> 
+        <mapping resource="Thietbi.hbm.xml"/> <!-- Fixed resource attribute -->
+        
     </session-factory>
 </hibernate-configuration>
