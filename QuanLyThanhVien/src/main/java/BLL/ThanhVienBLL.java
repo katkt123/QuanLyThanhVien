@@ -19,4 +19,10 @@ public class ThanhVienBLL {
     public ArrayList<ThanhVienDTO> listThanhVien(){
         return tvDAL.listThanhVien();
     }
+    public void ThemThanhVien(ThanhVienDTO tv){
+        tvDAL.ThemThanhVien(tv);
+    }
+    public int initID(){
+        return tvDAL.initID();
+    }
 }

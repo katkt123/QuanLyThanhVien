@@ -5,6 +5,8 @@ DAL\ThanhVienDAL.class
 GUI\ThanhVien\ThanhVienGUI$6.class
 com\mycompany\quanlythanhvien\QuanLyThanhVien.class
 DTO\ThietBiDTO.class
+GUI\ThanhVien\AddThanhVienGUI$5.class
+GUI\ThanhVien\AddThanhVienGUI$3.class
 GUI\MainGUI$3.class
 BLL\ThanhVienBLL.class
 GUI\ThanhVien\AddThanhVienGUI.class
@@ -17,6 +19,8 @@ GUI\ThanhVien\ThanhVienGUI$2.class
 GUI\ThanhVien\AddThanhVienGUI$1.class
 GUI\ThanhVien\ThanhVienGUI$5.class
 GUI\MainGUI$4.class
+GUI\ThanhVien\AddThanhVienGUI$2.class
 DTO\ThanhVienDTO.class
+GUI\ThanhVien\AddThanhVienGUI$4.class
 GUI\ThanhVien\ThanhVienGUI$4.class
 GUI\MainGUI$2.class

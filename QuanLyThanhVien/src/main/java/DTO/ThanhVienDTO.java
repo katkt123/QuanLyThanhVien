@@ -47,6 +47,12 @@ public class ThanhVienDTO {
         this.Nganh = Nganh;
         this.SDT = SDT;
     }
+    public ThanhVienDTO(String HoTen, String Khoa, String Nganh, int SDT) {
+        this.HoTen = HoTen;
+        this.Khoa = Khoa;
+        this.Nganh = Nganh;
+        this.SDT = SDT;
+    }
 
     public String getHoTen() {
         return HoTen;
