@@ -4,6 +4,7 @@
  */
 package GUI.ThanhVien;
 
+import BLL.ThanhVienBLL;
 import DAL.ThanhVienDAL;
 import DTO.ThanhVienDTO;
 import java.awt.Color;
@@ -11,6 +12,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +22,12 @@ import javax.swing.table.DefaultTableModel;
  * @author ASUS
  */
 public class ThanhVienGUI extends javax.swing.JPanel {
-    ThanhVienDAL tvDAL = new ThanhVienDAL();
+    ThanhVienBLL tvBLL = new ThanhVienBLL();
+    public static int id;
+    public static String name;
+    public static String khoa;
+    public static String nganh;
+    public static int sdt;
     /**
      * Creates new form ThanhVienGUI
      */
@@ -62,6 +69,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         setIconEdit();
         setIconRefresh();
         setIconSearch();
+        setIconDelete();
     }
     
     public void setIconAdd(){
@@ -84,9 +92,14 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         jLabel1.setIcon(icon);
     }
+    public void setIconDelete(){
+        String imagePath = "src\\main\\java\\Image\\Delete.png"; // 
+        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+        jButton_Delete.setIcon(icon);
+    }
     
     public void loadThanhVien(){
-        arrThanhVien = tvDAL.listThanhVien();
+        arrThanhVien = tvBLL.listThanhVien();
 //        int a = arrNCC.size();
         for(int i = modelTV.getRowCount()-1;i>=0;i--)
             modelTV.removeRow(i);
@@ -119,7 +132,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jTextField_Search = new javax.swing.JTextField();
         jButton_Edit = new javax.swing.JButton();
-        btnGhiDanh = new javax.swing.JButton();
+        jButton_Delete = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -190,10 +203,10 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             }
         });
 
-        btnGhiDanh.setForeground(new java.awt.Color(255, 255, 255));
-        btnGhiDanh.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Delete.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGhiDanhActionPerformed(evt);
+                jButton_DeleteActionPerformed(evt);
             }
         });
 
@@ -211,7 +224,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
-                .addComponent(btnGhiDanh, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -231,7 +244,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
                             .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                             .addComponent(jButton_Refresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                            .addComponent(btnGhiDanh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -290,8 +303,8 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 
     private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed
         // TODO add your handling code here:
-        AddThanhVienGUI asv = new AddThanhVienGUI();
-        asv.setVisible(true);
+        ModifyAddGUI atv = new ModifyAddGUI();
+        atv.setVisible(true);
     }//GEN-LAST:event_jButton_AddActionPerformed
 
     private void jTextField_SearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_SearchFocusGained
@@ -316,59 +329,60 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 
     private void jTextField_SearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_SearchKeyReleased
         // TODO add your handling code here:
-//        String searchText = jTextField_Search.getText().trim();
-//
-//        // Gọi hàm search với nội dung tìm kiếm
-//        ArrayList<SinhVienDTO> searchResult = svBLL.search(searchText);
-//
-//        for(int i = modelSV.getRowCount()-1;i>=0;i--)
-//        modelSV.removeRow(i);
-//        for(int i = 0; i<searchResult.size();i++){
-//            SinhVienDTO em= searchResult.get(i);
-//            int stt= i+1;
-//            int id= em.getPersonID();
-//            String first = em.getFirstName();
-//            String last = em.getLastName();
-//            String enrollment = em.getEnrollmentDate();
-//
-//            Object[] row = {id,first,last,enrollment};
-//            modelSV.addRow(row);
-//        }
+        String searchText = jTextField_Search.getText().trim();
+
+        // Gọi hàm search với nội dung tìm kiếm
+        ArrayList<ThanhVienDTO> searchResult = tvBLL.search(searchText);
+
+        for(int i = modelTV.getRowCount()-1;i>=0;i--)
+        modelTV.removeRow(i);
+        for(int i = 0; i<searchResult.size();i++){
+            ThanhVienDTO em= searchResult.get(i);
+            int id= em.getMaTV();
+            String name= em.getHoTen();
+            String khoa = em.getKhoa();
+            String nganh = em.getNganh();
+            int sdt = em.getSDT();
+
+            Object[] row = {id,name,khoa,nganh,sdt};
+            modelTV.addRow(row);
+        }
     }//GEN-LAST:event_jTextField_SearchKeyReleased
 
     private void jButton_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditActionPerformed
         // TODO add your handling code here:
-//        int selectedRow = jTable_SinhVien.getSelectedRow();
-//
-//        if (selectedRow == -1) {
-//            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa đổi.", "Thông báo", JOptionPane.WARNING_MESSAGE);
-//        } else {
-//            pid = (int) jTable_SinhVien.getValueAt(selectedRow, 0);
-//            fn = jTable_SinhVien.getValueAt(selectedRow, 1).toString();
-//            ln = jTable_SinhVien.getValueAt(selectedRow, 2).toString();
-//            ed = jTable_SinhVien.getValueAt(selectedRow, 3).toString();
-//            UpdateSinhVienGUI usv = new UpdateSinhVienGUI(pid,fn,ln,ed);
-//            usv.setVisible(true);
-//        }
+        int selectedRow = jTable_ThanhVien.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa đổi.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            id = (int) jTable_ThanhVien.getValueAt(selectedRow, 0);
+            name = jTable_ThanhVien.getValueAt(selectedRow, 1).toString();
+            khoa = jTable_ThanhVien.getValueAt(selectedRow, 2).toString();
+            nganh = jTable_ThanhVien.getValueAt(selectedRow, 3).toString();
+            sdt =(int) jTable_ThanhVien.getValueAt(selectedRow, 4);
+            UpdateThanhVienGUI utv = new UpdateThanhVienGUI(id,name,khoa,nganh,sdt);
+            utv.setVisible(true);
+        }
     }//GEN-LAST:event_jButton_EditActionPerformed
 
-    private void btnGhiDanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiDanhActionPerformed
+    private void jButton_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteActionPerformed
         // TODO add your handling code here:
-//        int SelectedRow = jTable_SinhVien.getSelectedRow();
-//        if (SelectedRow == -1){
-//            JOptionPane.showMessageDialog(jPanel2, "Vui lòng chọn sinh viên để ghi danh !!!");
-//            return;
-//        }
-//        int StudentID = (int) jTable_SinhVien.getValueAt(SelectedRow, 0);
-//        String Name = (String) jTable_SinhVien.getValueAt(SelectedRow, 1) + " " + (String) jTable_SinhVien.getValueAt(SelectedRow, 2);
-//        GhiDanhGUI ghiDanhGUI = new GhiDanhGUI(StudentID, Name);
-//        ghiDanhGUI.setVisible(true);
-//        ghiDanhGUI.addWindowListener(new WindowAdapter() {
-//            public void windowClosed(WindowEvent e) {
-//                loadSV();
-//            }
-//        });
-    }//GEN-LAST:event_btnGhiDanhActionPerformed
+        int selectedRow = jTable_ThanhVien.getSelectedRow();
+        
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            id = (int) jTable_ThanhVien.getValueAt(selectedRow, 0);
+            name = jTable_ThanhVien.getValueAt(selectedRow, 1).toString();
+            khoa = jTable_ThanhVien.getValueAt(selectedRow, 2).toString();
+            nganh = jTable_ThanhVien.getValueAt(selectedRow, 3).toString();
+            sdt =(int) jTable_ThanhVien.getValueAt(selectedRow, 4);
+            UpdateThanhVienGUI utv = new UpdateThanhVienGUI(id,name,khoa,nganh,sdt);
+            utv.setVisible(true);
+        }
+//       
+    }//GEN-LAST:event_jButton_DeleteActionPerformed
 
     private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
         // TODO add your handling code here:
@@ -377,8 +391,8 @@ public class ThanhVienGUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGhiDanh;
     private javax.swing.JButton jButton_Add;
+    private javax.swing.JButton jButton_Delete;
     private javax.swing.JButton jButton_Edit;
     private javax.swing.JButton jButton_Refresh;
     private javax.swing.JLabel jLabel1;

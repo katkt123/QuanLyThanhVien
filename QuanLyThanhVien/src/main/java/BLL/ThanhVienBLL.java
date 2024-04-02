@@ -25,4 +25,16 @@ public class ThanhVienBLL {
     public int initID(){
         return tvDAL.initID();
     }
+    public void updateThanhVien(ThanhVienDTO tv){
+        tvDAL.updateThanhVien(tv);
+    }
+    public void deleteThanhVien(int id){
+        tvDAL.deleteThanhVien(id);
+    }
+    public void ThemThanhVienExcel(String path){
+        tvDAL.ThemThanhVienExcel(path);
+    }
+    public ArrayList<ThanhVienDTO> search(String s){
+        return tvDAL.search(s);
+    }
 }
