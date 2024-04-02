@@ -4,12 +4,15 @@
  */
 package DTO;
 
+import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -37,9 +40,12 @@ public class ThanhVienDTO {
     @Column(name = "SDT")
     private int SDT;
 
+    @OneToMany(fetch=FetchType.LAZY, mappedBy= "thanhvien")
+    private ArrayList<ThongTinSuDungDTO> ttsd = new ArrayList<>();
+    
     public ThanhVienDTO() {
     }
-
+    
     public ThanhVienDTO(int MaTV, String HoTen, String Khoa, String Nganh, int SDT) {
         this.MaTV = MaTV;
         this.HoTen = HoTen;
@@ -93,4 +99,13 @@ public class ThanhVienDTO {
     public void setSDT(int SDT) {
         this.SDT = SDT;
     }    
+
+    public void setTtsd(ArrayList<ThongTinSuDungDTO> ttsd) {
+        this.ttsd = ttsd;
+    }
+
+    public ArrayList<ThongTinSuDungDTO> getTtsd() {
+        return ttsd;
+    }
+    
 }
