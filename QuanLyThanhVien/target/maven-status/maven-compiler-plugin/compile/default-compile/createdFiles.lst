@@ -11,6 +11,7 @@ GUI\ThanhVien\AddThanhVienGUI$5.class
 GUI\ThanhVien\AddThanhVienGUI$3.class
 GUI\MainGUI$3.class
 GUI\ThanhVien\ModifyAddGUI$3.class
+GUI\ThanhVien\DetailGUI.class
 GUI\ThanhVien\UpdateThanhVienGUI$1.class
 BLL\ThanhVienBLL.class
 GUI\ThanhVien\UpdateThanhVienGUI.class
@@ -18,6 +19,7 @@ GUI\ThanhVien\UpdateThanhVienGUI$3.class
 GUI\ThanhVien\AddThanhVienGUI.class
 GUI\ThanhVien\ThanhVienGUI$3.class
 DAL\HibernateUtil.class
+DTO\ThongTinSuDungDTO.class
 GUI\ThanhVien\ThanhVienGUI.class
 GUI\ThanhVien\UpdateThanhVienGUI$4.class
 GUI\ThanhVien\ThanhVienGUI$7.class
@@ -33,3 +35,4 @@ GUI\ThanhVien\AddThanhVienGUI$4.class
 GUI\ThanhVien\ThanhVienGUI$4.class
 GUI\MainGUI$2.class
 GUI\ThanhVien\UpdateThanhVienGUI$2.class
+GUI\ThanhVien\DetailGUI$1.class

@@ -230,6 +230,16 @@ public class ThanhVienDAL {
 
         return list;
     }
+    
+    public static void main(String[] args) {
+        ThanhVienDAL thanhvienDAl = new ThanhVienDAL();
+        
+        ArrayList<ThanhVienDTO> thanhvien = thanhvienDAl.listThanhVien();
+        
+        for (ThanhVienDTO s : thanhvien){
+            System.out.println(s.getHoTen());
+        }
+    }
 
 
 //    
