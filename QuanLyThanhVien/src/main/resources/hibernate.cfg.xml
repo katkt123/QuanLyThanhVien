@@ -6,7 +6,7 @@
         <!-- Database setting -->
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/quanlythanhvien?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8</property>
         <property name="connection.username">root</property>
         <property name="connection.password"></property>
@@ -24,8 +24,8 @@
         <!-- Entity mapping -->
         
         <mapping resource="Thanhvien.hbm.xml"/> <!-- Fixed resource attribute -->
-<!--        <mapping resource="Thietbi.hbm.xml"/>  Fixed resource attribute 
-        <mapping resource="Thongtinsudung.hbm.xml"/>  Fixed resource attribute 
-        <mapping resource="Xuly.hbm.xml"/>  Fixed resource attribute -->
+        <mapping resource="Thietbi.hbm.xml"/>  <!-- Fixed resource attribute -->
+<!--        <mapping resource="Thongtinsudung.hbm.xml"/>   Fixed resource attribute 
+        <mapping resource="Xuly.hbm.xml"/>    Fixed resource attribute -->
     </session-factory>
 </hibernate-configuration>

@@ -15,10 +15,9 @@
       <id name = "MaTB" type = "int" column = "MaTB">
          <generator class="native"/>
       </id>
-      
-<!--      <property name = "MaTB" column = "MaTB" type = "int"/>-->
+
       <property name = "TenTB" column = "TenTB" type = "string"/>
-      <property name = "MoTaTB" column = "MoTaTB" type = "string"/>
+      <property name="MoTaTB" column="MoTaTB" type="text" />
       
    </class>
 </hibernate-mapping>
