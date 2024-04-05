@@ -24,7 +24,6 @@ import javax.persistence.Table;
 public class ThanhVienDTO {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MaTV")
     private int MaTV;
 
@@ -38,7 +37,10 @@ public class ThanhVienDTO {
     private String Nganh;
 
     @Column(name = "SDT")
-    private int SDT;
+    private String SDT;
+    
+    @Column(name = "Password")
+    private String Password;
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy= "thanhvien")
     private ArrayList<ThongTinSuDungDTO> ttsd = new ArrayList<>();
@@ -46,20 +48,37 @@ public class ThanhVienDTO {
     public ThanhVienDTO() {
     }
     
-    public ThanhVienDTO(int MaTV, String HoTen, String Khoa, String Nganh, int SDT) {
+    public ThanhVienDTO(int MaTV, String HoTen, String Khoa, String Nganh, String SDT) {
         this.MaTV = MaTV;
         this.HoTen = HoTen;
         this.Khoa = Khoa;
         this.Nganh = Nganh;
         this.SDT = SDT;
     }
-    public ThanhVienDTO(String HoTen, String Khoa, String Nganh, int SDT) {
+    public ThanhVienDTO(String HoTen, String Khoa, String Nganh, String SDT) {
         this.HoTen = HoTen;
         this.Khoa = Khoa;
         this.Nganh = Nganh;
         this.SDT = SDT;
     }
 
+    public ThanhVienDTO(int MaTV, String HoTen, String Khoa, String Nganh, String SDT, String Password) {
+        this.MaTV = MaTV;
+        this.HoTen = HoTen;
+        this.Khoa = Khoa;
+        this.Nganh = Nganh;
+        this.SDT = SDT;
+        this.Password = Password;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
+    
     public String getHoTen() {
         return HoTen;
     }
@@ -76,7 +95,7 @@ public class ThanhVienDTO {
         return Nganh;
     }
 
-    public int getSDT() {
+    public String getSDT() {
         return SDT;
     }
 
@@ -96,7 +115,7 @@ public class ThanhVienDTO {
         this.Nganh = Nganh;
     }
 
-    public void setSDT(int SDT) {
+    public void setSDT(String SDT) {
         this.SDT = SDT;
     }    
 

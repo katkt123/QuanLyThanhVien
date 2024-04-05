@@ -185,12 +185,12 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
 
     private void jButton_CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CreateActionPerformed
         // TODO add your handling code here:
-        id = tvBLL.initID() + 1;
+        
         System.out.println("---------------------------------ID:"+id);        
         String Name = jTextField_Name.getText();
         String Khoa = jTextField_Khoa.getText();
         String Nganh = jTextField_Nganh.getText();
-        int SDT = Integer.parseInt(jTextField_SDT.getText());  
+        String SDT = jTextField_SDT.getText();  
         
         
         if (!"".equals(Name) && !"".equals(Khoa) && !"".equals(Nganh) && !"".equals(SDT)) {

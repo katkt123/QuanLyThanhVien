@@ -21,6 +21,8 @@ import org.hibernate.cfg.Configuration;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Year;
+import java.util.Locale;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 
@@ -66,8 +68,37 @@ public class ThanhVienDAL {
         Integer tvienID = null;
         try {
             tx = session.beginTransaction();
-            ThanhVienDTO tvien = new ThanhVienDTO(tv.getHoTen(), tv.getKhoa(), tv.getNganh(), tv.getSDT());
-            tvien.setMaTV(initID()+1);
+             // Sử dụng Criteria để lấy số lượng bản ghi trong bảng ThanhVien
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+            Root<ThanhVienDTO> root = criteriaQuery.from(ThanhVienDTO.class);
+            criteriaQuery.select(builder.count(root));
+            Long count = session.createQuery(criteriaQuery).getSingleResult();
+            String id ="";
+            String year = Year.now().toString().substring(2);
+            String khoa = tv.getKhoa();
+            String khoaCode= "";
+            
+            switch (khoa.toUpperCase(Locale.ROOT)) {
+                case "CNTT":
+                    khoaCode = "41";
+                    break;
+                case "QTKD":
+                    khoaCode = "42";
+                    break;
+                case "TLH":
+                    khoaCode= "43";
+                    break;
+                // Thêm các trường hợp khác nếu cần
+                default:
+                    // Mặc định sẽ là 00 nếu không trùng khớp
+                    khoaCode = "00";
+                    break;
+            }
+            id = "11"+ year + khoaCode + String.format("%03d", count + 1);
+            int idCode= Integer.parseInt(id);
+            ThanhVienDTO tvien = new ThanhVienDTO(idCode,tv.getHoTen(), tv.getKhoa(), tv.getNganh(), tv.getSDT());
+            
             session.save(tvien);
             tx.commit();
         } catch (HibernateException e) {
@@ -77,27 +108,9 @@ public class ThanhVienDAL {
             session.close();
         }
     }
-    public int initID() {
-        int id = 0;
-        Session session = null;
-        try {
-            session = factory.openSession();
-            // Sử dụng Criteria để lấy số lượng bản ghi trong bảng person
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-            Root<ThanhVienDTO> root = criteriaQuery.from(ThanhVienDTO.class);
-            criteriaQuery.select(builder.count(root));
-            Long count = session.createQuery(criteriaQuery).getSingleResult();
-            id = count.intValue();
-        } catch (HibernateException e) {
-            System.out.println("Init Sinh Vien: " + e);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-        return id;
-    }
+
+
+ 
 
     public void updateThanhVien(ThanhVienDTO tv) {
         Session session = factory.openSession();
@@ -155,11 +168,11 @@ public class ThanhVienDAL {
 
                     // Kiểm tra và lưu dữ liệu vào Hibernate
                     if (nameCell != null && khoaCell != null && nganhCell != null && sdtCell != null) {
-                        int id = initID()+1;
+                        int id = (int) nameCell.getNumericCellValue();
                         String name = nameCell.getStringCellValue();
                         String khoa = khoaCell.getStringCellValue();
                         String nganh = nganhCell.getStringCellValue();
-                        int sdt = (int) sdtCell.getNumericCellValue();
+                        String sdt =  sdtCell.getStringCellValue();
 
                         // Tạo đối tượng ThanhVienDTO từ dữ liệu
                         ThanhVienDTO thanhVien = new ThanhVienDTO();

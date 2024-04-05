@@ -22,9 +22,7 @@ public class ThanhVienBLL {
     public void ThemThanhVien(ThanhVienDTO tv){
         tvDAL.ThemThanhVien(tv);
     }
-    public int initID(){
-        return tvDAL.initID();
-    }
+    
     public void updateThanhVien(ThanhVienDTO tv){
         tvDAL.updateThanhVien(tv);
     }

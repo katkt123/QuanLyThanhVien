@@ -220,7 +220,7 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
             String name = jTextField_Name.getText().toString();
             String khoa = jTextField_Khoa.getText().toString();
             String nganh = jTextField_Nganh.getText().toString();
-            int sdt = Integer.parseInt(jTextField_SDT.getText());
+            String sdt = jTextField_SDT.getText();
             
             ThanhVienDTO tv= new ThanhVienDTO(pid,name,khoa,nganh,sdt);
             

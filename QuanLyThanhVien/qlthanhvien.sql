@@ -5,7 +5,7 @@ CREATE TABLE `thanhvien` (
   `Khoa` varchar(100) DEFAULT NULL,
   `Nganh` varchar(100) DEFAULT NULL,
   `SDT` varchar(10) DEFAULT NULL,
-  `Password` varchar(100) NOT NULL,
+  `Password` varchar(100) DEFAULT NULL,
   `Email` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

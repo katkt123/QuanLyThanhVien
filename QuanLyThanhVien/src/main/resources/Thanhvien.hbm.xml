@@ -13,13 +13,12 @@
       
 
       <id name = "MaTV" type = "int" column = "MaTV">
-         <generator class="native"/>
-      </id>
+         </id>
       
       <property name = "HoTen" column = "HoTen" type = "string"/>
       <property name="Khoa" column="Khoa" type="string"/>
       <property name = "Nganh" column = "Nganh" type = "string"/>
-      <property name = "SDT" column = "SDT" type = "int"/>
-      
+      <property name = "SDT" column = "SDT" type = "string"/>
+      <property name = "Password" column = "Password" type = "string" />
    </class>
 </hibernate-mapping>

@@ -110,7 +110,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             String name = em.getHoTen();
             String khoa = em.getKhoa();
             String nganh = em.getNganh();
-            int sdt = em.getSDT();
+            String sdt = em.getSDT();
             
         
             Object[] row = {id,name,khoa,nganh,sdt};
@@ -342,7 +342,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             String name= em.getHoTen();
             String khoa = em.getKhoa();
             String nganh = em.getNganh();
-            int sdt = em.getSDT();
+            String sdt = em.getSDT();
 
             Object[] row = {id,name,khoa,nganh,sdt};
             modelTV.addRow(row);
