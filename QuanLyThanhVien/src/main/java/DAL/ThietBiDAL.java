@@ -99,24 +99,16 @@ public class ThietBiDAL {
         }
     }
     
-    public static void main(String[] args) {
-        ThietBiDAL aL = new ThietBiDAL();
-        aL.addThietBi(new ThietBiDTO(0,"Kien","test 1"));
-        ArrayList<ThietBiDTO> list = aL.listThietBi();
-        for (ThietBiDTO s : list){
-            System.out.println(s.getMaTB());
-        }
-//        aL.updateThietBi(new ThietBiDTO(7,"Kien ne","test 2"));
-//        list = aL.listThietBi();
-//        for (ThietBiDTO s : list){
-//            System.out.println(s.getMaTB());
+//    public static void main(String[] args) {
+//        ThietBiDAL aL = new ThietBiDAL();
+//        for (int i = 0; i < 10; i++) {
+//            ThietBiDTO tb = new ThietBiDTO();
+//            tb.setTenTB("Tên thiết bị " + i); // Thiết lập tên cho thiết bị
+//            tb.setMoTaTB("Mô tả thiết bị " + i); // Thiết lập mô tả cho thiết bị
+//            aL.addThietBi(tb); // Thêm thiết bị vào cơ sở dữ liệu
+//
 //        }
-//        aL.deleteThietBi(7);
-//        list = aL.listThietBi();
-//        for (ThietBiDTO s : list){
-//            System.out.println(s.getMaTB());
-//        }
-        
-    }
+//        
+//    }
     
 }

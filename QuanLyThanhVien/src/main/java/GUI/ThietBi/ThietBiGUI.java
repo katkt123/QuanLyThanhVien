@@ -43,13 +43,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         list = thietBiBLL.getListTB();
         
         modelTB = (DefaultTableModel) jTableThietBi.getModel();
-        
-        
-        
-        
-        
-        
-        
+       
         
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setFont(new Font("Arial", Font.BOLD, 20)); // Set bold font
@@ -62,10 +56,15 @@ public class ThietBiGUI extends javax.swing.JPanel {
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Set center alignment
 
+        CheckBoxRenderer checkBoxRenderer = new CheckBoxRenderer();
         for (int i = 1; i < jTableThietBi.getColumnCount(); i++) {
-            jTableThietBi.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+            if (jTableThietBi.getColumnClass(i) == Boolean.class) {
+                jTableThietBi.getColumnModel().getColumn(i).setCellRenderer(checkBoxRenderer);
+            } else {
+                jTableThietBi.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+            }
         }
-        
+
         loadThanhVien();
         
         
@@ -92,18 +91,37 @@ public class ThietBiGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jpTaskbar = new javax.swing.JPanel();
-        txtFind = new javax.swing.JTextField();
+        txtFindTen = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        txtFindMa = new javax.swing.JTextField();
+        txtFindMoTa = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableThietBi = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(930, 680));
 
-        txtFind.setText("Nhập thông tin tìm kiếm");
+        jpTaskbar.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtFindTen.setText("Nhập tên thiết bị");
+        txtFindTen.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFindTenFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFindTenFocusLost(evt);
+            }
+        });
+        txtFindTen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFindTenActionPerformed(evt);
+            }
+        });
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -126,47 +144,106 @@ public class ThietBiGUI extends javax.swing.JPanel {
             }
         });
 
+        txtFindMa.setText("Nhập mã thiết bị");
+        txtFindMa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFindMaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFindMaFocusLost(evt);
+            }
+        });
+        txtFindMa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFindMaActionPerformed(evt);
+            }
+        });
+
+        txtFindMoTa.setText("Nhập mô tả thiết bị");
+        txtFindMoTa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFindMoTaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFindMoTaFocusLost(evt);
+            }
+        });
+        txtFindMoTa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFindMoTaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Tên thiết bị:");
+
+        jLabel2.setText("Mã thiết bị:");
+
+        jLabel3.setText("Mô tả thiết bị:");
+
         javax.swing.GroupLayout jpTaskbarLayout = new javax.swing.GroupLayout(jpTaskbar);
         jpTaskbar.setLayout(jpTaskbarLayout);
         jpTaskbarLayout.setHorizontalGroup(
             jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpTaskbarLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpTaskbarLayout.createSequentialGroup()
+                        .addComponent(txtFindMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpTaskbarLayout.createSequentialGroup()
+                        .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFindMa, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFindTen, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
+                        .addComponent(btnAdd)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16))))
         );
         jpTaskbarLayout.setVerticalGroup(
             jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTaskbarLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+            .addGroup(jpTaskbarLayout.createSequentialGroup()
                 .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpTaskbarLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTaskbarLayout.createSequentialGroup()
-                            .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10))))
-                .addGap(16, 16, 16))
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpTaskbarLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFindMa, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFindTen, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFindMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTableThietBi.setAutoCreateRowSorter(true);
         jTableThietBi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jTableThietBi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "", "MaTB", "TenTB", "MoTaTB"
+                "", "Mã", "Tên", "Mô tả"
             }
         ) {
             Class[] types = new Class [] {
@@ -184,44 +261,32 @@ public class ThietBiGUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTableThietBi.setGridColor(new java.awt.Color(204, 204, 204));
         jTableThietBi.setMaximumSize(new java.awt.Dimension(2147483647, 200));
-        jTableThietBi.setMinimumSize(new java.awt.Dimension(60, 200));
-        jTableThietBi.setPreferredSize(new java.awt.Dimension(300, 200));
+        jTableThietBi.setMinimumSize(new java.awt.Dimension(90, 200));
         jTableThietBi.setRowHeight(50);
         jScrollPane2.setViewportView(jTableThietBi);
         if (jTableThietBi.getColumnModel().getColumnCount() > 0) {
             jTableThietBi.getColumnModel().getColumn(0).setPreferredWidth(70);
             jTableThietBi.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTableThietBi.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTableThietBi.getColumnModel().getColumn(1).setMaxWidth(150);
+            jTableThietBi.getColumnModel().getColumn(2).setPreferredWidth(250);
+            jTableThietBi.getColumnModel().getColumn(2).setMaxWidth(250);
         }
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpTaskbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpTaskbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -237,16 +302,74 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void txtFindTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindTenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFindTenActionPerformed
+
+    private void txtFindMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindMaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFindMaActionPerformed
+
+    private void txtFindMoTaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindMoTaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFindMoTaActionPerformed
+
+    private void txtFindMaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindMaFocusGained
+        // TODO add your handling code here:
+        if (txtFindMa.getText().equals("Nhập mã thiết bị")){
+            txtFindMa.setText("");
+        }
+    }//GEN-LAST:event_txtFindMaFocusGained
+
+    private void txtFindMaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindMaFocusLost
+        // TODO add your handling code here:
+        if (txtFindMa.getText().equals("")){
+            txtFindMa.setText("Nhập mã thiết bị");
+        }
+        
+    }//GEN-LAST:event_txtFindMaFocusLost
+
+    private void txtFindTenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindTenFocusGained
+        // TODO add your handling code here:
+        if (txtFindTen.getText().equals("Nhập tên thiết bị")){
+            txtFindTen.setText("");
+        }
+    }//GEN-LAST:event_txtFindTenFocusGained
+
+    private void txtFindTenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindTenFocusLost
+        // TODO add your handling code here:
+        if (txtFindTen.getText().equals("")){
+            txtFindTen.setText("Nhập tên thiết bị");
+        }
+    }//GEN-LAST:event_txtFindTenFocusLost
+
+    private void txtFindMoTaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindMoTaFocusGained
+        // TODO add your handling code here:
+        if (txtFindMoTa.getText().equals("Nhập mô tả thiết bị")){
+            txtFindMoTa.setText("");
+        }
+    }//GEN-LAST:event_txtFindMoTaFocusGained
+
+    private void txtFindMoTaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindMoTaFocusLost
+        // TODO add your handling code here:
+        if (txtFindMoTa.getText().equals("")){
+            txtFindMoTa.setText("Nhập mô tả thiết bị");
+        }
+    }//GEN-LAST:event_txtFindMoTaFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableThietBi;
     private javax.swing.JPanel jpTaskbar;
-    private javax.swing.JTextField txtFind;
+    private javax.swing.JTextField txtFindMa;
+    private javax.swing.JTextField txtFindMoTa;
+    private javax.swing.JTextField txtFindTen;
     // End of variables declaration//GEN-END:variables
 }
