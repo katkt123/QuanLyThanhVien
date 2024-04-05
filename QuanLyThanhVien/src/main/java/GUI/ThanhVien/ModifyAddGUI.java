@@ -8,6 +8,7 @@ import BLL.ThanhVienBLL;
 import GUI.MainGUI;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -139,6 +140,12 @@ public class ModifyAddGUI extends javax.swing.JFrame {
 
             // Gọi phương thức để thêm thành viên từ file Excel
             tvBLL.ThemThanhVienExcel(filePath);
+            JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm thành viên", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Thêm thất bại !!!", "Thêm thành viên", JOptionPane.INFORMATION_MESSAGE);
+
         }
     }//GEN-LAST:event_jButton_FileActionPerformed
 

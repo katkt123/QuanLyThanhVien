@@ -135,6 +135,7 @@ public class ThanhVienDAL {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
+            
             tx = session.beginTransaction();
             ThanhVienDTO tvien = (ThanhVienDTO) session.get(ThanhVienDTO.class, tvienID);
             session.delete(tvien);
@@ -147,60 +148,84 @@ public class ThanhVienDAL {
         }
     }
     public void ThemThanhVienExcel(String path) {
-        Session session = factory.openSession();
-        Transaction tx = null;
-        try {
-            FileInputStream inputStream = new FileInputStream(new File(path));
-            Workbook workbook = WorkbookFactory.create(inputStream);
-            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
+    Session session = factory.openSession();
+    Transaction tx = null;
+    try {
+        tx = session.beginTransaction();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+        Root<ThanhVienDTO> root = criteriaQuery.from(ThanhVienDTO.class);
+        criteriaQuery.select(builder.count(root));
+        Long count = session.createQuery(criteriaQuery).getSingleResult();
 
-            tx = session.beginTransaction();
+        FileInputStream inputStream = new FileInputStream(new File(path));
+        Workbook workbook = WorkbookFactory.create(inputStream);
+        Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
 
-            // Bắt đầu đọc từ hàng thứ hai (index 1)
-            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-                Row row = sheet.getRow(i);
-                if (row != null) {
-                    // Lấy dữ liệu từ các ô trong hàng
-                    Cell nameCell = row.getCell(0);
-                    Cell khoaCell = row.getCell(1);
-                    Cell nganhCell = row.getCell(2);
-                    Cell sdtCell = row.getCell(3);
+        // Bắt đầu đọc từ hàng thứ hai (index 1)
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+            Row row = sheet.getRow(i);
+            if (row != null) {
+                Cell nameCell = row.getCell(0);
+                Cell khoaCell = row.getCell(1);
+                Cell nganhCell = row.getCell(2);
+                Cell sdtCell = row.getCell(3);
 
-                    // Kiểm tra và lưu dữ liệu vào Hibernate
-                    if (nameCell != null && khoaCell != null && nganhCell != null && sdtCell != null) {
-                        int id = (int) nameCell.getNumericCellValue();
-                        String name = nameCell.getStringCellValue();
-                        String khoa = khoaCell.getStringCellValue();
-                        String nganh = nganhCell.getStringCellValue();
-                        String sdt =  sdtCell.getStringCellValue();
+                // Kiểm tra và lưu dữ liệu vào Hibernate
+                if (nameCell != null && khoaCell != null && nganhCell != null && sdtCell != null) {
+                    String name = nameCell.getStringCellValue();
+                    String khoa = khoaCell.getStringCellValue();
+                    String nganh = nganhCell.getStringCellValue();
+                    String sdt =  sdtCell.getStringCellValue();
+                    
+                    String id1 ="";
+                    String year1 = Year.now().toString().substring(2);
+                    String khoa1 = khoa;
+                    String khoaCode1 = "";
 
-                        // Tạo đối tượng ThanhVienDTO từ dữ liệu
-                        ThanhVienDTO thanhVien = new ThanhVienDTO();
-                        thanhVien.setMaTV(id);
-                        thanhVien.setHoTen(name);
-                        thanhVien.setKhoa(khoa);
-                        thanhVien.setNganh(nganh);
-                        thanhVien.setSDT(sdt);
-
-                        // Lưu đối tượng vào cơ sở dữ liệu bằng Hibernate
-                        session.save(thanhVien);
+                    switch (khoa1.toUpperCase(Locale.ROOT)) {
+                        case "CNTT":
+                            khoaCode1 = "41";
+                            break;
+                        case "QTKD":
+                            khoaCode1 = "42";
+                            break;
+                        case "TLH":
+                            khoaCode1 = "43";
+                            break;
+                        // Thêm các trường hợp khác nếu cần
+                        default:
+                            // Mặc định sẽ là 00 nếu không trùng khớp
+                            khoaCode1 = "00";
+                            break;
                     }
+                    id1 = "11"+ year1 + khoaCode1 + String.format("%03d", count + 1);    
+                    int idCode = Integer.parseInt(id1);
+
+                    // Tạo đối tượng ThanhVienDTO từ dữ liệu
+                    ThanhVienDTO thanhVien = new ThanhVienDTO(idCode, name, khoa, nganh, sdt);
+                    // Lưu đối tượng vào cơ sở dữ liệu bằng Hibernate
+                    session.save(thanhVien);
+                    // Cập nhật giá trị của count
+                    count++;
                 }
             }
-            // Commit transaction và đóng session
-            tx.commit();
-            session.close();
-
-            // Đóng workbook và inputStream
-            workbook.close();
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (HibernateException ex) {
-            if (tx != null) tx.rollback();
-            ex.printStackTrace();
         }
+        // Commit transaction và đóng session
+        tx.commit();
+        session.close();
+
+        // Đóng workbook và inputStream
+        workbook.close();
+        inputStream.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } catch (HibernateException ex) {
+        if (tx != null) tx.rollback();
+        ex.printStackTrace();
     }
+}
+
     
 
 
