@@ -37,6 +37,7 @@ GUI\ThanhVien\ThanhVienGUI$7.class
 GUI\ThietBi\ThietBiGUI$4.class
 GUI\MainGUI$1.class
 GUI\ThanhVien\AddThanhVienGUI$1.class
+GUI\ThietBi\CustomTableCellRenderer.class
 GUI\MainGUI$4.class
 DTO\ThanhVienDTO.class
 GUI\ThanhVien\AddThanhVienGUI$4.class

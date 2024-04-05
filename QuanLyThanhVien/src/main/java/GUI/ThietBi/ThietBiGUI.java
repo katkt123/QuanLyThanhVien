@@ -44,66 +44,32 @@ public class ThietBiGUI extends javax.swing.JPanel {
         
         modelTB = (DefaultTableModel) jTableThietBi.getModel();
         
+        
+        
+        
+        
+        
+        
+        
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setFont(new Font("Arial", Font.BOLD, 20)); // Set bold font
+        headerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER); // Set center alignment
+
+        for (int i = 0; i < jTableThietBi.getColumnCount(); i++) {
+            jTableThietBi.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+        
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Set center alignment
+
+        for (int i = 1; i < jTableThietBi.getColumnCount(); i++) {
+            jTableThietBi.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+        
         loadThanhVien();
         
         
-        
-        
-
-        
-        
-        
-//        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-//        headerRenderer.setFont(new Font("Arial", Font.BOLD, 20)); // Set bold font
-//        headerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER); // Set center alignment
-//
-//        for (int i = 0; i < jTableThietBi.getColumnCount(); i++) {
-//            jTableThietBi.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-//        }
-//        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-//        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Set center alignment
-//
-//        for (int i = 0; i < jTableThietBi.getColumnCount(); i++) {
-//            jTableThietBi.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-//        }
-        
-        
-//        // Thiết lập renderer cho cột "Selected"
-//        jTableThietBi.getColumnModel().getColumn(1).setCellRenderer(new TableCellRenderer() {
-//            @Override
-//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//                // Kiểm tra giá trị của ô
-//                boolean selected = (boolean) value;
-//
-//                // Tạo một ô kiểm nếu giá trị là true
-//                JCheckBox checkBox = new JCheckBox();
-//                checkBox.setSelected(selected);
-//
-//                return checkBox;
-//            }
-//        });
-
-//        // Thiết lập renderer cho từng hàng để làm màu nền
-//        jTableThietBi.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-//            @Override
-//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//                // Lấy renderer mặc định của DefaultTableCellRenderer
-//                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-//
-//                // Đặt màu nền cho từng hàng (vd: màu xám nhạt cho hàng chẵn, màu trắng cho hàng lẻ)
-//                if (row % 2 == 0) {
-//                    label.setBackground(new Color(240, 240, 240)); // Màu xám nhạt
-//                } else {
-//                    label.setBackground(Color.WHITE); // Màu trắng
-//                }
-//
-//                // Căn giữa nội dung trong ô
-//                label.setHorizontalAlignment(SwingConstants.CENTER);
-//                label.setVerticalAlignment(SwingConstants.CENTER);
-//
-//                return label;
-//            }
-//        });
+  
 
         
     }
@@ -194,6 +160,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
                 .addGap(16, 16, 16))
         );
 
+        jTableThietBi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jTableThietBi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -217,12 +184,15 @@ public class ThietBiGUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTableThietBi.setGridColor(new java.awt.Color(204, 204, 204));
+        jTableThietBi.setMaximumSize(new java.awt.Dimension(2147483647, 200));
+        jTableThietBi.setMinimumSize(new java.awt.Dimension(60, 200));
+        jTableThietBi.setPreferredSize(new java.awt.Dimension(300, 200));
+        jTableThietBi.setRowHeight(50);
         jScrollPane2.setViewportView(jTableThietBi);
         if (jTableThietBi.getColumnModel().getColumnCount() > 0) {
-            jTableThietBi.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTableThietBi.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTableThietBi.getColumnModel().getColumn(1).setResizable(false);
-            jTableThietBi.getColumnModel().getColumn(3).setResizable(false);
+            jTableThietBi.getColumnModel().getColumn(0).setPreferredWidth(70);
+            jTableThietBi.getColumnModel().getColumn(0).setMaxWidth(70);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
