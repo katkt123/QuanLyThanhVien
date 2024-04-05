@@ -374,12 +374,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
         } else {
             id = (int) jTable_ThanhVien.getValueAt(selectedRow, 0);
-            name = jTable_ThanhVien.getValueAt(selectedRow, 1).toString();
-            khoa = jTable_ThanhVien.getValueAt(selectedRow, 2).toString();
-            nganh = jTable_ThanhVien.getValueAt(selectedRow, 3).toString();
-            sdt =(int) jTable_ThanhVien.getValueAt(selectedRow, 4);
-            UpdateThanhVienGUI utv = new UpdateThanhVienGUI(id,name,khoa,nganh,sdt);
-            utv.setVisible(true);
+            tvBLL.deleteThanhVien(id);
         }
 //       
     }//GEN-LAST:event_jButton_DeleteActionPerformed
