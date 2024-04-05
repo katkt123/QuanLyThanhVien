@@ -64,6 +64,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         for (int i = 0; i < jTable_ThanhVien.getColumnCount(); i++) {
             jTable_ThanhVien.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
+        
         loadThanhVien();
         setIconAdd();
         setIconEdit();

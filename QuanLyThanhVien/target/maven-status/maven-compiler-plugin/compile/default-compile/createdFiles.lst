@@ -35,6 +35,7 @@ DTO\ThongTinSuDungDTO.class
 GUI\ThanhVien\ThanhVienGUI.class
 GUI\ThanhVien\UpdateThanhVienGUI$4.class
 GUI\ThanhVien\ThanhVienGUI$7.class
+GUI\ThietBi\ThietBiGUI$4.class
 GUI\MainGUI$1.class
 GUI\ThanhVien\AddThanhVienGUI$1.class
 GUI\MainGUI$4.class

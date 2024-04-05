@@ -4,6 +4,22 @@
  */
 package GUI.ThietBi;
 
+import BLL.ThietBiBLL;
+import DTO.ThanhVienDTO;
+import DTO.ThietBiDTO;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+
 /**
  *
  * @author ASUS
@@ -13,8 +29,91 @@ public class ThietBiGUI extends javax.swing.JPanel {
     /**
      * Creates new form ThietBiGUI
      */
+    DefaultTableModel modelTB;
+    
+    ArrayList<ThietBiDTO> list; 
+    
+    ThietBiBLL thietBiBLL; 
+    
     public ThietBiGUI() {
         initComponents();
+        
+        thietBiBLL = new ThietBiBLL();
+        
+        list = thietBiBLL.getListTB();
+        
+        modelTB = (DefaultTableModel) jTableThietBi.getModel();
+        
+        loadThanhVien();
+        
+        
+        
+        
+
+        
+        
+        
+//        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+//        headerRenderer.setFont(new Font("Arial", Font.BOLD, 20)); // Set bold font
+//        headerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER); // Set center alignment
+//
+//        for (int i = 0; i < jTableThietBi.getColumnCount(); i++) {
+//            jTableThietBi.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+//        }
+//        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+//        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Set center alignment
+//
+//        for (int i = 0; i < jTableThietBi.getColumnCount(); i++) {
+//            jTableThietBi.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+//        }
+        
+        
+//        // Thiết lập renderer cho cột "Selected"
+//        jTableThietBi.getColumnModel().getColumn(1).setCellRenderer(new TableCellRenderer() {
+//            @Override
+//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//                // Kiểm tra giá trị của ô
+//                boolean selected = (boolean) value;
+//
+//                // Tạo một ô kiểm nếu giá trị là true
+//                JCheckBox checkBox = new JCheckBox();
+//                checkBox.setSelected(selected);
+//
+//                return checkBox;
+//            }
+//        });
+
+//        // Thiết lập renderer cho từng hàng để làm màu nền
+//        jTableThietBi.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+//            @Override
+//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//                // Lấy renderer mặc định của DefaultTableCellRenderer
+//                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//
+//                // Đặt màu nền cho từng hàng (vd: màu xám nhạt cho hàng chẵn, màu trắng cho hàng lẻ)
+//                if (row % 2 == 0) {
+//                    label.setBackground(new Color(240, 240, 240)); // Màu xám nhạt
+//                } else {
+//                    label.setBackground(Color.WHITE); // Màu trắng
+//                }
+//
+//                // Căn giữa nội dung trong ô
+//                label.setHorizontalAlignment(SwingConstants.CENTER);
+//                label.setVerticalAlignment(SwingConstants.CENTER);
+//
+//                return label;
+//            }
+//        });
+
+        
+    }
+    
+    public void loadThanhVien() {
+        modelTB.setRowCount(0);
+        for (ThietBiDTO t : list) {
+            Object[] row = {false,t.getMaTB(),t.getTenTB(),t.getMoTaTB()};
+            modelTB.addRow(row);
+        }
     }
 
     /**
@@ -41,7 +140,6 @@ public class ThietBiGUI extends javax.swing.JPanel {
         txtFind.setText("Nhập thông tin tìm kiếm");
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnAdd.setIcon(new javax.swing.ImageIcon("D:\\nam3_hk2\\XDPMTMHPL\\QuanLyThanhVien\\QuanLyThanhVien\\src\\main\\java\\Image\\Add.png")); // NOI18N
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -49,7 +147,6 @@ public class ThietBiGUI extends javax.swing.JPanel {
         });
 
         btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnEdit.setIcon(new javax.swing.ImageIcon("D:\\nam3_hk2\\XDPMTMHPL\\QuanLyThanhVien\\QuanLyThanhVien\\src\\main\\java\\Image\\Edit.png")); // NOI18N
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -57,14 +154,11 @@ public class ThietBiGUI extends javax.swing.JPanel {
         });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon("D:\\nam3_hk2\\XDPMTMHPL\\QuanLyThanhVien\\QuanLyThanhVien\\src\\main\\java\\Image\\Delete.png")); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\nam3_hk2\\XDPMTMHPL\\QuanLyThanhVien\\QuanLyThanhVien\\src\\main\\java\\Image\\Search.png")); // NOI18N
 
         javax.swing.GroupLayout jpTaskbarLayout = new javax.swing.GroupLayout(jpTaskbar);
         jpTaskbar.setLayout(jpTaskbarLayout);
@@ -102,16 +196,34 @@ public class ThietBiGUI extends javax.swing.JPanel {
 
         jTableThietBi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "MaTB", "TenTB", "MoTaTB"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTableThietBi);
+        if (jTableThietBi.getColumnModel().getColumnCount() > 0) {
+            jTableThietBi.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTableThietBi.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTableThietBi.getColumnModel().getColumn(1).setResizable(false);
+            jTableThietBi.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,7 +233,10 @@ public class ThietBiGUI extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
