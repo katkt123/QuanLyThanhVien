@@ -8,6 +8,9 @@ import DTO.ThietBiDTO;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -97,6 +100,27 @@ public class ThietBiDAL {
         } finally {
             session.close();
         }
+    }
+    public int Lay_ID_Thietbi() {
+        int id = 0;
+        Session session = null;
+        try {
+            session = factory.openSession();
+            // Sử dụng Criteria để lấy số lượng bản ghi trong bảng person
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+            Root<ThietBiDTO> root = criteriaQuery.from(ThietBiDTO.class);
+            criteriaQuery.select(builder.count(root));
+            Long count = session.createQuery(criteriaQuery).getSingleResult();
+            id = count.intValue();
+        } catch (HibernateException e) {
+            System.out.println("Id thiet bi: " + e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return id;
     }
     
 //    public static void main(String[] args) {

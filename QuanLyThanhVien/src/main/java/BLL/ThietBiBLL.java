@@ -33,4 +33,7 @@ public class ThietBiBLL {
     public void XoaTB(int tbID){
         tbDAL.deleteThietBi(tbID);
     }
+    public int LayID_TB(){
+       return tbDAL.Lay_ID_Thietbi();
+    }
 }
