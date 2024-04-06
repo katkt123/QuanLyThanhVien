@@ -447,17 +447,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         int Selected = cbxLoai.getSelectedIndex();
         if (Selected != 0){
-            ArrayList<ThietBiDTO> list_temp = new ArrayList<>();
-            char selectedChar = String.valueOf(Selected).charAt(0);
-            for (ThietBiDTO s : list) {
-                String id = Integer.toString(s.getMaTB());
-                if (id.charAt(0) == selectedChar) {
-                    System.out.println(id.charAt(0));
-                    list_temp.add(s);
-                }
-            }
-           
-            thietBiBLL.search(list_temp,modelTB, txtFindMa.getText(), txtFindTen.getText());
+            thietBiBLL.search(thietBiBLL.getListSearch(Integer.toString(Selected)),modelTB, txtFindMa.getText(), txtFindTen.getText());
         }
         else{
             thietBiBLL.search(list,modelTB, txtFindMa.getText(), txtFindTen.getText());
@@ -469,17 +459,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:'
         int Selected = cbxLoai.getSelectedIndex();
         if (Selected != 0){
-            ArrayList<ThietBiDTO> list_temp = new ArrayList<>();
-            char selectedChar = String.valueOf(Selected).charAt(0);
-            for (ThietBiDTO s : list) {
-                String id = Integer.toString(s.getMaTB());
-                if (id.charAt(0) == selectedChar) {
-                    System.out.println(id.charAt(0));
-                    list_temp.add(s);
-                }
-            }
-           
-            thietBiBLL.search(list_temp,modelTB, txtFindMa.getText(), txtFindTen.getText());
+            thietBiBLL.search(thietBiBLL.getListSearch(Integer.toString(Selected)),modelTB, txtFindMa.getText(), txtFindTen.getText());
         }
         else{
             thietBiBLL.search(list,modelTB, txtFindMa.getText(), txtFindTen.getText());
@@ -508,15 +488,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         txtFindMa.setText("Nhập mã thiết bị");
         txtFindTen.setText("Nhập tên thiết bị");
         if (Selected != 0){
-            ArrayList<ThietBiDTO> list_temp = new ArrayList<>();
-            char selectedChar = String.valueOf(Selected).charAt(0);
-            for (ThietBiDTO s : list) {
-                String id = Integer.toString(s.getMaTB());
-                if (id.charAt(0) == selectedChar) {
-                    System.out.println(id.charAt(0));
-                    list_temp.add(s);
-                }
-            }
+            ArrayList<ThietBiDTO> list_temp = thietBiBLL.getListSearch(Integer.toString(Selected));
            
             modelTB.setRowCount(0);
             

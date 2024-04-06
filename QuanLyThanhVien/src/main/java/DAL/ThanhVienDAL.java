@@ -27,6 +27,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 
 import org.apache.poi.ss.usermodel.*;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -269,16 +270,50 @@ public class ThanhVienDAL {
         return list;
     }
     
-    public static void main(String[] args) {
-        ThanhVienDAL thanhvienDAl = new ThanhVienDAL();
-        
-        ArrayList<ThanhVienDTO> thanhvien = thanhvienDAl.listThanhVien();
-        
-        for (ThanhVienDTO s : thanhvien){
-            System.out.println(s.getHoTen());
+   public void XoaTheoNam(int twoDigits) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            int thirdDigit = twoDigits / 10;
+            int fourthDigit = twoDigits  % 10;
+            
+            String thirdDigitStr = String.valueOf(thirdDigit);
+            String fourthDigitStr = String.valueOf(fourthDigit);
+
+            // Tạo câu lệnh HQL để truy vấn
+            String hql = "FROM ThanhVienDTO WHERE SUBSTRING(MaTV, 3, 1) = :thirdDigit AND SUBSTRING(MaTV, 4, 1) = :fourthDigit";
+            Query<ThanhVienDTO> query = session.createQuery(hql);
+            query.setParameter("thirdDigit", thirdDigitStr);
+            query.setParameter("fourthDigit", fourthDigitStr);
+
+
+            List<ThanhVienDTO> danhSachCanXoa = query.getResultList();
+            System.out.print(danhSachCanXoa.size());
+            // Duyệt qua danh sách các đối tượng và xóa chúng
+            for (ThanhVienDTO thanhVien : danhSachCanXoa) {
+                session.delete(thanhVien);
+            }
+
+            // Kết thúc giao dịch
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
+    public static void main(String[] args){
+        ThanhVienDAL tv = new ThanhVienDAL();
+        
+        tv.XoaTheoNam(19);
+    }
 
+
+    
 //    
 }

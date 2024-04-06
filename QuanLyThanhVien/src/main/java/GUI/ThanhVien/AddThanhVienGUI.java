@@ -45,12 +45,12 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
         jTextField_Name = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField_Khoa = new javax.swing.JTextField();
         jTextField_Nganh = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton_Create = new javax.swing.JButton();
         jTextField_SDT = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jComboBox_Khoa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +105,8 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        jComboBox_Khoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CNTT", "QTKD", "TLH" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -120,7 +122,7 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_Khoa))
+                        .addComponent(jComboBox_Khoa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,7 +149,7 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_Khoa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox_Khoa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,7 +190,7 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
         
         System.out.println("---------------------------------ID:"+id);        
         String Name = jTextField_Name.getText();
-        String Khoa = jTextField_Khoa.getText();
+        String Khoa = jComboBox_Khoa.getSelectedItem().toString();
         String Nganh = jTextField_Nganh.getText();
         String SDT = jTextField_SDT.getText();  
         
@@ -252,13 +254,13 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Create;
+    private javax.swing.JComboBox<String> jComboBox_Khoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField_Khoa;
     private javax.swing.JTextField jTextField_Name;
     private javax.swing.JTextField jTextField_Nganh;
     private javax.swing.JTextField jTextField_SDT;

@@ -15,16 +15,17 @@ import javax.swing.JOptionPane;
  */
 public class UpdateThanhVienGUI extends javax.swing.JFrame {
     ThanhVienBLL tvBLL = new ThanhVienBLL();
+    ThanhVienGUI tvGUI = new ThanhVienGUI();
     public int pid;
     public String Name;
     public String Khoa;
     public String Nganh;
-    public int SDT;
+    public String SDT;
     
     /**
      * Creates new form UpdateThanhVienGUI
      */
-    public UpdateThanhVienGUI(int id,String name,String khoa,String nganh,int sdt) {
+    public UpdateThanhVienGUI(int id,String name,String khoa,String nganh,String sdt) {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(MainGUI.DISPOSE_ON_CLOSE);
@@ -35,9 +36,24 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(jLabel4.CENTER); // Đưa chữ về giữa theo chiều ngang
         
         jTextField_Name.setText(name);
-        jTextField_Khoa.setText(khoa);
+        int itemCount = jComboBox_Khoa.getItemCount(); // Số lượng mục trong JComboBox
+        int index = -1; // Khởi tạo chỉ mục
+        for (int i = 0; i < itemCount; i++) {
+            String item = jComboBox_Khoa.getItemAt(i); // Lấy mục tại chỉ mục i
+            if (item.equals(khoa)) { // So sánh mục với chuỗi cần tìm
+                index = i; // Gán chỉ mục nếu tìm thấy
+                break; // Thoát khỏi vòng lặp
+            }
+        }
+
+        if (index >= 0) {
+            jComboBox_Khoa.setSelectedIndex(index);
+        }
+
+        
+        
         jTextField_Nganh.setText(nganh);
-        jTextField_SDT.setText(Integer.toString(sdt));
+        jTextField_SDT.setText(sdt);
         
         pid = id;
         Name = name;
@@ -48,13 +64,12 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
     
     public boolean check(){
         String name = jTextField_Name.getText().toString();
-        String khoa = jTextField_Khoa.getText().toString();
+        
         String nganh = jTextField_Nganh.getText().toString();
-        int sdt = Integer.parseInt(jTextField_SDT.getText());
-
+        String sdt=jTextField_SDT.getText().toString();
         
         // Sử dụng equals để so sánh chuỗi
-        if (name.equals(Name) && khoa.equals(Khoa) && nganh.equals(Nganh) && sdt==SDT){
+        if (name.equals(Name) && nganh.equals(Nganh) && sdt.equals(SDT) ){
             return false;
         } else {
             return true;
@@ -74,12 +89,12 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
         jTextField_Name = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField_Khoa = new javax.swing.JTextField();
         jTextField_Nganh = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton_Update = new javax.swing.JButton();
         jTextField_SDT = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jComboBox_Khoa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,6 +149,8 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        jComboBox_Khoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CNTT", "QTKD", "TLH" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -149,7 +166,7 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_Khoa))
+                        .addComponent(jComboBox_Khoa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -176,7 +193,7 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_Khoa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox_Khoa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,13 +235,14 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (check()){
             String name = jTextField_Name.getText().toString();
-            String khoa = jTextField_Khoa.getText().toString();
+            String Khoa = jComboBox_Khoa.getSelectedItem().toString();
             String nganh = jTextField_Nganh.getText().toString();
             String sdt = jTextField_SDT.getText();
             
-            ThanhVienDTO tv= new ThanhVienDTO(pid,name,khoa,nganh,sdt);
+            ThanhVienDTO tv= new ThanhVienDTO(pid,name,Khoa,nganh,sdt);
             
             tvBLL.updateThanhVien(tv);
+            tvGUI.load();
             JOptionPane.showMessageDialog(null, "Cập nhật thành công !!!", "Cập nhật thông tin sinh viên", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         }
@@ -274,13 +292,13 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Update;
+    private javax.swing.JComboBox<String> jComboBox_Khoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField_Khoa;
     private javax.swing.JTextField jTextField_Name;
     private javax.swing.JTextField jTextField_Nganh;
     private javax.swing.JTextField jTextField_SDT;

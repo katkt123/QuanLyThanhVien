@@ -27,7 +27,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
     public static String name;
     public static String khoa;
     public static String nganh;
-    public static int sdt;
+    public static String sdt;
     /**
      * Creates new form ThanhVienGUI
      */
@@ -71,6 +71,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         setIconRefresh();
         setIconSearch();
         setIconDelete();
+        setIconDelete1();
     }
     
     public void setIconAdd(){
@@ -97,6 +98,15 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         String imagePath = "src\\main\\java\\Image\\Delete.png"; // 
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         jButton_Delete.setIcon(icon);
+    }
+    public void setIconDelete1(){
+        String imagePath = "src\\main\\java\\Image\\DeleteMany.png"; // 
+        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH));
+        jButton_Delete1.setIcon(icon);
+    }
+    public void load(){
+        loadThanhVien();
+        System.out.print("refresh completely!!!!");
     }
     
     public void loadThanhVien(){
@@ -135,6 +145,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         jButton_Edit = new javax.swing.JButton();
         jButton_Delete = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
+        jButton_Delete1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_ThanhVien = new javax.swing.JTable();
@@ -217,6 +228,13 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             }
         });
 
+        jButton_Delete1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Delete1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Delete1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -224,7 +242,9 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addComponent(jButton_Delete1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,7 +265,8 @@ public class ThanhVienGUI extends javax.swing.JPanel {
                             .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                             .addComponent(jButton_Refresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                            .addComponent(jButton_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_Delete1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -361,7 +382,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             name = jTable_ThanhVien.getValueAt(selectedRow, 1).toString();
             khoa = jTable_ThanhVien.getValueAt(selectedRow, 2).toString();
             nganh = jTable_ThanhVien.getValueAt(selectedRow, 3).toString();
-            sdt =(int) jTable_ThanhVien.getValueAt(selectedRow, 4);
+            sdt = jTable_ThanhVien.getValueAt(selectedRow, 4).toString();
             UpdateThanhVienGUI utv = new UpdateThanhVienGUI(id,name,khoa,nganh,sdt);
             utv.setVisible(true);
         }
@@ -376,6 +397,8 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         } else {
             id = (int) jTable_ThanhVien.getValueAt(selectedRow, 0);
             tvBLL.deleteThanhVien(id);
+            JOptionPane.showMessageDialog(this, "Xóa thành công!!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+           
         }
 //       
     }//GEN-LAST:event_jButton_DeleteActionPerformed
@@ -385,10 +408,17 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         loadThanhVien();
     }//GEN-LAST:event_jButton_RefreshActionPerformed
 
+    private void jButton_Delete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Delete1ActionPerformed
+        // TODO add your handling code here:
+        XoaNhieuGUI atv = new XoaNhieuGUI();
+        atv.setVisible(true);
+    }//GEN-LAST:event_jButton_Delete1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Add;
     private javax.swing.JButton jButton_Delete;
+    private javax.swing.JButton jButton_Delete1;
     private javax.swing.JButton jButton_Edit;
     private javax.swing.JButton jButton_Refresh;
     private javax.swing.JLabel jLabel1;

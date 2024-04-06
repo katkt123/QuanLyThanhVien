@@ -53,9 +53,8 @@ public class ThietBiBLL {
         
         return "Xóa thất bại"; 
     }
-    public int LayID_TB(){
-       return tbDAL.Lay_ID_Thietbi();
-    }
+    
+   
     
     
     public void search(ArrayList<ThietBiDTO> list_tb,DefaultTableModel model, String txtMaTB, String txtTen){
@@ -78,6 +77,10 @@ public class ThietBiBLL {
                 }
             }
         }
+    }
+    
+    public ArrayList<ThietBiDTO> getListSearch(String id){
+        return tbDAL.listThietBiComboBox(id);
     }
     
 }
