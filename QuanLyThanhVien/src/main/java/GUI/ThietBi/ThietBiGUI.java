@@ -399,6 +399,9 @@ public class ThietBiGUI extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(jTableThietBi, thietBiBLL.XoaTB(modelTB));
+        loadThietBi();
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtFindTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindTenActionPerformed

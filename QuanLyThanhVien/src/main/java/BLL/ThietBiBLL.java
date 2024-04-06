@@ -7,6 +7,7 @@ package BLL;
 import DAL.ThietBiDAL;
 import DTO.ThietBiDTO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -34,8 +35,23 @@ public class ThietBiBLL {
     public void SuaTB(ThietBiDTO tb){
         tbDAL.updateThietBi(tb);
     }
-    public void XoaTB(int tbID){
-        tbDAL.deleteThietBi(tbID);
+    public String XoaTB(DefaultTableModel model){
+        int dem = 0;
+        for (int i = 0; i < model.getRowCount();i++){
+            boolean trangthai = (boolean) model.getValueAt(i, 0);
+            if (trangthai){
+                tbDAL.deleteThietBi((int) model.getValueAt(i, 1));
+                dem++;
+            }
+        }
+        if (dem!=0){
+            return "Xóa thành công";
+        }
+        else if(dem == 0){
+            return "Hãy tick vào các đối tượng muốn xóa";
+        }
+        
+        return "Xóa thất bại"; 
     }
     public int LayID_TB(){
        return tbDAL.Lay_ID_Thietbi();
