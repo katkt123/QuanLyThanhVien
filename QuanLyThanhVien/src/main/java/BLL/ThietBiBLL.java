@@ -53,6 +53,7 @@ public class ThietBiBLL {
         
         return "Xóa thất bại"; 
     }
+    
     public int LayID_TB(){
        return tbDAL.Lay_ID_Thietbi();
     }
@@ -78,6 +79,10 @@ public class ThietBiBLL {
                 }
             }
         }
+    }
+    
+    public ArrayList<ThietBiDTO> getListSearch(String id){
+        return tbDAL.listThietBiComboBox(id);
     }
     
 }

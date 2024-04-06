@@ -47,11 +47,8 @@ BLL\ThanhVienBLL.class
 GUI\ThietBi\ThietBiGUI$10.class
 GUI\ThietBi\ThietBiGUI$6.class
 GUI\ThanhVien\UpdateThanhVienGUI$3.class
-<<<<<<< HEAD
 GUI\ThanhVien\XoaNhieuGUI$1.class
-=======
 GUI\ThietBi\ThietBiGUI$13.class
->>>>>>> 15cc7cbd37bbe5f25eb20506be91f2be5c3ad454
 DTO\ThongTinSuDungDTO.class
 GUI\ThanhVien\ThanhVienGUI.class
 GUI\ThanhVien\XoaNhieuGUI$3.class
@@ -60,12 +57,8 @@ GUI\ThanhVien\ThanhVienGUI$7.class
 GUI\ThietBi\ThietBiGUI$4.class
 GUI\MainGUI$1.class
 GUI\ThanhVien\AddThanhVienGUI$1.class
-<<<<<<< HEAD
 GUI\ThanhVien\XoaNhieuGUI.class
-GUI\ThietBi\CustomTableCellRenderer.class
-=======
 GUI\ThietBi\ThietBiGUI$7.class
->>>>>>> 15cc7cbd37bbe5f25eb20506be91f2be5c3ad454
 GUI\MainGUI$4.class
 DTO\ThanhVienDTO.class
 GUI\ThanhVien\AddThanhVienGUI$4.class
