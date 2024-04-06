@@ -6,6 +6,7 @@ D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyTh
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\UpdateThanhVienGUI.java
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\ThanhVienDAL.java
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\ThietBiGUI.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\ThemThietBi.java
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\ThietBiDAL.java
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\ModifyAddGUI.java
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DTO\ThanhVienDTO.java
@@ -13,5 +14,6 @@ D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyTh
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DTO\ThongTinSuDungDTO.java
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\BLL\ThietBiBLL.java
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\ThanhVienGUI.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\SuaThietBi.java
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\DetailGUI.java
 D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\CheckBoxRenderer.java

@@ -7,6 +7,9 @@ package BLL;
 import DAL.ThietBiDAL;
 import DTO.ThietBiDTO;
 import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,7 +20,8 @@ public class ThietBiBLL {
     ArrayList<ThietBiDTO> list_tb = new ArrayList<>();
     
     public ArrayList<ThietBiDTO> getListTB(){
-        return tbDAL.listThietBi();
+        list_tb = tbDAL.listThietBi();
+        return list_tb;
     }
     
     public void ThemTB(ThietBiDTO tb){
@@ -36,4 +40,28 @@ public class ThietBiBLL {
     public int LayID_TB(){
        return tbDAL.Lay_ID_Thietbi();
     }
+    
+    
+    public void search(ArrayList<ThietBiDTO> list_tb,DefaultTableModel model, String txtMaTB, String txtTen){
+        model.setRowCount(0);
+        for (ThietBiDTO tb : list_tb){
+            if (!txtMaTB.equals("Nhập mã thiết bị") && !txtTen.equals("Nhập tên thiết bị")){
+                if (Integer.toString(tb.getMaTB()).contains(txtMaTB) && tb.getTenTB().contains(txtTen)){
+                    model.addRow(new Object[]{false,tb.getMaTB(),tb.getTenTB(),tb.getMoTaTB()});
+                }
+            
+            }
+            else if(txtMaTB.equals("Nhập mã thiết bị")){
+                if (tb.getTenTB().contains(txtTen)){
+                    model.addRow(new Object[]{false,tb.getMaTB(),tb.getTenTB(),tb.getMoTaTB()});
+                }
+            }
+            else if(txtTen.equals("Nhập tên thiết bị")){
+                if (Integer.toString(tb.getMaTB()).contains(txtMaTB)){
+                    model.addRow(new Object[]{false,tb.getMaTB(),tb.getTenTB(),tb.getMoTaTB()});
+                }
+            }
+        }
+    }
+    
 }

@@ -36,7 +36,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
      */
     DefaultTableModel modelTB;
     
-    ArrayList<ThietBiDTO> list; 
+    ArrayList<ThietBiDTO> list = new ArrayList<ThietBiDTO>();; 
     
     ThietBiBLL thietBiBLL; 
     public int idTB;
@@ -47,8 +47,6 @@ public class ThietBiGUI extends javax.swing.JPanel {
         initComponents();
         
         thietBiBLL = new ThietBiBLL();
-        
-        list = thietBiBLL.getListTB();
         
         modelTB = (DefaultTableModel) jTableThietBi.getModel();
        
@@ -114,6 +112,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
     
     public void loadThietBi() {
         modelTB.setRowCount(0);
+        list = thietBiBLL.getListTB();
         for (ThietBiDTO t : list) {
             Object[] row = {false,t.getMaTB(),t.getTenTB(),t.getMoTaTB()};
             modelTB.addRow(row);
@@ -129,20 +128,24 @@ public class ThietBiGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jpTaskbar = new javax.swing.JPanel();
         txtFindTen = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         txtFindMa = new javax.swing.JTextField();
-        txtFindMoTa = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         btnRefresh = new javax.swing.JButton();
         btnExcel = new javax.swing.JButton();
+        btnChonALL = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        cbxLoai = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableThietBi = new javax.swing.JTable();
+
+        jLabel3.setText("jLabel3");
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(930, 680));
@@ -161,6 +164,11 @@ public class ThietBiGUI extends javax.swing.JPanel {
         txtFindTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFindTenActionPerformed(evt);
+            }
+        });
+        txtFindTen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFindTenKeyReleased(evt);
             }
         });
 
@@ -199,19 +207,9 @@ public class ThietBiGUI extends javax.swing.JPanel {
                 txtFindMaActionPerformed(evt);
             }
         });
-
-        txtFindMoTa.setText("Nhập mô tả thiết bị");
-        txtFindMoTa.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtFindMoTaFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFindMoTaFocusLost(evt);
-            }
-        });
-        txtFindMoTa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFindMoTaActionPerformed(evt);
+        txtFindMa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFindMaKeyReleased(evt);
             }
         });
 
@@ -219,11 +217,31 @@ public class ThietBiGUI extends javax.swing.JPanel {
 
         jLabel2.setText("Mã thiết bị:");
 
-        jLabel3.setText("Mô tả thiết bị:");
-
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
+            }
+        });
+
+        btnChonALL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnChonALL.setText("Chọn tất cả");
+        btnChonALL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonALLActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Loại thiết bị:");
+
+        cbxLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Micro", "Máy chiếu", "Máy ảnh", "Cassette", "Tivi", "Quạt đứng" }));
+        cbxLoai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxLoaiMouseClicked(evt);
+            }
+        });
+        cbxLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxLoaiActionPerformed(evt);
             }
         });
 
@@ -232,47 +250,54 @@ public class ThietBiGUI extends javax.swing.JPanel {
         jpTaskbarLayout.setHorizontalGroup(
             jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpTaskbarLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(18, 18, 18)
-                .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFindMa, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFindTen, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFindMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpTaskbarLayout.createSequentialGroup()
-                        .addGap(351, 351, 351)
-                        .addComponent(btnRefresh)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnExcel))
-                    .addGroup(jpTaskbarLayout.createSequentialGroup()
-                        .addGap(308, 308, 308)
+                        .addGap(14, 14, 14)
+                        .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(30, 30, 30)
+                        .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFindMa, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFindTen, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
                         .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete)))
-                .addGap(15, 15, 15))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTaskbarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnChonALL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRefresh)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExcel)
+                        .addGap(34, 34, 34)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jpTaskbarLayout.setVerticalGroup(
             jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpTaskbarLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(8, 8, 8)
+                .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFindMa, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFindTen, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFindMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpTaskbarLayout.createSequentialGroup()
+                        .addComponent(txtFindTen, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpTaskbarLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(39, 39, 39)))
+                .addComponent(btnChonALL))
             .addGroup(jpTaskbarLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jpTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,7 +364,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpTaskbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -384,10 +409,6 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFindMaActionPerformed
 
-    private void txtFindMoTaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindMoTaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFindMoTaActionPerformed
-
     private void txtFindMaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindMaFocusGained
         // TODO add your handling code here:
         if (txtFindMa.getText().equals("Nhập mã thiết bị")){
@@ -417,40 +438,122 @@ public class ThietBiGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtFindTenFocusLost
 
-    private void txtFindMoTaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindMoTaFocusGained
-        // TODO add your handling code here:
-        if (txtFindMoTa.getText().equals("Nhập mô tả thiết bị")){
-            txtFindMoTa.setText("");
-        }
-    }//GEN-LAST:event_txtFindMoTaFocusGained
-
-    private void txtFindMoTaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindMoTaFocusLost
-        // TODO add your handling code here:
-        if (txtFindMoTa.getText().equals("")){
-            txtFindMoTa.setText("Nhập mô tả thiết bị");
-        }
-    }//GEN-LAST:event_txtFindMoTaFocusLost
-
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
+        cbxLoai.setSelectedIndex(0);
         loadThietBi();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void txtFindMaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFindMaKeyReleased
+        // TODO add your handling code here:
+        int Selected = cbxLoai.getSelectedIndex();
+        if (Selected != 0){
+            ArrayList<ThietBiDTO> list_temp = new ArrayList<>();
+            char selectedChar = String.valueOf(Selected).charAt(0);
+            for (ThietBiDTO s : list) {
+                String id = Integer.toString(s.getMaTB());
+                if (id.charAt(0) == selectedChar) {
+                    System.out.println(id.charAt(0));
+                    list_temp.add(s);
+                }
+            }
+           
+            thietBiBLL.search(list_temp,modelTB, txtFindMa.getText(), txtFindTen.getText());
+        }
+        else{
+            thietBiBLL.search(list,modelTB, txtFindMa.getText(), txtFindTen.getText());
+        }
+        
+    }//GEN-LAST:event_txtFindMaKeyReleased
+
+    private void txtFindTenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFindTenKeyReleased
+        // TODO add your handling code here:'
+        int Selected = cbxLoai.getSelectedIndex();
+        if (Selected != 0){
+            ArrayList<ThietBiDTO> list_temp = new ArrayList<>();
+            char selectedChar = String.valueOf(Selected).charAt(0);
+            for (ThietBiDTO s : list) {
+                String id = Integer.toString(s.getMaTB());
+                if (id.charAt(0) == selectedChar) {
+                    System.out.println(id.charAt(0));
+                    list_temp.add(s);
+                }
+            }
+           
+            thietBiBLL.search(list_temp,modelTB, txtFindMa.getText(), txtFindTen.getText());
+        }
+        else{
+            thietBiBLL.search(list,modelTB, txtFindMa.getText(), txtFindTen.getText());
+        }
+    }//GEN-LAST:event_txtFindTenKeyReleased
+
+    private void btnChonALLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonALLActionPerformed
+        // TODO add your handling code here:
+        if (btnChonALL.getText().equals("Chọn tất cả")){
+            for (int i = 0; i < modelTB.getRowCount();i++){
+                modelTB.setValueAt(true, i, 0);
+            }
+            btnChonALL.setText("Bỏ chọn tất cả");
+        }
+        else{
+            for (int i = 0; i < modelTB.getRowCount();i++){
+                modelTB.setValueAt(false, i, 0);
+            }
+            btnChonALL.setText("Chọn tất cả");    
+        }
+    }//GEN-LAST:event_btnChonALLActionPerformed
+
+    private void cbxLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLoaiActionPerformed
+        // TODO add your handling code here:
+        int Selected = cbxLoai.getSelectedIndex();
+        txtFindMa.setText("Nhập mã thiết bị");
+        txtFindTen.setText("Nhập tên thiết bị");
+        if (Selected != 0){
+            ArrayList<ThietBiDTO> list_temp = new ArrayList<>();
+            char selectedChar = String.valueOf(Selected).charAt(0);
+            for (ThietBiDTO s : list) {
+                String id = Integer.toString(s.getMaTB());
+                if (id.charAt(0) == selectedChar) {
+                    System.out.println(id.charAt(0));
+                    list_temp.add(s);
+                }
+            }
+           
+            modelTB.setRowCount(0);
+            
+            for (ThietBiDTO t : list_temp) {
+                Object[] row = {false,t.getMaTB(),t.getTenTB(),t.getMoTaTB()};
+                modelTB.addRow(row);
+            }
+        }
+        else{
+            loadThietBi();
+        }
+        
+        
+    }//GEN-LAST:event_cbxLoaiActionPerformed
+
+    private void cbxLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxLoaiMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxLoaiMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnChonALL;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExcel;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JComboBox<String> cbxLoai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableThietBi;
     private javax.swing.JPanel jpTaskbar;
     private javax.swing.JTextField txtFindMa;
-    private javax.swing.JTextField txtFindMoTa;
     private javax.swing.JTextField txtFindTen;
     // End of variables declaration//GEN-END:variables
 }

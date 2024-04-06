@@ -33,6 +33,7 @@ public class ThietBiDAL {
             throw new ExceptionInInitializerError(ex);
         }
     }
+    
     public ArrayList<ThietBiDTO> listThietBi() {
         Session session = factory.openSession();
         ArrayList<ThietBiDTO> List = new ArrayList<>();
@@ -48,9 +49,12 @@ public class ThietBiDAL {
              if (tx != null) tx.rollback();
              e.printStackTrace();
          }
+         finally {
+            session.close();
+        }
          return List;
     }
-    
+
     
     public void addThietBi(ThietBiDTO tb) {
         Session session = factory.openSession();
@@ -58,7 +62,7 @@ public class ThietBiDAL {
         Integer tvienID = null;
         try {
             tx = session.beginTransaction();
-            tb.setMaTB(listThietBi().size()+1);
+            ThietBiDTO tbDTO = new ThietBiDTO(listThietBi().size()+1,tb.getTenTB(),tb.getMoTaTB());
             session.save(tb);
             tx.commit();
         } catch (HibernateException e) {
@@ -124,14 +128,6 @@ public class ThietBiDAL {
     }
     
 //    public static void main(String[] args) {
-//        ThietBiDAL aL = new ThietBiDAL();
-//        for (int i = 0; i < 10; i++) {
-//            ThietBiDTO tb = new ThietBiDTO();
-//            tb.setTenTB("Tên thiết bị " + i); // Thiết lập tên cho thiết bị
-//            tb.setMoTaTB("Mô tả thiết bị " + i); // Thiết lập mô tả cho thiết bị
-//            aL.addThietBi(tb); // Thêm thiết bị vào cơ sở dữ liệu
-//
-//        }
 //        
 //    }
     

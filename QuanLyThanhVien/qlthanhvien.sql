@@ -6,7 +6,7 @@ CREATE TABLE `thanhvien` (
   `Nganh` varchar(100) DEFAULT NULL,
   `SDT` varchar(10) DEFAULT NULL,
   `Password` varchar(100) DEFAULT NULL,
-  `Email` varchar(25) DEFAULT NULL
+  `Email` VARCHAR(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dữ liệu cho bảng `thanhvien`
@@ -18,16 +18,16 @@ INSERT INTO `thanhvien` (`MaTV`, `HoTen`, `Khoa`, `Nganh`, `SDT`, `Password`, `E
 
 -- Cấu trúc bảng cho bảng `thietbi`
 CREATE TABLE `thietbi` (
-  `MaTB` int(10) AUTO_INCREMENT PRIMARY KEY,
+  `MaTB` int(10) PRIMARY KEY,
   `TenTB` varchar(100) NOT NULL,
   `MoTaTB` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dữ liệu cho bảng `thietbi`
-INSERT INTO `thietbi` (`TenTB`, `MoTaTB`) VALUES
-('Micro không dây MS2023', NULL),
-('Micro không dây MS2024', NULL),
-('Bảng điện tử trình chiếu', NULL);
+INSERT INTO `thietbi` (`MaTB`,`TenTB`, `MoTaTB`) VALUES
+(120191,'Micro không dây MS2023', NULL),
+(120192,'Micro không dây MS2024', NULL),
+(220221,'Bảng điện tử trình chiếu', NULL);
 
 -- Cấu trúc bảng cho bảng `thongtinsd`
 CREATE TABLE `thongtinsd` (

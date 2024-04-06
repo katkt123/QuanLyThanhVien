@@ -1,9 +1,15 @@
+GUI\ThietBi\ThemThietBi$2.class
+GUI\ThietBi\SuaThietBi$2.class
+GUI\ThietBi\ThemThietBi.class
 GUI\ThanhVien\ModifyAddGUI.class
 DAL\ThanhVienDAL.class
 GUI\ThanhVien\ThanhVienGUI$6.class
+GUI\ThietBi\ThietBiGUI$11.class
 com\mycompany\quanlythanhvien\QuanLyThanhVien.class
 DAL\ThietBiDAL.class
 GUI\ThanhVien\ModifyAddGUI$1.class
+GUI\ThietBi\SuaThietBi.class
+GUI\ThietBi\ThietBiGUI$15.class
 GUI\ThanhVien\AddThanhVienGUI$3.class
 GUI\MainGUI$3.class
 GUI\ThanhVien\DetailGUI.class
@@ -15,6 +21,8 @@ GUI\ThanhVien\ThanhVienGUI$3.class
 DAL\HibernateUtil.class
 GUI\ThietBi\ThietBiGUI$9.class
 GUI\ThanhVien\ThanhVienGUI$2.class
+GUI\ThietBi\SuaThietBi$1.class
+GUI\ThietBi\ThietBiGUI$12.class
 GUI\ThietBi\ThietBiGUI$2.class
 GUI\ThanhVien\ModifyAddGUI$2.class
 GUI\ThanhVien\ThanhVienGUI$5.class
@@ -37,6 +45,7 @@ BLL\ThanhVienBLL.class
 GUI\ThietBi\ThietBiGUI$10.class
 GUI\ThietBi\ThietBiGUI$6.class
 GUI\ThanhVien\UpdateThanhVienGUI$3.class
+GUI\ThietBi\ThietBiGUI$13.class
 DTO\ThongTinSuDungDTO.class
 GUI\ThanhVien\ThanhVienGUI.class
 GUI\ThanhVien\UpdateThanhVienGUI$4.class
@@ -49,4 +58,6 @@ GUI\MainGUI$4.class
 DTO\ThanhVienDTO.class
 GUI\ThanhVien\AddThanhVienGUI$4.class
 GUI\ThanhVien\ThanhVienGUI$4.class
+GUI\ThietBi\ThietBiGUI$14.class
+GUI\ThietBi\ThemThietBi$1.class
 GUI\ThanhVien\DetailGUI$1.class

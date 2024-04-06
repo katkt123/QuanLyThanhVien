@@ -13,7 +13,6 @@
       
 
       <id name = "MaTB" type = "int" column = "MaTB">
-         <generator class="native"/>
       </id>
 
       <property name = "TenTB" column = "TenTB" type = "string"/>
