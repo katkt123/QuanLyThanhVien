@@ -7,6 +7,7 @@ package GUI.ThietBi;
 import BLL.ThietBiBLL;
 import DTO.ThietBiDTO;
 import GUI.MainGUI;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,8 +15,10 @@ import javax.swing.JOptionPane;
  * @author ASUS
  */
 public class ThemThietBi extends javax.swing.JFrame {
-    private int idTB;
+    private int idNext;
+    private String idTB;
     ThietBiBLL tbBLL = new ThietBiBLL();
+    
     
 
     /**
@@ -45,6 +48,8 @@ public class ThemThietBi extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taMT = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        cbLoai = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,20 +73,19 @@ public class ThemThietBi extends javax.swing.JFrame {
         taMT.setRows(5);
         jScrollPane1.setViewportView(taMT);
 
+        jLabel4.setText("Loại :");
+
+        cbLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Micro", "Máy chiếu", "Máy ảnh", "Cassette", "Tivi", "Quạt đứng" }));
+        cbLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbLoaiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtenTB)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
-                .addContainerGap(32, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnThem)
@@ -90,22 +94,39 @@ public class ThemThietBi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(104, 104, 104))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtenTB)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                    .addComponent(cbLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cbLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtenTB, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                        .addGap(0, 194, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addGap(18, 18, 18)
                 .addComponent(btnThem)
                 .addGap(20, 20, 20))
@@ -128,7 +149,20 @@ public class ThemThietBi extends javax.swing.JFrame {
    
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        idTB = tbBLL.LayID_TB()+1;
+        idNext = tbBLL.LayID_TB()+1;
+        
+        Calendar cal = Calendar.getInstance();
+        // Lấy năm hiện tại
+        int year = cal.get(Calendar.YEAR);
+        int Selected = cbLoai.getSelectedIndex();
+        
+        //Nếu người dùng chưa chọn loại thì báo lỗi
+        if(Selected==0){
+            JOptionPane.showMessageDialog(rootPane, "Chưa chọn loại thiết bị!");
+        }
+        
+        idTB = Integer.toString(Selected) + Integer.toString(year) + Integer.toString(idNext);
+        
         String tenTB = txtenTB.getText();
         String motaTB = taMT.getText();
         
@@ -138,7 +172,7 @@ public class ThemThietBi extends javax.swing.JFrame {
         }
         
         ThietBiDTO tbDTO = new ThietBiDTO();
-        tbDTO.setMaTB(idTB);
+        tbDTO.setMaTB(Integer.parseInt(idTB));
         tbDTO.setTenTB(tenTB);
         tbDTO.setMoTaTB(motaTB);
         tbBLL.ThemTB(tbDTO);
@@ -146,6 +180,10 @@ public class ThemThietBi extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void cbLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbLoaiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,9 +223,11 @@ public class ThemThietBi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
+    private javax.swing.JComboBox<String> cbLoai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea taMT;

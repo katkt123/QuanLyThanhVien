@@ -372,11 +372,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         ThemThietBi themtb = new ThemThietBi();
         themtb.setVisible(true);
-        themtb.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                loadThietBi();
-            }
-        });
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
