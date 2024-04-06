@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -24,7 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
+import java.io.File;
 /**
  *
  * @author ASUS
@@ -220,6 +221,12 @@ public class ThietBiGUI extends javax.swing.JPanel {
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
+            }
+        });
+
+        btnExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcelActionPerformed(evt);
             }
         });
 
@@ -512,6 +519,34 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxLoaiMouseClicked
 
+    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getName();
+            if (isExcelFile(filePath)){
+                System.out.println("true");
+            }
+        }
+    }//GEN-LAST:event_btnExcelActionPerformed
+    // Phương thức để kiểm tra xem tập tin có phải là tập tin Excel (.xlsx) không
+    public static boolean isExcelFile(String filePath) {
+        // Kiểm tra phần mở rộng của tập tin
+        String extension = getFileExtension(filePath);
+        return extension != null && extension.equals("xlsx");
+    }
+    
+    // Phương thức để lấy phần mở rộng của tập tin
+    public static String getFileExtension(String filePath) {
+        String extension = null;
+        int lastDotIndex = filePath.lastIndexOf(".");
+        if (lastDotIndex > 0) {
+            extension = filePath.substring(lastDotIndex + 1);
+        }
+        return extension;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
