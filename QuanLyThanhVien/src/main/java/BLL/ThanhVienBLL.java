@@ -35,4 +35,7 @@ public class ThanhVienBLL {
     public ArrayList<ThanhVienDTO> search(String s){
         return tvDAL.search(s);
     }
+    public void XoaTheoNam(int so){
+        tvDAL.XoaTheoNam(so);
+    }
 }
