@@ -26,6 +26,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author ASUS
@@ -379,11 +383,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         ThemThietBi themtb = new ThemThietBi();
         themtb.setVisible(true);
-        themtb.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                loadThietBi();
-            }
-        });
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -525,9 +525,17 @@ public class ThietBiGUI extends javax.swing.JPanel {
         int returnValue = fileChooser.showOpenDialog(null);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            String filePath = fileChooser.getSelectedFile().getName();
+            String filePath = fileChooser.getSelectedFile().getPath();
             if (isExcelFile(filePath)){
-                System.out.println("true");
+                try {
+                    JOptionPane.showMessageDialog(fileChooser, thietBiBLL.AddExcel(filePath));
+                    loadThietBi();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(fileChooser, "File đã chọn không phải là file excel");
             }
         }
     }//GEN-LAST:event_btnExcelActionPerformed

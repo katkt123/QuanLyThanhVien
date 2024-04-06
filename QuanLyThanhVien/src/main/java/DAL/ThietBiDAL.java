@@ -132,26 +132,25 @@ public class ThietBiDAL {
         }
     }
     
-    public int Lay_ID_Thietbi() {
-        int id = 0;
-        Session session = null;
+    
+     public boolean kiemTraMaThietBiTonTai(int maThietBi) {
+        Session session = factory.openSession();
         try {
-            session = factory.openSession();
-            // Sử dụng Criteria để lấy số lượng bản ghi trong bảng person
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-            Root<ThietBiDTO> root = criteriaQuery.from(ThietBiDTO.class);
-            criteriaQuery.select(builder.count(root));
-            Long count = session.createQuery(criteriaQuery).getSingleResult();
-            id = count.intValue();
-        } catch (HibernateException e) {
-            System.out.println("Id thiet bi: " + e);
+            Query query = session.createQuery("SELECT COUNT(*) FROM ThietBiDTO WHERE MaTB = :maThietBi");
+            query.setParameter("maThietBi", maThietBi);
+            Long count = (Long) query.uniqueResult();
+            if (count != null && count > 0) {
+                return true; // Mã thiết bị đã tồn tại
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (session != null) {
                 session.close();
             }
         }
-        return id;
+        return false;
     }
+
     
 }

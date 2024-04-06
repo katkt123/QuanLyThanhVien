@@ -9,6 +9,7 @@ import DTO.ThietBiDTO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -61,9 +62,7 @@ public class ThietBiBLL {
         return "Xóa thất bại"; 
     }
     
-    public int LayID_TB(){
-       return tbDAL.Lay_ID_Thietbi();
-    }
+   
     
     
     public void search(ArrayList<ThietBiDTO> list_tb,DefaultTableModel model, String txtMaTB, String txtTen){
@@ -93,6 +92,7 @@ public class ThietBiBLL {
     }
     
     public String AddExcel(String filePath){
+        ArrayList<ThietBiDTO> list_excel = new ArrayList<>();
         try{
             FileInputStream inputStream = new FileInputStream(new File(filePath));
             Workbook workbook = WorkbookFactory.create(inputStream);
@@ -104,59 +104,65 @@ public class ThietBiBLL {
             Cell TitleTenCell = Titlerow.getCell(1);
             Cell TitleMoTaCell = Titlerow.getCell(2);
             
-            // Bắt đầu đọc từ hàng thứ hai (index 1)
-//            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-//                Row row = sheet.getRow(i);
-//                if (row != null) {
-//                    Cell nameCell = row.getCell(0);
-//                    Cell khoaCell = row.getCell(1);
-//                    Cell nganhCell = row.getCell(2);
-//
-//                    // Kiểm tra và lưu dữ liệu vào Hibernate
-//                    if (nameCell != null && khoaCell != null && nganhCell != null && sdtCell != null) {
-//                        String name = nameCell.getStringCellValue();
-//                        String khoa = khoaCell.getStringCellValue();
-//                        String nganh = nganhCell.getStringCellValue();
-//                        String sdt =  sdtCell.getStringCellValue();
-//
-//                        String id1 ="";
-//                        String year1 = Year.now().toString().substring(2);
-//                        String khoa1 = khoa;
-//                        String khoaCode1 = "";
-//
-//                        switch (khoa1.toUpperCase(Locale.ROOT)) {
-//                            case "CNTT":
-//                                khoaCode1 = "41";
-//                                break;
-//                            case "QTKD":
-//                                khoaCode1 = "42";
-//                                break;
-//                            case "TLH":
-//                                khoaCode1 = "43";
-//                                break;
-//                            // Thêm các trường hợp khác nếu cần
-//                            default:
-//                                // Mặc định sẽ là 00 nếu không trùng khớp
-//                                khoaCode1 = "00";
-//                                break;
-//                        }
-//                        id1 = "11"+ year1 + khoaCode1 + String.format("%03d", count + 1);    
-//                        int idCode = Integer.parseInt(id1);
-//
-//                        // Tạo đối tượng ThanhVienDTO từ dữ liệu
-//                        ThanhVienDTO thanhVien = new ThanhVienDTO(idCode, name, khoa, nganh, sdt);
-//                        // Lưu đối tượng vào cơ sở dữ liệu bằng Hibernate
-//                        session.save(thanhVien);
-//                        // Cập nhật giá trị của count
-//                        count++;
-//                    }
-//                }
-//            }
+            if (TitleMaCell != null && TitleTenCell != null && TitleMoTaCell != null){
+                String ma = TitleMaCell.getStringCellValue();
+                String ten = TitleTenCell.getStringCellValue();
+                String mota = TitleMoTaCell.getStringCellValue();
+                if (!ma.equals("MaTB") || !ten.equals("TenTB") || !mota.equals("MoTaTB")){
+                    return "File không đúng cấu trúc cột";
+                }
+                
+                
+                // Bắt đầu đọc từ hàng thứ hai (index 1)
+                for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                    Row row = sheet.getRow(i);
+                    if (row != null) {
+                        Cell MaCell = row.getCell(0);
+                        Cell TenCell = row.getCell(1);
+                        Cell MoTaCell = row.getCell(2);
+
+                        // Kiểm tra và lưu dữ liệu vào Hibernate
+                        if (MaCell  != null && TenCell != null && MoTaCell != null) {
+                            
+                            double Ma = 0;
+                            String Ten = "";
+                            String MoTa = "";
+                                        
+                            try{
+                                Ma = MaCell.getNumericCellValue();
+                                Ten = TenCell.getStringCellValue();
+                                MoTa = MoTaCell.getStringCellValue();
+                            }
+                            catch(Exception e){
+                                return "MaTB là số, TenTB và MoTaTB là chuỗi ký tự";
+                            }
+                            
+                            ThietBiDTO thietbi = new ThietBiDTO((int) Ma, Ten, MoTa);
+                            
+                            list_excel.add(thietbi);
+                            
+                        }
+                    }
+                }
+            }
+            
+            for (ThietBiDTO a : list_excel){
+                if (tbDAL.kiemTraMaThietBiTonTai(a.getMaTB())){
+                    tbDAL.updateThietBi(a);
+                }
+                else{
+                    tbDAL.addThietBi(a);
+                }
+            }
+            
+            return "Thêm thành công";
+            
+
         }catch(Exception e){
             e.printStackTrace();
         }
         
-        return "Thất bại rồi";
+        return "Phải rỗng rồi";
     }
     
 }
