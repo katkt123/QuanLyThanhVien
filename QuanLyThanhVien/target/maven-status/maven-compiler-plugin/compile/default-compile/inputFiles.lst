@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThanhVien\ModifyAddGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\BLL\ThietBiBLL.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DTO\ThongTinSuDungDTO.java
@@ -16,3 +17,24 @@ C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\com\mycom
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThietBi\CustomTableCellRenderer.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThanhVien\AddThanhVienGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DAL\ThanhVienDAL.java
+=======
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\MainGUI.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\AddThanhVienGUI.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\com\mycompany\quanlythanhvien\QuanLyThanhVien.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DTO\ThietBiDTO.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\BLL\ThanhVienBLL.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\UpdateThanhVienGUI.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\ThanhVienDAL.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\ThietBiGUI.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\ThemThietBi.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\ThietBiDAL.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\ModifyAddGUI.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DTO\ThanhVienDTO.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\HibernateUtil.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DTO\ThongTinSuDungDTO.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\BLL\ThietBiBLL.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\ThanhVienGUI.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\SuaThietBi.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\DetailGUI.java
+D:\Study_In_University\nam3\HocKy2\XayDungPhanMemTheoMoHinhPhanLop\DoAn\QuanLyThanhVien\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\CheckBoxRenderer.java
+>>>>>>> 15cc7cbd37bbe5f25eb20506be91f2be5c3ad454

@@ -8,6 +8,9 @@ import DTO.ThietBiDTO;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,6 +33,7 @@ public class ThietBiDAL {
             throw new ExceptionInInitializerError(ex);
         }
     }
+    
     public ArrayList<ThietBiDTO> listThietBi() {
         Session session = factory.openSession();
         ArrayList<ThietBiDTO> List = new ArrayList<>();
@@ -45,9 +49,12 @@ public class ThietBiDAL {
              if (tx != null) tx.rollback();
              e.printStackTrace();
          }
+         finally {
+            session.close();
+        }
          return List;
     }
-    
+
     
     public void addThietBi(ThietBiDTO tb) {
         Session session = factory.openSession();
@@ -55,7 +62,7 @@ public class ThietBiDAL {
         Integer tvienID = null;
         try {
             tx = session.beginTransaction();
-            tb.setMaTB(listThietBi().size()+1);
+            ThietBiDTO tbDTO = new ThietBiDTO(listThietBi().size()+1,tb.getTenTB(),tb.getMoTaTB());
             session.save(tb);
             tx.commit();
         } catch (HibernateException e) {
@@ -98,25 +105,30 @@ public class ThietBiDAL {
             session.close();
         }
     }
-    
-    public static void main(String[] args) {
-        ThietBiDAL aL = new ThietBiDAL();
-        aL.addThietBi(new ThietBiDTO(0,"Kien","test 1"));
-        ArrayList<ThietBiDTO> list = aL.listThietBi();
-        for (ThietBiDTO s : list){
-            System.out.println(s.getMaTB());
+    public int Lay_ID_Thietbi() {
+        int id = 0;
+        Session session = null;
+        try {
+            session = factory.openSession();
+            // Sử dụng Criteria để lấy số lượng bản ghi trong bảng person
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+            Root<ThietBiDTO> root = criteriaQuery.from(ThietBiDTO.class);
+            criteriaQuery.select(builder.count(root));
+            Long count = session.createQuery(criteriaQuery).getSingleResult();
+            id = count.intValue();
+        } catch (HibernateException e) {
+            System.out.println("Id thiet bi: " + e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
-//        aL.updateThietBi(new ThietBiDTO(7,"Kien ne","test 2"));
-//        list = aL.listThietBi();
-//        for (ThietBiDTO s : list){
-//            System.out.println(s.getMaTB());
-//        }
-//        aL.deleteThietBi(7);
-//        list = aL.listThietBi();
-//        for (ThietBiDTO s : list){
-//            System.out.println(s.getMaTB());
-//        }
-        
+        return id;
     }
+    
+//    public static void main(String[] args) {
+//        
+//    }
     
 }
