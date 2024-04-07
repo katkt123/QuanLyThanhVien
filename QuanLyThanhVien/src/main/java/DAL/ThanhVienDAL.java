@@ -75,22 +75,24 @@ public class ThanhVienDAL {
             Root<ThanhVienDTO> root = criteriaQuery.from(ThanhVienDTO.class);
             criteriaQuery.select(builder.count(root));
             Long count = session.createQuery(criteriaQuery).getSingleResult();
+            
             String id = "";
             String year = Year.now().toString().substring(2);
             String khoa = tv.getKhoa();
+            
             String nganh = tv.getNganh();
             String khoaCode= "";
-
+            
             switch (khoa.toUpperCase(Locale.ROOT)) {
                 case "SP KHXH":
                     switch (nganh.toUpperCase(Locale.ROOT)) {
-                        case "Địa":
+                        case "ĐÍA":
                             khoaCode = "11";
                             break;
-                        case "Sử":
+                        case "SỬ":
                             khoaCode = "10";
                             break;
-                        case "Văn":
+                        case "VĂN":
                             khoaCode = "09";
                             break;
                         default:
@@ -100,13 +102,13 @@ public class ThanhVienDAL {
                     break;
                 case "SP KHTN":
                     switch (nganh.toUpperCase(Locale.ROOT)) {
-                        case "Lí":
+                        case "LÍ":
                             khoaCode = "02";
                             break;
-                        case "Hóa":
+                        case "HÓA":
                             khoaCode = "03";
                             break;
-                        case "Sinh":
+                        case "SINH":
                             khoaCode = "04";
                             break;
                         default:
@@ -114,9 +116,9 @@ public class ThanhVienDAL {
                             break;
                     }
                     break;
-                case "Ngoại Ngữ":
+                case "NGOẠI NGỮ":
                     switch (nganh.toUpperCase(Locale.ROOT)) {
-                        case "Anh":
+                        case "ANH":
                             khoaCode = "13";
                             break;
                         case "NNA":
@@ -140,9 +142,9 @@ public class ThanhVienDAL {
                             break;
                     }
                     break;
-                case "Toán UD":
+                case "TOÁN UD":
                     switch (nganh.toUpperCase(Locale.ROOT)) {
-                        case "Toán":
+                        case "TOÁN":
                             khoaCode = "48";
                             break;
                         default:

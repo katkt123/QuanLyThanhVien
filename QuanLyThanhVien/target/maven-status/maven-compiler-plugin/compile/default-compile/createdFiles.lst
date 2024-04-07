@@ -28,6 +28,7 @@ GUI\ThietBi\ThietBiGUI$2.class
 GUI\ThanhVien\ModifyAddGUI$2.class
 GUI\ThanhVien\ThanhVienGUI$9.class
 GUI\ThanhVien\ThanhVienGUI$5.class
+GUI\ThietBi\ThemThietBi$3.class
 GUI\ThietBi\ThietBiGUI.class
 GUI\ThanhVien\AddThanhVienGUI$2.class
 GUI\ThietBi\ThietBiGUI$8.class
@@ -46,7 +47,6 @@ GUI\ThanhVien\AddThanhVienGUI$5.class
 GUI\ThanhVien\ModifyAddGUI$3.class
 BLL\ThanhVienBLL.class
 GUI\ThietBi\ThietBiGUI$10.class
-GUI\ThietBi\ThietBiGUI$16.class
 GUI\ThietBi\ThietBiGUI$6.class
 GUI\ThanhVien\UpdateThanhVienGUI$3.class
 GUI\ThanhVien\XoaNhieuGUI$1.class
