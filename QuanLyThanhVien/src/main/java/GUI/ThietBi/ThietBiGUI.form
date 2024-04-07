@@ -204,6 +204,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnExcel">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcelActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnChonALL">
           <Properties>

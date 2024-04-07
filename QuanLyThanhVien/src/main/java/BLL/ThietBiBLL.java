@@ -6,12 +6,20 @@ package BLL;
 
 import DAL.ThietBiDAL;
 import DTO.ThietBiDTO;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import org.apache.poi.ss.usermodel.*;
 /**
  *
  * @author ASUS
@@ -53,9 +61,8 @@ public class ThietBiBLL {
         
         return "Xóa thất bại"; 
     }
-    public int LayID_TB(){
-       return tbDAL.Lay_ID_Thietbi();
-    }
+    
+   
     
     
     public void search(ArrayList<ThietBiDTO> list_tb,DefaultTableModel model, String txtMaTB, String txtTen){
@@ -78,6 +85,84 @@ public class ThietBiBLL {
                 }
             }
         }
+    }
+    
+    public ArrayList<ThietBiDTO> getListSearch(String id){
+        return tbDAL.listThietBiComboBox(id);
+    }
+    
+    public String AddExcel(String filePath){
+        ArrayList<ThietBiDTO> list_excel = new ArrayList<>();
+        try{
+            FileInputStream inputStream = new FileInputStream(new File(filePath));
+            Workbook workbook = WorkbookFactory.create(inputStream);
+            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
+            
+            Row Titlerow = sheet.getRow(0);
+            
+            Cell TitleMaCell = Titlerow.getCell(0);
+            Cell TitleTenCell = Titlerow.getCell(1);
+            Cell TitleMoTaCell = Titlerow.getCell(2);
+            
+            if (TitleMaCell != null && TitleTenCell != null && TitleMoTaCell != null){
+                String ma = TitleMaCell.getStringCellValue();
+                String ten = TitleTenCell.getStringCellValue();
+                String mota = TitleMoTaCell.getStringCellValue();
+                if (!ma.equals("MaTB") || !ten.equals("TenTB") || !mota.equals("MoTaTB")){
+                    return "File không đúng cấu trúc cột";
+                }
+                
+                
+                // Bắt đầu đọc từ hàng thứ hai (index 1)
+                for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                    Row row = sheet.getRow(i);
+                    if (row != null) {
+                        Cell MaCell = row.getCell(0);
+                        Cell TenCell = row.getCell(1);
+                        Cell MoTaCell = row.getCell(2);
+
+                        // Kiểm tra và lưu dữ liệu vào Hibernate
+                        if (MaCell  != null && TenCell != null && MoTaCell != null) {
+                            
+                            double Ma = 0;
+                            String Ten = "";
+                            String MoTa = "";
+                                        
+                            try{
+                                Ma = MaCell.getNumericCellValue();
+                                Ten = TenCell.getStringCellValue();
+                                MoTa = MoTaCell.getStringCellValue();
+                            }
+                            catch(Exception e){
+                                return "MaTB là số, TenTB và MoTaTB là chuỗi ký tự";
+                            }
+                            
+                            ThietBiDTO thietbi = new ThietBiDTO((int) Ma, Ten, MoTa);
+                            
+                            list_excel.add(thietbi);
+                            
+                        }
+                    }
+                }
+            }
+            
+            for (ThietBiDTO a : list_excel){
+                if (tbDAL.kiemTraMaThietBiTonTai(a.getMaTB())){
+                    tbDAL.updateThietBi(a);
+                }
+                else{
+                    tbDAL.addThietBi(a);
+                }
+            }
+            
+            return "Thêm thành công";
+            
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return "Phải rỗng rồi";
     }
     
 }

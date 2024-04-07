@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -45,6 +46,31 @@ public class ThietBiDAL {
                  ThietBiDTO tv = (ThietBiDTO) iterator.next();
                  List.add(tv);
              }
+         } catch (HibernateException e){
+             if (tx != null) tx.rollback();
+             e.printStackTrace();
+         }
+         finally {
+            session.close();
+        }
+         return List;
+    }
+    
+    public ArrayList<ThietBiDTO> listThietBiComboBox(String id) {
+        Session session = factory.openSession();
+        ArrayList<ThietBiDTO> List = new ArrayList<>();
+        Transaction tx = null;
+         try{
+                tx = session.beginTransaction();
+                String hql = "FROM ThietBiDTO WHERE CAST(MaTB AS string) LIKE :value";
+                Query query = session.createQuery(hql);
+                query.setParameter("value", "" + id + "%");
+                List result = query.list();
+                for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+                 ThietBiDTO tv = (ThietBiDTO) iterator.next();
+                 List.add(tv);
+             }
+
          } catch (HibernateException e){
              if (tx != null) tx.rollback();
              e.printStackTrace();
@@ -105,30 +131,26 @@ public class ThietBiDAL {
             session.close();
         }
     }
-    public int Lay_ID_Thietbi() {
-        int id = 0;
-        Session session = null;
+    
+    
+     public boolean kiemTraMaThietBiTonTai(int maThietBi) {
+        Session session = factory.openSession();
         try {
-            session = factory.openSession();
-            // Sử dụng Criteria để lấy số lượng bản ghi trong bảng person
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-            Root<ThietBiDTO> root = criteriaQuery.from(ThietBiDTO.class);
-            criteriaQuery.select(builder.count(root));
-            Long count = session.createQuery(criteriaQuery).getSingleResult();
-            id = count.intValue();
-        } catch (HibernateException e) {
-            System.out.println("Id thiet bi: " + e);
+            Query query = session.createQuery("SELECT COUNT(*) FROM ThietBiDTO WHERE MaTB = :maThietBi");
+            query.setParameter("maThietBi", maThietBi);
+            Long count = (Long) query.uniqueResult();
+            if (count != null && count > 0) {
+                return true; // Mã thiết bị đã tồn tại
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (session != null) {
                 session.close();
             }
         }
-        return id;
+        return false;
     }
-    
-//    public static void main(String[] args) {
-//        
-//    }
+
     
 }

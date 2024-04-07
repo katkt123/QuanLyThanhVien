@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -24,7 +25,11 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author ASUS
@@ -223,6 +228,12 @@ public class ThietBiGUI extends javax.swing.JPanel {
             }
         });
 
+        btnExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcelActionPerformed(evt);
+            }
+        });
+
         btnChonALL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnChonALL.setText("Chọn tất cả");
         btnChonALL.addActionListener(new java.awt.event.ActionListener() {
@@ -372,11 +383,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         ThemThietBi themtb = new ThemThietBi();
         themtb.setVisible(true);
-        themtb.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                loadThietBi();
-            }
-        });
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -451,17 +458,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         int Selected = cbxLoai.getSelectedIndex();
         if (Selected != 0){
-            ArrayList<ThietBiDTO> list_temp = new ArrayList<>();
-            char selectedChar = String.valueOf(Selected).charAt(0);
-            for (ThietBiDTO s : list) {
-                String id = Integer.toString(s.getMaTB());
-                if (id.charAt(0) == selectedChar) {
-                    System.out.println(id.charAt(0));
-                    list_temp.add(s);
-                }
-            }
-           
-            thietBiBLL.search(list_temp,modelTB, txtFindMa.getText(), txtFindTen.getText());
+            thietBiBLL.search(thietBiBLL.getListSearch(Integer.toString(Selected)),modelTB, txtFindMa.getText(), txtFindTen.getText());
         }
         else{
             thietBiBLL.search(list,modelTB, txtFindMa.getText(), txtFindTen.getText());
@@ -473,17 +470,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:'
         int Selected = cbxLoai.getSelectedIndex();
         if (Selected != 0){
-            ArrayList<ThietBiDTO> list_temp = new ArrayList<>();
-            char selectedChar = String.valueOf(Selected).charAt(0);
-            for (ThietBiDTO s : list) {
-                String id = Integer.toString(s.getMaTB());
-                if (id.charAt(0) == selectedChar) {
-                    System.out.println(id.charAt(0));
-                    list_temp.add(s);
-                }
-            }
-           
-            thietBiBLL.search(list_temp,modelTB, txtFindMa.getText(), txtFindTen.getText());
+            thietBiBLL.search(thietBiBLL.getListSearch(Integer.toString(Selected)),modelTB, txtFindMa.getText(), txtFindTen.getText());
         }
         else{
             thietBiBLL.search(list,modelTB, txtFindMa.getText(), txtFindTen.getText());
@@ -512,15 +499,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
         txtFindMa.setText("Nhập mã thiết bị");
         txtFindTen.setText("Nhập tên thiết bị");
         if (Selected != 0){
-            ArrayList<ThietBiDTO> list_temp = new ArrayList<>();
-            char selectedChar = String.valueOf(Selected).charAt(0);
-            for (ThietBiDTO s : list) {
-                String id = Integer.toString(s.getMaTB());
-                if (id.charAt(0) == selectedChar) {
-                    System.out.println(id.charAt(0));
-                    list_temp.add(s);
-                }
-            }
+            ArrayList<ThietBiDTO> list_temp = thietBiBLL.getListSearch(Integer.toString(Selected));
            
             modelTB.setRowCount(0);
             
@@ -540,6 +519,42 @@ public class ThietBiGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxLoaiMouseClicked
 
+    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getPath();
+            if (isExcelFile(filePath)){
+                try {
+                    JOptionPane.showMessageDialog(fileChooser, thietBiBLL.AddExcel(filePath));
+                    loadThietBi();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(fileChooser, "File đã chọn không phải là file excel");
+            }
+        }
+    }//GEN-LAST:event_btnExcelActionPerformed
+    // Phương thức để kiểm tra xem tập tin có phải là tập tin Excel (.xlsx) không
+    public static boolean isExcelFile(String filePath) {
+        // Kiểm tra phần mở rộng của tập tin
+        String extension = getFileExtension(filePath);
+        return extension != null && extension.equals("xlsx");
+    }
+    
+    // Phương thức để lấy phần mở rộng của tập tin
+    public static String getFileExtension(String filePath) {
+        String extension = null;
+        int lastDotIndex = filePath.lastIndexOf(".");
+        if (lastDotIndex > 0) {
+            extension = filePath.substring(lastDotIndex + 1);
+        }
+        return extension;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
