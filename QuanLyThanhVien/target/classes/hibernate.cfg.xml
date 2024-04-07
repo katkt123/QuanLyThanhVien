@@ -25,7 +25,8 @@
         
         <mapping resource="Thanhvien.hbm.xml"/> <!-- Fixed resource attribute -->
         <mapping resource="Thietbi.hbm.xml"/>  <!-- Fixed resource attribute -->
+        <!--<mapping resource="Xuly.hbm.xml"/>-->
 <!--        <mapping resource="Thongtinsudung.hbm.xml"/>   Fixed resource attribute 
-        <mapping resource="Xuly.hbm.xml"/>    Fixed resource attribute -->
+            Fixed resource attribute -->
     </session-factory>
 </hibernate-configuration>
