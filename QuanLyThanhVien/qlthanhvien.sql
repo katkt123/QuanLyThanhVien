@@ -1,6 +1,6 @@
 -- Cấu trúc bảng cho bảng `thanhvien`
 CREATE TABLE `thanhvien` (
-  `MaTV` int(10) PRIMARY KEY,
+  `MaTV` int(11) PRIMARY KEY,
   `HoTen` varchar(100) NOT NULL,
   `Khoa` varchar(100) DEFAULT NULL,
   `Nganh` varchar(100) DEFAULT NULL,
@@ -11,10 +11,10 @@ CREATE TABLE `thanhvien` (
 
 -- Dữ liệu cho bảng `thanhvien`
 INSERT INTO `thanhvien` (`MaTV`, `HoTen`, `Khoa`, `Nganh`, `SDT`, `Password`, `Email`) VALUES
-(111941001, 'Trần Thị Nữ', 'GDTH', 'GDTH', '1111111111', 'password1', 'tran.thi.nu@example.com'),
-(112042001, 'Trần Thiếu Nam', 'TLH', 'QLGD', '1111111112', 'password2', 'tran.thieu.nam@example.com'),
-(112143001, 'Ngô Tuyết Nhi', 'QTKD', 'QTKD', '1111111113', 'password3', 'ngo.tuyet.nhi@example.com'),
-(112241001, 'Nguyễn Văn Nam', 'CNTT', 'HTTT', '123456789', 'password4', 'nguyen.van.nam@example.com');
+(1119410001, 'Trần Thị Nữ', 'CNTT', 'GDTH', '1111111111', 'password1', 'tran.thi.nu@example.com'),
+(1120420001, 'Trần Thiếu Nam', 'CNTT', 'TLH', '1111111112', 'password2', 'tran.thieu.nam@example.com'),
+(1121430001, 'Ngô Tuyết Nhi', 'QTKD', 'QTKD', '1111111113', 'password3', 'ngo.tuyet.nhi@example.com'),
+(1122410001, 'Nguyễn Văn Nam', 'CNTT', 'HTTT', '123456789', 'password4', 'nguyen.van.nam@example.com');
 
 -- Cấu trúc bảng cho bảng `thietbi`
 CREATE TABLE `thietbi` (
@@ -55,6 +55,6 @@ CREATE TABLE `xuly` (
 
 -- Dữ liệu cho bảng `xuly`
 INSERT INTO `xuly` (`MaTV`, `HinhThucXL`, `SoTien`, `NgayXL`, `TrangThaiXL`) VALUES
-(111941001, 'Khóa thẻ 1 tháng', NULL, '2023-09-12 08:00:00', 0),
-(111941001, 'Khóa thẻ 2 tháng', NULL, '2023-09-12 08:00:00', 0),
-(112042001, 'Bồi thường mất tài sản', 300000, '2023-09-12 08:00:00', 0);
+(1119410001, 'Khóa thẻ 1 tháng', NULL, '2023-09-12 08:00:00', 0),
+(1119410001, 'Khóa thẻ 2 tháng', NULL, '2023-09-12 08:00:00', 0),
+(1120420001, 'Bồi thường mất tài sản', 300000, '2023-09-12 08:00:00', 0);

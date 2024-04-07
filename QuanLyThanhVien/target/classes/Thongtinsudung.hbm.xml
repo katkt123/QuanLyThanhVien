@@ -12,7 +12,7 @@
         </many-to-one>
         
         <many-to-one name="MaTB" class="ThietBiDTO" fetch="join">
-            <column name="MaTB" not-null="true"/>
+            <column name="MaTB" not-null="false"/>
         </many-to-one>
         
         <property name="TGVao" column="TGVao" type="timestamp"/>

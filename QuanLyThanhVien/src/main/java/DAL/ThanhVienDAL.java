@@ -63,6 +63,24 @@ public class ThanhVienDAL {
          }
          return List;
     }
+    public ThanhVienDTO getThanhVienById(int id) {
+        Session session = factory.openSession();
+        ThanhVienDTO thanhVien = null;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            // Sử dụng phương thức get của session để lấy đối tượng ThanhVienDTO theo id
+            thanhVien = session.get(ThanhVienDTO.class, id);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return thanhVien;
+    }
+
     public void ThemThanhVien(ThanhVienDTO tv) {
         Session session = factory.openSession();
         Transaction tx = null;

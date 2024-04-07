@@ -36,9 +36,12 @@ public class ThongTinSuDungDTO {
     @JoinColumn(name="MaTV",nullable=false,foreignKey=@ForeignKey(name="fk_ThongTinSuDungDTO_ThanhVienDTO"))
     private ThanhVienDTO MaTV;
 
+    
+    
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="MaTB",nullable=false,foreignKey=@ForeignKey(name="fk_ThongTinSuDungDTO_ThietBiDTO"))
+    @JoinColumn(name="MaTB",nullable=true,foreignKey=@ForeignKey(name="fk_ThongTinSuDungDTO_ThietBiDTO"))
     private ThietBiDTO MaTB;
+
     
     @Column(name = "TGVao")
     private Date TGVao;
@@ -57,12 +60,21 @@ public class ThongTinSuDungDTO {
     
     public ThongTinSuDungDTO() {
     }
-
+    
+    
     public ThongTinSuDungDTO(int MaTT, ThanhVienDTO MaTV, ThietBiDTO MaTB, Date TGVao, Date TGMuon, Date TGTra) {
         this.MaTT = MaTT;
         this.MaTV = MaTV;
         this.MaTB = MaTB;
         this.TGVao = TGVao;
+        this.TGMuon = TGMuon;
+        this.TGTra = TGTra;
+    }
+    public ThongTinSuDungDTO(int MaTT, ThanhVienDTO MaTV, ThietBiDTO MaTB, Date TGMuon, Date TGTra) {
+        this.MaTT = MaTT;
+        this.MaTV = MaTV;
+        this.MaTB = MaTB;
+      
         this.TGMuon = TGMuon;
         this.TGTra = TGTra;
     }
@@ -72,6 +84,12 @@ public class ThongTinSuDungDTO {
         this.TGVao = TGVao;
         this.TGMuon = TGMuon;
         this.TGTra = TGTra;
+    }
+    public ThongTinSuDungDTO(int MaTT,ThanhVienDTO MaTV ,Date TGVao) {
+        
+        this.MaTT = MaTT;
+        this.TGVao = TGVao;
+        this.MaTV=MaTV;
     }
 
     public void setMaTB(ThietBiDTO MaTB) {

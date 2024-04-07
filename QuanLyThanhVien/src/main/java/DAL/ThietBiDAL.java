@@ -55,7 +55,23 @@ public class ThietBiDAL {
         }
          return List;
     }
-    
+    public ThietBiDTO getThanhVienById(int id) {
+        Session session = factory.openSession();
+        ThietBiDTO thietBi = null;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            // Sử dụng phương thức get của session để lấy đối tượng  theo id
+            thietBi = session.get(ThietBiDTO.class, id);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return thietBi;
+    }
     public ArrayList<ThietBiDTO> listThietBiComboBox(String id) {
         Session session = factory.openSession();
         ArrayList<ThietBiDTO> List = new ArrayList<>();
