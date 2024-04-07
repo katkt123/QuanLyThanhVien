@@ -15,7 +15,9 @@
       <id name = "MaXL" type = "int" column = "MaXL">
          </id>
       
-      <property name = "MaTV" column = "MaTV" type = "int"/>
+      <many-to-one name="MaTV" class="ThanhVienDTO" fetch="join">
+           <column name="MaTV" not-null="true"/>
+      </many-to-one>
       <property name="HinhThucXL" column="HinhThucXL" type="string"/>
       <property name = "SoTien" column = "SoTien" type = "int"/>
       <property name = "NgayXL" column = "NgayXL" type = "timestamp"/>

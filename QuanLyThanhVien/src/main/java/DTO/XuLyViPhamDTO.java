@@ -17,13 +17,13 @@ import javax.persistence.ForeignKey;
 public class XuLyViPhamDTO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MaXL")
-    private int MaXL;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "MaXL")
+  private int MaXL;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name = "MaTV",nullable=false,foreignKey=@ForeignKey(name="fk_ThanhVienDTO"))
-    private ThanhVienDTO thanhVien;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "MaTV", nullable = false, foreignKey = @ForeignKey(name = "fk_ThanhVienDTO"))
+  private ThanhVienDTO thanhVien;
 
     @Column(name = "HinhThucXL")
     private String HinhThucXL;

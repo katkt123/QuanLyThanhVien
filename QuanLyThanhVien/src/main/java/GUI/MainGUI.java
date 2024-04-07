@@ -40,7 +40,7 @@ public class MainGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         addComponent("Thành Viên",new ThanhVienGUI(),"Course.png");
         addComponent("Thiết Bị",new ThietBiGUI(),"Student.png");
-        addComponent("Xử Lý Vi Phạm",new XuLyViPhamGUI(),"Teacher.png");
+        addComponent("Xử Lý Vi Phạm",new ThanhVienGUI(),"Teacher.png");
         addComponent("Thống Kê",new ThongKeGUI(),"Pen.png");
         
         
