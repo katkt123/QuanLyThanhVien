@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this template
--->
 
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
+<hibernate-mapping>
+   <class name = "DTO.XuLyViPhamDTO" table = "xuly">
+   
+<meta attribute = "class-description">
+         This class contains the XuLy detail. 
+      </meta>
+      
 
-<root>
-    
-</root>
-
+      <id name = "MaXL" type = "int" column = "MaXL">
+         </id>
+      
+      <property name = "MaTV" column = "MaTV" type = "int"/>
+      <property name="HinhThucXL" column="HinhThucXL" type="string"/>
+      <property name = "SoTien" column = "SoTien" type = "int"/>
+      <property name = "NgayXL" column = "NgayXL" type = "timestamp"/>
+      <property name = "TrangThaiXL" column = "TrangThaiXL" type = "int" />
+   </class>
+</hibernate-mapping>

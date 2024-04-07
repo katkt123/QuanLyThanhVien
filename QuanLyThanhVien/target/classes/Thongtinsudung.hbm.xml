@@ -1,12 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this template
--->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="DTO">
+    <class name="ThongTinSuDungDTO" table="thongtinsd">
+        <id name="MaTT" column="MaTT">
+            <generator class="identity"/>
+        </id>
+        
+        <many-to-one name="MaTV" class="ThanhVienDTO" fetch="join">
+            <column name="MaTV" not-null="true"/>
+        </many-to-one>
+        
+        <many-to-one name="MaTB" class="ThietBiDTO" fetch="join">
+            <column name="MaTB" not-null="true"/>
+        </many-to-one>
+        
+        <property name="TGVao" column="TGVao" type="timestamp"/>
+        <property name="TGMuon" column="TGMuon" type="timestamp"/>
+        <property name="TGTra" column="TGTra" type="timestamp"/>
+    </class>
+</hibernate-mapping>
 
-
-
-<root>
-    
-</root>
 

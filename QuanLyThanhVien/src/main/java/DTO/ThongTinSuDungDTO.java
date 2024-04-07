@@ -5,6 +5,7 @@
 package DTO;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
@@ -44,6 +48,10 @@ public class ThongTinSuDungDTO {
 
     @Column(name = "TGTra")
     private Date TGTra;
+
+    public ThietBiDTO getMaTB() {
+        return MaTB;
+    }
     
     
     
@@ -114,6 +122,4 @@ public class ThongTinSuDungDTO {
     public void setTGTra(Date TGTra) {
         this.TGTra = TGTra;
     }
-
-    
 }
