@@ -6,6 +6,8 @@ package GUI;
 
 import GUI.ThanhVien.ThanhVienGUI;
 import GUI.ThietBi.ThietBiGUI;
+import GUI.ThongKeGUI.ThongKeGUI;
+import GUI.XuLyViPham.XuLyViPhamGUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -39,7 +41,7 @@ public class MainGUI extends javax.swing.JFrame {
         addComponent("Thành Viên",new ThanhVienGUI(),"Course.png");
         addComponent("Thiết Bị",new ThietBiGUI(),"Student.png");
         addComponent("Xử Lý Vi Phạm",new ThanhVienGUI(),"Teacher.png");
-        addComponent("Thống Kê",new ThanhVienGUI(),"Pen.png");
+        addComponent("Thống Kê",new ThongKeGUI(),"Pen.png");
         
         
         Event();

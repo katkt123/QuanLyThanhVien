@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThanhVien\ModifyAddGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\BLL\ThietBiBLL.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DTO\ThongTinSuDungDTO.java
@@ -18,3 +19,32 @@ C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\com\mycom
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThietBi\SuaThietBi.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThanhVien\AddThanhVienGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DAL\ThanhVienDAL.java
+=======
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DTO\ThongTinSuDungDTO.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\XuLyViPhamDAL.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\BLL\ThongTinSuDungBLL.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\ThanhVienDAL.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DTO\ThietBiDTO.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\com\mycompany\quanlythanhvien\QuanLyThanhVien.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\XoaNhieuGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\BLL\ThanhVienBLL.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\ModifyAddGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThongKeGUI\ThongKeGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\MainGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\ThanhVienGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\ThietBiGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DTO\XuLyViPhamDTO.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\BLL\ThietBiBLL.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\DetailGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\BLL\XuLyViPhamBLL.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\HibernateUtil.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\CheckBoxRenderer.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\ThongTinSuDungDAL.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DAL\ThietBiDAL.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\SuaThietBi.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\XuLyViPham\XuLyViPhamGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\AddThanhVienGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThanhVien\UpdateThanhVienGUI.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\GUI\ThietBi\ThemThietBi.java
+C:\Users\PC\NetBeansProject\QuanLyThanhVien\QuanLyThanhVien\src\main\java\DTO\ThanhVienDTO.java
+>>>>>>> e543f8f50b230a90f32bd52aab3bd8fff7281c9e
