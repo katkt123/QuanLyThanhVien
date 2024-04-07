@@ -41,7 +41,10 @@ public class ThanhVienDTO {
     
     @Column(name = "Password")
     private String Password;
-
+    
+    @Column(name = "Email")
+    private String Email;
+    
     @OneToMany(fetch=FetchType.LAZY, mappedBy= "thanhvien")
     private ArrayList<ThongTinSuDungDTO> ttsd = new ArrayList<>();
     
@@ -62,14 +65,25 @@ public class ThanhVienDTO {
         this.SDT = SDT;
     }
 
-    public ThanhVienDTO(int MaTV, String HoTen, String Khoa, String Nganh, String SDT, String Password) {
+    public ThanhVienDTO(int MaTV, String HoTen, String Khoa, String Nganh, String SDT, String Password, String Email) {
         this.MaTV = MaTV;
         this.HoTen = HoTen;
         this.Khoa = Khoa;
         this.Nganh = Nganh;
         this.SDT = SDT;
         this.Password = Password;
+        this.Email = Email;
     }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }
+
+    
 
     public String getPassword() {
         return Password;

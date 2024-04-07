@@ -63,7 +63,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField_Nganh" max="32767" attributes="0"/>
+                          <Component id="jComboBox_Khoa1" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel5" min="-2" pref="92" max="-2" attributes="0"/>
@@ -98,7 +98,7 @@
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="jTextField_Nganh" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="jComboBox_Khoa1" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="42" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -154,11 +154,6 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField_Nganh">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_NganhActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -198,12 +193,20 @@
         <Component class="javax.swing.JComboBox" name="jComboBox_Khoa">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="CNTT"/>
-                <StringItem index="1" value="QTKD"/>
-                <StringItem index="2" value="TLH"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBox_Khoa1">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

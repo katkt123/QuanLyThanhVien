@@ -75,28 +75,103 @@ public class ThanhVienDAL {
             Root<ThanhVienDTO> root = criteriaQuery.from(ThanhVienDTO.class);
             criteriaQuery.select(builder.count(root));
             Long count = session.createQuery(criteriaQuery).getSingleResult();
-            String id ="";
+            String id = "";
             String year = Year.now().toString().substring(2);
             String khoa = tv.getKhoa();
+            String nganh = tv.getNganh();
             String khoaCode= "";
-            
+
             switch (khoa.toUpperCase(Locale.ROOT)) {
-                case "CNTT":
-                    khoaCode = "41";
+                case "SP KHXH":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "Địa":
+                            khoaCode = "11";
+                            break;
+                        case "Sử":
+                            khoaCode = "10";
+                            break;
+                        case "Văn":
+                            khoaCode = "09";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
+                case "SP KHTN":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "Lí":
+                            khoaCode = "02";
+                            break;
+                        case "Hóa":
+                            khoaCode = "03";
+                            break;
+                        case "Sinh":
+                            khoaCode = "04";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
+                case "Ngoại Ngữ":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "Anh":
+                            khoaCode = "13";
+                            break;
+                        case "NNA":
+                            khoaCode = "38";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
                     break;
                 case "QTKD":
-                    khoaCode = "42";
+                    khoaCode = "55";
                     break;
-                case "TLH":
-                    khoaCode= "43";
+                case "QLGD":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "TLH":
+                            khoaCode = "53";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
                     break;
-                // Thêm các trường hợp khác nếu cần
+                case "Toán UD":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "Toán":
+                            khoaCode = "48";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
+                case "CNTT":
+                    switch (nganh.toUpperCase(Locale.ROOT)) {
+                        case "CNTT":
+                            khoaCode = "41";
+                            break;
+                        case "KTPM":
+                            khoaCode = "42";
+                            break;
+                        case "HTTT":
+                            khoaCode = "43";
+                            break;
+                        default:
+                            khoaCode = "00";
+                            break;
+                    }
+                    break;
                 default:
-                    // Mặc định sẽ là 00 nếu không trùng khớp
                     khoaCode = "00";
                     break;
             }
-            id = "11"+ year + khoaCode + String.format("%03d", count + 1);
+
+            id = "11"+ year + khoaCode + String.format("%04d", count + 1);
             int idCode= Integer.parseInt(id);
             ThanhVienDTO tvien = new ThanhVienDTO(idCode,tv.getHoTen(), tv.getKhoa(), tv.getNganh(), tv.getSDT());
             
@@ -149,83 +224,73 @@ public class ThanhVienDAL {
         }
     }
     public void ThemThanhVienExcel(String path) {
-    Session session = factory.openSession();
-    Transaction tx = null;
-    try {
-        tx = session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-        Root<ThanhVienDTO> root = criteriaQuery.from(ThanhVienDTO.class);
-        criteriaQuery.select(builder.count(root));
-        Long count = session.createQuery(criteriaQuery).getSingleResult();
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+            Root<ThanhVienDTO> root = criteriaQuery.from(ThanhVienDTO.class);
+            criteriaQuery.select(builder.count(root));
+            Long count = session.createQuery(criteriaQuery).getSingleResult();
 
-        FileInputStream inputStream = new FileInputStream(new File(path));
-        Workbook workbook = WorkbookFactory.create(inputStream);
-        Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
+            FileInputStream inputStream = new FileInputStream(new File(path));
+            Workbook workbook = WorkbookFactory.create(inputStream);
+            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
 
-        // Bắt đầu đọc từ hàng thứ hai (index 1)
-        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-            Row row = sheet.getRow(i);
-            if (row != null) {
-                Cell nameCell = row.getCell(0);
-                Cell khoaCell = row.getCell(1);
-                Cell nganhCell = row.getCell(2);
-                Cell sdtCell = row.getCell(3);
-
-                // Kiểm tra và lưu dữ liệu vào Hibernate
-                if (nameCell != null && khoaCell != null && nganhCell != null && sdtCell != null) {
-                    String name = nameCell.getStringCellValue();
-                    String khoa = khoaCell.getStringCellValue();
-                    String nganh = nganhCell.getStringCellValue();
-                    String sdt =  sdtCell.getStringCellValue();
+            // Bắt đầu đọc từ hàng thứ hai (index 1)
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                if (row != null) {
+                    Cell idCell =row.getCell(0);
+                    Cell nameCell = row.getCell(1);
+                    Cell khoaCell = row.getCell(2);
+                    Cell nganhCell = row.getCell(3);
+                    Cell sdtCell = row.getCell(4);
+                    Cell passCell = row.getCell(5);
+                    Cell emailCell = row.getCell(6);
                     
-                    String id1 ="";
-                    String year1 = Year.now().toString().substring(2);
-                    String khoa1 = khoa;
-                    String khoaCode1 = "";
+                    // Kiểm tra và lưu dữ liệu vào Hibernate
+                    if (idCell != null && nameCell != null && khoaCell != null && nganhCell != null && sdtCell != null) {
+                        int idCode=0;
+                        if (idCell.getCellType() == CellType.NUMERIC) {
+                            idCode = (int) idCell.getNumericCellValue();
+                            
+                        } else if (idCell.getCellType() == CellType.STRING) {
+                            String id = idCell.getStringCellValue();
+                            idCode = Integer.parseInt(id);
+                        }
+                        String name = nameCell.getStringCellValue();
+                        String khoa = khoaCell.getStringCellValue();
+                        String nganh = nganhCell.getStringCellValue();
+                        String sdt =  sdtCell.getStringCellValue();
+                        String pass = passCell.getStringCellValue();
+                        String email = emailCell.getStringCellValue();
+                        
 
-                    switch (khoa1.toUpperCase(Locale.ROOT)) {
-                        case "CNTT":
-                            khoaCode1 = "41";
-                            break;
-                        case "QTKD":
-                            khoaCode1 = "42";
-                            break;
-                        case "TLH":
-                            khoaCode1 = "43";
-                            break;
-                        // Thêm các trường hợp khác nếu cần
-                        default:
-                            // Mặc định sẽ là 00 nếu không trùng khớp
-                            khoaCode1 = "00";
-                            break;
+                        // Tạo đối tượng ThanhVienDTO từ dữ liệu
+                        ThanhVienDTO thanhVien = new ThanhVienDTO(idCode, name, khoa, nganh, sdt, pass,email);
+                        // Lưu đối tượng vào cơ sở dữ liệu bằng Hibernate
+                        session.save(thanhVien);
+                        // Cập nhật giá trị của count
+                        count++;
                     }
-                    id1 = "11"+ year1 + khoaCode1 + String.format("%03d", count + 1);    
-                    int idCode = Integer.parseInt(id1);
-
-                    // Tạo đối tượng ThanhVienDTO từ dữ liệu
-                    ThanhVienDTO thanhVien = new ThanhVienDTO(idCode, name, khoa, nganh, sdt);
-                    // Lưu đối tượng vào cơ sở dữ liệu bằng Hibernate
-                    session.save(thanhVien);
-                    // Cập nhật giá trị của count
-                    count++;
                 }
             }
-        }
-        // Commit transaction và đóng session
-        tx.commit();
-        session.close();
+            // Commit transaction và đóng session
+            tx.commit();
+            session.close();
 
-        // Đóng workbook và inputStream
-        workbook.close();
-        inputStream.close();
-    } catch (IOException e) {
-        e.printStackTrace();
-    } catch (HibernateException ex) {
-        if (tx != null) tx.rollback();
-        ex.printStackTrace();
-    }
-}
+            // Đóng workbook và inputStream
+            workbook.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (HibernateException ex) {
+            if (tx != null) tx.rollback();
+            ex.printStackTrace();
+        }
+    }   
 
     
 

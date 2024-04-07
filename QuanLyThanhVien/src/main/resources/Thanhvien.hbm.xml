@@ -20,5 +20,6 @@
       <property name = "Nganh" column = "Nganh" type = "string"/>
       <property name = "SDT" column = "SDT" type = "string"/>
       <property name = "Password" column = "Password" type = "string" />
+      <property name = "Email" column = "Email" type = "string" />
    </class>
 </hibernate-mapping>

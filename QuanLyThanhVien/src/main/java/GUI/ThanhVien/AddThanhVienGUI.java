@@ -7,6 +7,9 @@ package GUI.ThanhVien;
 import BLL.ThanhVienBLL;
 import DTO.ThanhVienDTO;
 import GUI.MainGUI;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +19,7 @@ import javax.swing.JOptionPane;
 public class AddThanhVienGUI extends javax.swing.JFrame {
     private int id;
     ThanhVienBLL tvBLL= new ThanhVienBLL();
+    Map<String, String[]> nganhTheoKhoa = new HashMap<>();
     /**
      * Creates new form AddThanhVienGUI
      */
@@ -28,6 +32,15 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(jLabel3.CENTER); // Đưa chữ về giữa theo chiều ngang
         jLabel4.setHorizontalAlignment(jLabel4.CENTER); // Đưa chữ về giữa theo chiều ngang
         jLabel4.setHorizontalAlignment(jLabel5.CENTER); // Đưa chữ về giữa theo chiều ngang
+        
+        nganhTheoKhoa.put("SP KHXH", new String[]{"Địa", "Sử", "Văn"});
+        nganhTheoKhoa.put("SP KHTN", new String[]{"Sinh", "Lí", "Hóa"});
+        nganhTheoKhoa.put("Ngoại Ngữ", new String[]{"Anh", "NNA"});
+        nganhTheoKhoa.put("QTKD", new String[]{"QTKD"});
+        nganhTheoKhoa.put("QLGD", new String[]{"TLH"});
+        nganhTheoKhoa.put("Toán UD", new String[]{"Toán"});
+        nganhTheoKhoa.put("CNTT", new String[]{"CNTT", "KTPM", "HTTT"});
+        
         
     }
 
@@ -45,12 +58,12 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
         jTextField_Name = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField_Nganh = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton_Create = new javax.swing.JButton();
         jTextField_SDT = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jComboBox_Khoa = new javax.swing.JComboBox<>();
+        jComboBox_Nganh = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,12 +90,6 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jTextField_Nganh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_NganhActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel4.setText("THÊM THÀNH VIÊN");
 
@@ -105,7 +112,23 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jComboBox_Khoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CNTT", "QTKD", "TLH" }));
+        jComboBox_Khoa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP KHXH", "SP KHTN", "Ngoại Ngữ", "QTKD", "QLGD", "CNTT", "Toán UD" }));
+        jComboBox_Khoa.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox_KhoaItemStateChanged(evt);
+            }
+        });
+        jComboBox_Khoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_KhoaActionPerformed(evt);
+            }
+        });
+
+        jComboBox_Nganh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_NganhActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,7 +149,7 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_Nganh))
+                        .addComponent(jComboBox_Nganh, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,7 +176,7 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_Nganh, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox_Nganh, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,17 +204,13 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_NameActionPerformed
 
-    private void jTextField_NganhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NganhActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_NganhActionPerformed
-
     private void jButton_CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CreateActionPerformed
         // TODO add your handling code here:
         
         System.out.println("---------------------------------ID:"+id);        
         String Name = jTextField_Name.getText();
         String Khoa = jComboBox_Khoa.getSelectedItem().toString();
-        String Nganh = jTextField_Nganh.getText();
+        String Nganh = jComboBox_Nganh.getSelectedItem().toString();
         String SDT = jTextField_SDT.getText();  
         
         
@@ -216,6 +235,25 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
     private void jTextField_SDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_SDTActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_SDTActionPerformed
+
+    private void jComboBox_KhoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_KhoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox_KhoaActionPerformed
+
+    private void jComboBox_NganhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_NganhActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox_NganhActionPerformed
+
+    private void jComboBox_KhoaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_KhoaItemStateChanged
+        // TODO add your handling code here:
+            if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            String selectedKhoa = (String) jComboBox_Khoa.getSelectedItem(); // Lấy giá trị khoa được chọn
+            String[] nganhArray = nganhTheoKhoa.get(selectedKhoa); // Lấy danh sách ngành tương ứng với khoa
+            if (nganhArray != null) {
+                jComboBox_Nganh.setModel(new DefaultComboBoxModel<>(nganhArray)); // Cập nhật ComboBox Ngành
+            }
+        }
+    }//GEN-LAST:event_jComboBox_KhoaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -255,6 +293,7 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Create;
     private javax.swing.JComboBox<String> jComboBox_Khoa;
+    private javax.swing.JComboBox<String> jComboBox_Nganh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -262,7 +301,6 @@ public class AddThanhVienGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField_Name;
-    private javax.swing.JTextField jTextField_Nganh;
     private javax.swing.JTextField jTextField_SDT;
     // End of variables declaration//GEN-END:variables
 }
