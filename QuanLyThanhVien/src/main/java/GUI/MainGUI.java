@@ -38,15 +38,16 @@ public class MainGUI extends javax.swing.JFrame {
         initComponents();
         toolsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         setLocationRelativeTo(null);
-        addComponent("Thành Viên",new ThanhVienGUI(),"Course.png");
-        addComponent("Thiết Bị",new ThietBiGUI(),"Student.png");
-        addComponent("Xử Lý Vi Phạm",new ThanhVienGUI(),"Teacher.png");
-        addComponent("Thống Kê",new ThongKeGUI(),"Pen.png");
+        addComponent("Thành Viên",new ThanhVienGUI(),"man.png");
+        addComponent("Thiết Bị",new ThietBiGUI(),"device.png");
+        addComponent("Xử Lý Vi Phạm",new ThanhVienGUI(),"warning.png");
+        addComponent("Thống Kê",new ThongKeGUI(),"statistic.png");
         
         
         Event();
         setBackground();
     }
+    
     private void setBackground(){
         String imagePath = "src\\main\\java\\Image\\MainBackground.jpg"; // 
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(1100, 720, Image.SCALE_SMOOTH));

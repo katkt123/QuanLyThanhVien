@@ -2,6 +2,7 @@ GUI\ThietBi\ThemThietBi$2.class
 GUI\ThietBi\SuaThietBi$2.class
 GUI\ThietBi\ThemThietBi.class
 GUI\ThanhVien\ModifyAddGUI.class
+GUI\ThanhVien\MuonGUI$1.class
 DAL\ThanhVienDAL.class
 GUI\ThanhVien\ThanhVienGUI$6.class
 GUI\ThietBi\ThietBiGUI$11.class
@@ -13,11 +14,13 @@ GUI\ThietBi\ThietBiGUI$15.class
 GUI\ThanhVien\AddThanhVienGUI$3.class
 GUI\XuLyViPham\XuLyViPhamGUI$3.class
 GUI\MainGUI$3.class
+GUI\ThanhVien\MuonGUI$4.class
 GUI\ThanhVien\DetailGUI.class
 GUI\ThanhVien\UpdateThanhVienGUI$1.class
 GUI\ThanhVien\UpdateThanhVienGUI.class
 GUI\ThietBi\ThietBiGUI$1.class
 BLL\ThongTinSuDungBLL.class
+GUI\ThanhVien\MuonGUI.class
 GUI\ThanhVien\AddThanhVienGUI.class
 GUI\ThanhVien\ThanhVienGUI$3.class
 DAL\HibernateUtil.class
@@ -26,6 +29,7 @@ GUI\ThanhVien\AddThanhVienGUI$6.class
 GUI\ThanhVien\ThanhVienGUI$2.class
 GUI\ThietBi\SuaThietBi$1.class
 GUI\ThietBi\ThietBiGUI$12.class
+GUI\ThanhVien\MuonGUI$2.class
 GUI\ThietBi\ThietBiGUI$2.class
 GUI\ThanhVien\ModifyAddGUI$2.class
 GUI\XuLyViPham\XuLyViPhamGUI$1.class
@@ -37,6 +41,7 @@ GUI\ThietBi\ThietBiGUI.class
 GUI\ThanhVien\AddThanhVienGUI$2.class
 GUI\XuLyViPham\XuLyViPhamGUI$4.class
 GUI\ThietBi\ThietBiGUI$8.class
+GUI\ThanhVien\MuonGUI$5.class
 GUI\ThietBi\ThietBiGUI$5.class
 BLL\ThietBiBLL.class
 GUI\MainGUI$2.class
@@ -46,6 +51,7 @@ GUI\ThanhVien\ThanhVienGUI$1.class
 GUI\ThietBi\ThietBiGUI$3.class
 GUI\MainGUI.class
 GUI\ThanhVien\ThanhVienGUI$8.class
+GUI\ThanhVien\ThanhVienGUI$11.class
 GUI\ThietBi\CheckBoxRenderer.class
 DTO\ThietBiDTO.class
 GUI\ThanhVien\AddThanhVienGUI$5.class
@@ -70,6 +76,8 @@ GUI\ThanhVien\AddThanhVienGUI$1.class
 GUI\XuLyViPham\XuLyViPhamGUI.class
 GUI\ThanhVien\XoaNhieuGUI.class
 GUI\ThietBi\ThietBiGUI$7.class
+GUI\ThanhVien\ThanhVienGUI$10.class
+GUI\ThanhVien\MuonGUI$3.class
 GUI\MainGUI$4.class
 DTO\ThanhVienDTO.class
 GUI\ThanhVien\AddThanhVienGUI$4.class

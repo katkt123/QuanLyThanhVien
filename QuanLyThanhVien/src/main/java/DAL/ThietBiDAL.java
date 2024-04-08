@@ -55,7 +55,7 @@ public class ThietBiDAL {
         }
          return List;
     }
-    public ThietBiDTO getThanhVienById(int id) {
+    public ThietBiDTO getThietBiById(int id) {
         Session session = factory.openSession();
         ThietBiDTO thietBi = null;
         Transaction tx = null;

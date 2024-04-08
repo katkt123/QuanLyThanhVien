@@ -43,6 +43,7 @@ public class ThietBiBLL {
     public void SuaTB(ThietBiDTO tb){
         tbDAL.updateThietBi(tb);
     }
+    
     public String XoaTB(DefaultTableModel model){
         int dem = 0;
         for (int i = 0; i < model.getRowCount();i++){
@@ -163,6 +164,9 @@ public class ThietBiBLL {
         }
         
         return "Phải rỗng rồi";
+    }
+    public ThietBiDTO getThietBiById(int id){
+        return tbDAL.getThietBiById(id);
     }
     
 }

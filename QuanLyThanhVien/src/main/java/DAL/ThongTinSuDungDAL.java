@@ -60,6 +60,7 @@ public class ThongTinSuDungDAL {
             session.close();
         }
     }
+    
 
     public void capNhatThongTinSuDung(ThongTinSuDungDTO thongTin) {
         Session session = factory.openSession();
@@ -127,18 +128,9 @@ public class ThongTinSuDungDAL {
             Root<ThongTinSuDungDTO> root = criteriaQuery.from(ThongTinSuDungDTO.class);
             criteriaQuery.select(builder.count(root));
             Long count = session.createQuery(criteriaQuery).getSingleResult();
-            
-            
-            ThanhVienDTO idtv = tvDAL.getThanhVienById(tt.getMaTV().getMaTV());
-            ThietBiDTO idtb= tbDAL.getThanhVienById(tt.getMaTB().getMaTB());
-            
             int idTT = count.intValue() + 1;
-            
-            
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//            String TGVao = sdf.format(date);
-            
-            ThongTinSuDungDTO Thongtin= new ThongTinSuDungDTO(idTT,idtv,idtb,tt.getTGMuon(),tt.getTGTra());
+
+            ThongTinSuDungDTO Thongtin= new ThongTinSuDungDTO(idTT,tt.getMaTV(),tt.getMaTB(),tt.getTGMuon(),tt.getTGTra());
             session.save(Thongtin);
             tx.commit();
         } catch (HibernateException e) {
@@ -148,29 +140,30 @@ public class ThongTinSuDungDAL {
             session.close();
         }
     }
-    public static void main(String[] args) {
-        ThongTinSuDungDAL dal = new ThongTinSuDungDAL();
-        ThanhVienDAL tdal=new ThanhVienDAL();
-        ThietBiDAL bdal=new ThietBiDAL();
-        // Lấy danh sách thông tin sử dụng từ database
-//        ArrayList<ThongTinSuDungDTO> danhSach = dal.listThongTinSuDung();
-//
-//        // In danh sách thông tin sử dụng
-//        System.out.println("Danh sách thông tin sử dụng:");
-//        for (ThongTinSuDungDTO thongTin : danhSach) {
-//            System.out.println("Mã TT: " + thongTin.getMaTT());
-//            System.out.println("Mã TV: " + (thongTin.getMaTV() != null ? thongTin.getMaTV().getMaTV() : "null")); // Giả sử bạn muốn in ra mã thành viên
-//            System.out.println("Mã TB: " + (thongTin.getMaTB() != null ? thongTin.getMaTB().getMaTB() : "null")); // Giả sử bạn muốn in ra mã thiết bị
-//            System.out.println("Thời gian vào: " + (thongTin.getTGVao() != null ? thongTin.getTGVao() : "null"));
-//            System.out.println("Thời gian mượn: " + (thongTin.getTGMuon() != null ? thongTin.getTGMuon() : "null"));
-//            System.out.println("Thời gian trả: " + (thongTin.getTGTra() != null ? thongTin.getTGTra() : "null"));
-//            System.out.println("--------------------------------------");
-//        }
-//        dal.VaoKhuVucHocTap(1119410001);
-            Date date= new Date();
-            ThanhVienDTO idtv = tdal.getThanhVienById(1119410001);
-            ThietBiDTO idtb= bdal.getThanhVienById(120191);
-            ThongTinSuDungDTO tt=new ThongTinSuDungDTO(0,idtv,idtb,date,date);
-            dal.MuonThietBi(tt);
-    }
+    
+//    public static void main(String[] args) {
+////        ThongTinSuDungDAL dal = new ThongTinSuDungDAL();
+////        ThanhVienDAL tdal=new ThanhVienDAL();
+////        ThietBiDAL bdal=new ThietBiDAL();
+////        // Lấy danh sách thông tin sử dụng từ database
+//////        ArrayList<ThongTinSuDungDTO> danhSach = dal.listThongTinSuDung();
+//////
+//////        // In danh sách thông tin sử dụng
+//////        System.out.println("Danh sách thông tin sử dụng:");
+//////        for (ThongTinSuDungDTO thongTin : danhSach) {
+//////            System.out.println("Mã TT: " + thongTin.getMaTT());
+//////            System.out.println("Mã TV: " + (thongTin.getMaTV() != null ? thongTin.getMaTV().getMaTV() : "null")); // Giả sử bạn muốn in ra mã thành viên
+//////            System.out.println("Mã TB: " + (thongTin.getMaTB() != null ? thongTin.getMaTB().getMaTB() : "null")); // Giả sử bạn muốn in ra mã thiết bị
+//////            System.out.println("Thời gian vào: " + (thongTin.getTGVao() != null ? thongTin.getTGVao() : "null"));
+//////            System.out.println("Thời gian mượn: " + (thongTin.getTGMuon() != null ? thongTin.getTGMuon() : "null"));
+//////            System.out.println("Thời gian trả: " + (thongTin.getTGTra() != null ? thongTin.getTGTra() : "null"));
+//////            System.out.println("--------------------------------------");
+//////        }
+//////        dal.VaoKhuVucHocTap(1119410001);
+////            Date date= new Date();
+////            ThanhVienDTO idtv = tdal.getThanhVienById(1119410001);
+////            ThietBiDTO idtb= bdal.getThanhVienById(120191);
+////            ThongTinSuDungDTO tt=new ThongTinSuDungDTO(0,idtv,idtb,date,date);
+////            dal.MuonThietBi(tt);
+//    }
 }

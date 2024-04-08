@@ -38,4 +38,8 @@ public class ThanhVienBLL {
     public void XoaTheoNam(int so){
         tvDAL.XoaTheoNam(so);
     }
+    public ThanhVienDTO getThanhVienByID(int id)
+    {
+        return tvDAL.getThanhVienById(id);
+    }
 }

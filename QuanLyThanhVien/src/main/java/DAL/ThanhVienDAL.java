@@ -391,6 +391,25 @@ public class ThanhVienDAL {
             session.close();
         }
     }
+    public int getIdByName(String name) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "SELECT tv.maTV FROM ThanhVienDTO tv WHERE tv.ten = :name";
+            Integer id = (Integer) session.createQuery(hql)
+                .setParameter("name", name)
+                .uniqueResult();
+            tx.commit();
+            return (id != null) ? id : -1; // Trả về -1 nếu không tìm thấy hoặc trả về ID nếu có
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+            return -1; // Trả về -1 nếu có lỗi xảy ra
+        } finally {
+            session.close();
+        }
+    }
 
     public static void main(String[] args){
         ThanhVienDAL tv = new ThanhVienDAL();
@@ -398,7 +417,7 @@ public class ThanhVienDAL {
         tv.XoaTheoNam(19);
     }
 
-
+    
     
 //    
 }
