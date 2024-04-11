@@ -24,6 +24,8 @@ public class MuonGUI extends javax.swing.JFrame {
     ThanhVienBLL tvBLL = new ThanhVienBLL();
     ThietBiBLL tbBLL= new ThietBiBLL();
     ThongTinSuDungBLL ttBLL=new ThongTinSuDungBLL();
+    
+    ArrayList<ThongTinSuDungDTO> list = new ArrayList<>();
     /**
      * Creates new form MuonGUI
      */
@@ -36,6 +38,8 @@ public class MuonGUI extends javax.swing.JFrame {
 //        jLabel3.setHorizontalAlignment(jLabel3.CENTER); // Đưa chữ về giữa theo chiều ngang
 //        jLabel4.setHorizontalAlignment(jLabel4.CENTER); // Đưa chữ về giữa theo chiều ngang
 //        jLabel4.setHorizontalAlignment(jLabel5.CENTER); // Đưa chữ về giữa theo chiều ngang
+        
+        list = ttBLL.listThongTinSuDung();
         
         String[] items1 = {};
         String[] items = {};
@@ -57,20 +61,34 @@ public class MuonGUI extends javax.swing.JFrame {
         ArrayList<ThietBiDTO> arr1 = tbBLL.getListTB();
         for(ThietBiDTO thietBi : arr1){
             String hoTen = thietBi.getTenTB();
-            int maTV = thietBi.getMaTB(); // Giả sử có phương thức để lấy mã thành viên
-            String matv= String.valueOf(maTV);
+            int maTB = thietBi.getMaTB(); // Giả sử có phương thức để lấy mã thành viên
+            String matv= String.valueOf(maTB);
             String combinedString1 = hoTen + " - " + matv; // Ghép chuỗi
-            model.addElement(combinedString1); // Thêm chuỗi đã ghép vào model
+            if (checkThietBi(maTB)){
+                model.addElement(combinedString1); // Thêm chuỗi đã ghép vào model
+            }
         }
         
         
-
+        
         
     }
     public boolean checkDate() {
         Date muonDate = jDateChooser_tgmuon.getDate();
         Date traDate = jDateChooser_tgtra.getDate();
         return muonDate.before(traDate);
+    }
+    
+    public boolean checkThietBi(int ID){
+        for (ThongTinSuDungDTO s : list){
+            if ( s.getMaTB() != null){
+                if (s.getMaTB().getMaTB() == ID){
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
     /**
      * This method is called from within the constructor to initialize the form.
