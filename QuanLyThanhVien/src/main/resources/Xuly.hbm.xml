@@ -4,8 +4,8 @@
 "-//Hibernate/Hibernate Mapping DTD//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
-<hibernate-mapping>
-   <class name = "DTO.XuLyViPhamDTO" table = "xuly">
+<hibernate-mapping package="DTO">
+   <class name = "XuLyViPhamDTO" table = "xuly">
    
 <meta attribute = "class-description">
          This class contains the XuLy detail. 
@@ -13,6 +13,7 @@
       
 
       <id name = "MaXL" type = "int" column = "MaXL">
+          <generator class="identity"/>
          </id>
       
       <many-to-one name="MaTV" class="ThanhVienDTO" fetch="join">

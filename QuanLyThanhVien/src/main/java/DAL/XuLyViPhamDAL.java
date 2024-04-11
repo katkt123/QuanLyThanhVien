@@ -33,21 +33,27 @@ public class XuLyViPhamDAL {
         }
     }
     
-    public ArrayList<XuLyViPhamDTO> listXuLyViPham() {
+    
+     public ArrayList<XuLyViPhamDTO> listXuLyViPham() {
         Session session = factory.openSession();
-        ArrayList<XuLyViPhamDTO> List = new ArrayList<>();
+        ArrayList<XuLyViPhamDTO> list = new ArrayList<>();
         Transaction tx = null;
-         try{
-             tx = session.beginTransaction();
-             List employess = session.createQuery("FROM XuLyViPhamDTO").list();
-             for (Iterator iterator = employess.iterator(); iterator.hasNext();) {
-                 XuLyViPhamDTO tt = (XuLyViPhamDTO) iterator.next();
-                 List.add(tt);
-             }
-         } catch (HibernateException e){
-             if (tx != null) tx.rollback();
-             e.printStackTrace();
-         }
-         return List;
+        try {
+            tx = session.beginTransaction();
+            list = (ArrayList<XuLyViPhamDTO>) session.createQuery("FROM XuLyViPhamDTO").list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+    
+    public static void main(String[] args) {
+        XuLyViPhamDAL a = new XuLyViPhamDAL();
+        ArrayList<XuLyViPhamDTO> b= a.listXuLyViPham();
+        System.out.print(b.size()+"______________");
     }
 }

@@ -15,16 +15,23 @@ import javax.persistence.ForeignKey;
 @Entity
 @Table(name = "xuly")
 public class XuLyViPhamDTO {
-
-    @Id
+  @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "MaXL")
   private int MaXL;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "MaTV", nullable = false, foreignKey = @ForeignKey(name = "fk_ThanhVienDTO"))
-  private ThanhVienDTO thanhVien;
+  @JoinColumn(name = "MaTV", nullable = false, foreignKey = @ForeignKey(name = "fk_XuLyViPhamDTO_ThanhVienDTO"))
+  public ThanhVienDTO MaTV;
 
+    public ThanhVienDTO getMaTV() {
+        return MaTV;
+    }
+
+    public void setMaTV(ThanhVienDTO MaTV) {
+        this.MaTV = MaTV;
+    }
+  
     @Column(name = "HinhThucXL")
     private String HinhThucXL;
 
@@ -38,10 +45,21 @@ public class XuLyViPhamDTO {
     private int TrangThaiXL;
 
     public XuLyViPhamDTO() {
+        this.SoTien=0;
     }
 
-    public XuLyViPhamDTO(ThanhVienDTO thanhVien, String HinhThucXL, int SoTien, Date NgayXL, int TrangThaiXL) {
-        this.thanhVien = thanhVien;
+    public XuLyViPhamDTO(int MaXL, ThanhVienDTO MaTV, String HinhThucXL, int SoTien, Date NgayXL, int TrangThaiXL) {
+        this.MaXL = MaXL;
+        this.MaTV = MaTV;
+        this.HinhThucXL = HinhThucXL;
+        this.SoTien = SoTien;
+        this.NgayXL = NgayXL;
+        this.TrangThaiXL = TrangThaiXL;
+    }
+
+    
+    public XuLyViPhamDTO(ThanhVienDTO MaTV, String HinhThucXL, int SoTien, Date NgayXL, int TrangThaiXL) {
+        this.MaTV = MaTV;
         this.HinhThucXL = HinhThucXL;
         this.SoTien = SoTien;
         this.NgayXL = NgayXL;
@@ -55,14 +73,7 @@ public class XuLyViPhamDTO {
     public void setMaXL(int MaXL) {
         this.MaXL = MaXL;
     }
-
-    public ThanhVienDTO getThanhVien() {
-        return thanhVien;
-    }
-
-    public void setThanhVien(ThanhVienDTO thanhVien) {
-        this.thanhVien = thanhVien;
-    }
+   
 
     public String getHinhThucXL() {
         return HinhThucXL;
@@ -95,5 +106,6 @@ public class XuLyViPhamDTO {
     public void setTrangThaiXL(int TrangThaiXL) {
         this.TrangThaiXL = TrangThaiXL;
     }
+    
 
 }

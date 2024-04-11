@@ -75,7 +75,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             XuLyViPhamDTO em= arrXuLy.get(i);
             
             int idXL= em.getMaXL();
-            ThanhVienDTO thanhvien = em.getThanhVien();
+            ThanhVienDTO thanhvien = em.getMaTV();
             String hinhthuc = em.getHinhThucXL();
             int sotien = em.getSoTien();
             Date ngayxl = em.getNgayXL();
