@@ -126,12 +126,12 @@ public class XoaNhieuGUI extends javax.swing.JFrame {
 
     private void jButton_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteActionPerformed
         // TODO add your handling code here
+        
         if(check()){
             String Name = jTextField_Khoa.getText();
             int so= Integer.parseInt(Name);
-            tvBLL.XoaTheoNam(so);
-            tvGUI.load();
-            JOptionPane.showMessageDialog(null, "Xóa thành công !!!", "Xóa thành viên", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, tvBLL.XoaTheoKhoa(so));
+        
             dispose();
         }
         else{

@@ -31,6 +31,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
     public static String khoa;
     public static String nganh;
     public static String sdt;
+    private int DoubleClick = -1;
     /**
      * Creates new form ThanhVienGUI
      */
@@ -326,6 +327,11 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         ));
         jTable_ThanhVien.setGridColor(new java.awt.Color(204, 204, 204));
         jTable_ThanhVien.setRowHeight(50);
+        jTable_ThanhVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_ThanhVienMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable_ThanhVien);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -435,9 +441,14 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             
         } else {
             id = (int) jTable_ThanhVien.getValueAt(selectedRow, 0);
-            tvBLL.deleteThanhVien(id);
-            JOptionPane.showMessageDialog(this, "Xóa thành công!!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-           
+            if(tvBLL.deleteThanhVien(id)){
+                JOptionPane.showMessageDialog(this, "Xóa thành công!!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                loadThanhVien();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Thành Viên hiện đang mượn thiết bị hoặc đang bị xử lý nên không thể xóa", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+            
         }
 //       
     }//GEN-LAST:event_jButton_DeleteActionPerformed
@@ -473,6 +484,21 @@ public class ThanhVienGUI extends javax.swing.JPanel {
            
         }
     }//GEN-LAST:event_jButton_VaoKhuVucActionPerformed
+
+    private void jTable_ThanhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ThanhVienMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTable_ThanhVien.getSelectedRow();
+        
+        if (selectedRow != DoubleClick){
+            DoubleClick = selectedRow;
+        }
+        else{
+            int ID = (int) modelTV.getValueAt(selectedRow, 0);
+            ImageIcon icon = new ImageIcon("src\\main\\java\\Image\\user.png");
+            JOptionPane.showMessageDialog(this, tvBLL.HienThiChiTiet(ID),"Thông Tin Thành Viên", HEIGHT, icon);
+            DoubleClick = -1;
+        }
+    }//GEN-LAST:event_jTable_ThanhVienMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

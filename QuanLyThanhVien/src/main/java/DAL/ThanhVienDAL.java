@@ -225,14 +225,41 @@ public class ThanhVienDAL {
             session.close();
         }
     } 
-    public void deleteThanhVien(int tvienID) {
+//    public boolean deleteThanhVien(int tvienID) {
+//        Session session = factory.openSession();
+//        Transaction tx = null;
+//        try {
+//            tx = session.beginTransaction();
+//
+//            
+//            String hql = "SELECT COUNT(*) FROM ThongTinSuDungDTO ttsd WHERE ttsd.MaTV = :tvienID";
+//            Long count = (Long) session.createQuery(hql)
+//                .setParameter("tvienID", tvienID)
+//                .uniqueResult();
+//
+//            if (count > 0) {
+//                System.out.println("Không thể xóa thành viên vì đang dính khóa ngoại trong ThongTinSuDungDTO");
+//                return false;
+//            }
+//
+//            ThanhVienDTO tvien = (ThanhVienDTO) session.get(ThanhVienDTO.class, tvienID);
+//            session.delete(tvien);
+//            tx.commit();
+//        } catch (HibernateException e) {
+//            if (tx != null) tx.rollback();
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+//        }
+//        return true;
+//    }
+    public void deleteThanhVien(int tvID) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
-            
             tx = session.beginTransaction();
-            ThanhVienDTO tvien = (ThanhVienDTO) session.get(ThanhVienDTO.class, tvienID);
-            session.delete(tvien);
+            ThanhVienDTO tbi = (ThanhVienDTO) session.get(ThanhVienDTO.class, tvID);
+            session.delete(tbi);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -241,6 +268,7 @@ public class ThanhVienDAL {
             session.close();
         }
     }
+
     public void ThemThanhVienExcel(String path) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -339,14 +367,16 @@ public class ThanhVienDAL {
     }
 
     
-   public void XoaTheoNam(int twoDigits) {
+   public ArrayList<ThanhVienDTO> XoaTheoNam(int twoDigits) {
         Session session = factory.openSession();
         Transaction tx = null;
+        ArrayList<ThanhVienDTO> danhSachCanXoa = new ArrayList<>();
+
         try {
             tx = session.beginTransaction();
             int thirdDigit = twoDigits / 10;
-            int fourthDigit = twoDigits  % 10;
-            
+            int fourthDigit = twoDigits % 10;
+
             String thirdDigitStr = String.valueOf(thirdDigit);
             String fourthDigitStr = String.valueOf(fourthDigit);
 
@@ -356,13 +386,10 @@ public class ThanhVienDAL {
             query.setParameter("thirdDigit", thirdDigitStr);
             query.setParameter("fourthDigit", fourthDigitStr);
 
+            danhSachCanXoa = (ArrayList<ThanhVienDTO>) query.getResultList();
 
-            List<ThanhVienDTO> danhSachCanXoa = query.getResultList();
-            System.out.print(danhSachCanXoa.size());
-            // Duyệt qua danh sách các đối tượng và xóa chúng
-            for (ThanhVienDTO thanhVien : danhSachCanXoa) {
-                session.delete(thanhVien);
-            }
+            // Duyệt qua danh sách các đối tượng và kiểm tra dính khóa ngoại trước khi xóa
+            
 
             // Kết thúc giao dịch
             tx.commit();
@@ -374,7 +401,10 @@ public class ThanhVienDAL {
         } finally {
             session.close();
         }
+
+        return danhSachCanXoa;
     }
+
     public int getIdByName(String name) {
         Session session = factory.openSession();
         Transaction tx = null;
@@ -395,11 +425,7 @@ public class ThanhVienDAL {
         }
     }
    
-    public static void main(String[] args){
-        ThanhVienDAL tv = new ThanhVienDAL();
-        
-        tv.XoaTheoNam(19);
-    }
+    
 
     
     

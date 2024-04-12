@@ -23,32 +23,21 @@ GUI\MainGUI$2.class
 GUI\ThanhVien\UpdateThanhVienGUI$2.class
 GUI\ThietBi\ThietBiGUI$3.class
 GUI\MainGUI.class
-<<<<<<< HEAD
 GUI\ThanhVien\TraGUI$2.class
-=======
->>>>>>> 725a99eaff3a11e5bf46fe472c4930739d1bf51f
 DTO\ThietBiDTO.class
 GUI\ThongKeGUI\ThongKeGUI.class
 BLL\ThanhVienBLL.class
 GUI\ThietBi\ThietBiGUI$10.class
-<<<<<<< HEAD
-DAL\ThongTinSuDungDAL.class
-GUI\ThanhVien\XoaNhieuGUI$3.class
-GUI\ThanhVien\TraGUI.class
-=======
 GUI\ThietBi\ThietBiGUI$16.class
 DAL\ThongTinSuDungDAL.class
 GUI\ThanhVien\XoaNhieuGUI$3.class
->>>>>>> 725a99eaff3a11e5bf46fe472c4930739d1bf51f
+GUI\ThanhVien\TraGUI.class
 GUI\ThietBi\ThietBiGUI$4.class
 GUI\MainGUI$1.class
 DTO\XuLyViPhamDTO.class
 GUI\ThanhVien\AddThanhVienGUI$1.class
 GUI\ThanhVien\XoaNhieuGUI.class
-<<<<<<< HEAD
 GUI\ThanhVien\TraGUI$1.class
-=======
->>>>>>> 725a99eaff3a11e5bf46fe472c4930739d1bf51f
 GUI\ThanhVien\MuonGUI$3.class
 DTO\ThanhVienDTO.class
 GUI\ThanhVien\ThanhVienGUI$4.class
@@ -73,6 +62,7 @@ GUI\ThanhVien\MuonGUI$2.class
 GUI\ThietBi\ThietBiGUI$2.class
 GUI\ThanhVien\ModifyAddGUI$2.class
 GUI\XuLyViPham\XuLyViPhamGUI$1.class
+GUI\ThanhVien\ThanhVienGUI$12.class
 GUI\ThanhVien\ThanhVienGUI$5.class
 GUI\ThietBi\ThietBiGUI.class
 GUI\XuLyViPham\XuLyViPhamGUI$4.class
