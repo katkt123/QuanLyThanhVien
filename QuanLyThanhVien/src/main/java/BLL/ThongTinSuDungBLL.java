@@ -18,6 +18,9 @@ public class ThongTinSuDungBLL {
     public ArrayList<ThongTinSuDungDTO> listThongTinSuDung() {
         return ttDAL.listThongTinSuDung();
     }
+    public ArrayList<ThongTinSuDungDTO> listMuon() {
+        return ttDAL.listMuon();
+    }
     public void themThongTinSuDung(ThongTinSuDungDTO thongTin) {
         ttDAL.themThongTinSuDung(thongTin);
     }

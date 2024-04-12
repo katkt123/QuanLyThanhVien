@@ -88,11 +88,9 @@ public class ThanhVienDAL {
         try {
             tx = session.beginTransaction();
              // Sử dụng Criteria để lấy số lượng bản ghi trong bảng ThanhVien
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-            Root<ThanhVienDTO> root = criteriaQuery.from(ThanhVienDTO.class);
-            criteriaQuery.select(builder.count(root));
-            Long count = session.createQuery(criteriaQuery).getSingleResult();
+            String hql = "SELECT COUNT(*) FROM ThongTinSuDungDTO";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long count = query.uniqueResult();
             
             String id = "";
             String year = Year.now().toString().substring(2);
@@ -248,11 +246,9 @@ public class ThanhVienDAL {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-            Root<ThanhVienDTO> root = criteriaQuery.from(ThanhVienDTO.class);
-            criteriaQuery.select(builder.count(root));
-            Long count = session.createQuery(criteriaQuery).getSingleResult();
+            String hql = "SELECT COUNT(*) FROM ThongTinSuDungDTO";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long count = query.uniqueResult();
 
             FileInputStream inputStream = new FileInputStream(new File(path));
             Workbook workbook = WorkbookFactory.create(inputStream);
@@ -322,26 +318,13 @@ public class ThanhVienDAL {
 
         try {
             tx = session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<ThanhVienDTO> criteria = builder.createQuery(ThanhVienDTO.class);
-            Root<ThanhVienDTO> root = criteria.from(ThanhVienDTO.class);
 
-            // Tạo biểu thức để kiểm tra MaTV và SDT là kiểu int
-            Expression<Integer> maTVExpression = root.get("MaTV").as(Integer.class);
-            Expression<Integer> sdtExpression = root.get("SDT").as(Integer.class);
+            String hql = "FROM ThanhVienDTO WHERE CAST(MaTV AS string) LIKE :keyword OR HoTen LIKE :keyword OR Khoa LIKE :keyword OR Nganh LIKE :keyword OR SDT LIKE :keyword";
+            Query<ThanhVienDTO> query = session.createQuery(hql, ThanhVienDTO.class);
+            query.setParameter("keyword", "%" + s + "%");
 
-            // Tạo điều kiện cho các cột
-            Predicate predicate = builder.or(
-                    builder.like(maTVExpression.as(String.class), "%" + s + "%"),
-                    builder.like(root.get("HoTen"), "%" + s + "%"),
-                    builder.like(root.get("Khoa"), "%" + s + "%"),
-                    builder.like(root.get("Nganh"), "%" + s + "%"),
-                    builder.like(sdtExpression.as(String.class), "%" + s + "%")
-            );
+            list = (ArrayList<ThanhVienDTO>) query.getResultList();
 
-            // Áp dụng điều kiện và lấy kết quả
-            criteria.select(root).where(predicate);
-            list = (ArrayList<ThanhVienDTO>) session.createQuery(criteria).getResultList();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -354,6 +337,7 @@ public class ThanhVienDAL {
 
         return list;
     }
+
     
    public void XoaTheoNam(int twoDigits) {
         Session session = factory.openSession();
@@ -410,7 +394,7 @@ public class ThanhVienDAL {
             session.close();
         }
     }
-
+   
     public static void main(String[] args){
         ThanhVienDAL tv = new ThanhVienDAL();
         

@@ -72,6 +72,7 @@ public class ThietBiDAL {
         }
         return thietBi;
     }
+    
     public ArrayList<ThietBiDTO> listThietBiComboBox(String id) {
         Session session = factory.openSession();
         ArrayList<ThietBiDTO> List = new ArrayList<>();

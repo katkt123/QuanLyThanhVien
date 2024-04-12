@@ -105,9 +105,9 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         jButton_Delete.setIcon(icon);
     }
     public void setIconDelete1(){
-        String imagePath = "src\\main\\java\\Image\\DeleteMany.png"; // 
+        String imagePath = "src\\main\\java\\Image\\giving.png"; // 
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH));
-        jButton_Delete1.setIcon(icon);
+        jButton_Tra.setIcon(icon);
     }
     public void setIconMuon(){
         String imagePath = "src\\main\\java\\Image\\borrowing.png"; // 
@@ -160,7 +160,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         jButton_Edit = new javax.swing.JButton();
         jButton_Delete = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
-        jButton_Delete1 = new javax.swing.JButton();
+        jButton_Tra = new javax.swing.JButton();
         jButton_Muon = new javax.swing.JButton();
         jButton_VaoKhuVuc = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -213,8 +213,8 @@ public class ThanhVienGUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jTextField_Search, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,10 +245,10 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             }
         });
 
-        jButton_Delete1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_Delete1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Tra.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Tra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Delete1ActionPerformed(evt);
+                jButton_TraActionPerformed(evt);
             }
         });
 
@@ -272,13 +272,13 @@ public class ThanhVienGUI extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton_VaoKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_Muon, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton_Delete1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_Tra, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -301,7 +301,7 @@ public class ThanhVienGUI extends javax.swing.JPanel {
                             .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                             .addComponent(jButton_Refresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                             .addComponent(jButton_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton_Delete1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_Tra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton_Muon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton_VaoKhuVuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 14, Short.MAX_VALUE)))
@@ -430,7 +430,9 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         int selectedRow = jTable_ThanhVien.getSelectedRow();
         
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            XoaNhieuGUI atv = new XoaNhieuGUI();
+            atv.setVisible(true);
+            
         } else {
             id = (int) jTable_ThanhVien.getValueAt(selectedRow, 0);
             tvBLL.deleteThanhVien(id);
@@ -445,11 +447,11 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         loadThanhVien();
     }//GEN-LAST:event_jButton_RefreshActionPerformed
 
-    private void jButton_Delete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Delete1ActionPerformed
+    private void jButton_TraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TraActionPerformed
         // TODO add your handling code here:
-        XoaNhieuGUI atv = new XoaNhieuGUI();
-        atv.setVisible(true);
-    }//GEN-LAST:event_jButton_Delete1ActionPerformed
+        TraGUI mg=new TraGUI();
+        mg.setVisible(true);
+    }//GEN-LAST:event_jButton_TraActionPerformed
 
     private void jButton_MuonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_MuonActionPerformed
         // TODO add your handling code here:
@@ -476,10 +478,10 @@ public class ThanhVienGUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Add;
     private javax.swing.JButton jButton_Delete;
-    private javax.swing.JButton jButton_Delete1;
     private javax.swing.JButton jButton_Edit;
     private javax.swing.JButton jButton_Muon;
     private javax.swing.JButton jButton_Refresh;
+    private javax.swing.JButton jButton_Tra;
     private javax.swing.JButton jButton_VaoKhuVuc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;

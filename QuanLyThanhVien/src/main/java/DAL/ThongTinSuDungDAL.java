@@ -14,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 public class ThongTinSuDungDAL {
     private static SessionFactory factory;
@@ -44,6 +45,31 @@ public class ThongTinSuDungDAL {
             session.close();
         }
         return list;
+    }
+    public ArrayList<ThongTinSuDungDTO> listMuon(){
+        Session session = factory.openSession();
+        Transaction tx = null;
+        ArrayList<ThongTinSuDungDTO> resultList = null;
+
+        try {
+            tx = session.beginTransaction();
+
+            // Sử dụng câu lệnh HQL để lấy tất cả ThongTinSuDungDTO mà MaTB khác null
+            String hql = "FROM ThongTinSuDungDTO WHERE MaTB IS NOT NULL";
+            Query<ThongTinSuDungDTO> query = session.createQuery(hql, ThongTinSuDungDTO.class);
+            resultList = (ArrayList<ThongTinSuDungDTO>) query.getResultList();
+
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return resultList;
     }
 
     public void themThongTinSuDung(ThongTinSuDungDTO thongTin) {
@@ -97,11 +123,9 @@ public class ThongTinSuDungDAL {
         Transaction tx=null;
         try {
             tx = session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-            Root<ThongTinSuDungDTO> root = criteriaQuery.from(ThongTinSuDungDTO.class);
-            criteriaQuery.select(builder.count(root));
-            Long count = session.createQuery(criteriaQuery).getSingleResult();
+            String hql = "SELECT COUNT(*) FROM ThongTinSuDungDTO";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long count = query.uniqueResult();
             ThanhVienDTO idtv = tvDAL.getThanhVienById(id);
             int idTT = count.intValue() + 1;
             Date date = new Date();
@@ -123,12 +147,11 @@ public class ThongTinSuDungDAL {
         Transaction tx=null;
         try {
             tx = session.beginTransaction();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-            Root<ThongTinSuDungDTO> root = criteriaQuery.from(ThongTinSuDungDTO.class);
-            criteriaQuery.select(builder.count(root));
-            Long count = session.createQuery(criteriaQuery).getSingleResult();
+            String hql = "SELECT COUNT(*) FROM ThongTinSuDungDTO";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long count = query.uniqueResult();
             int idTT = count.intValue() + 1;
+
 
             ThongTinSuDungDTO Thongtin= new ThongTinSuDungDTO(idTT,tt.getMaTV(),tt.getMaTB(),tt.getTGMuon(),tt.getTGTra());
             session.save(Thongtin);
@@ -140,6 +163,7 @@ public class ThongTinSuDungDAL {
             session.close();
         }
     }
+    
     
 //    public static void main(String[] args) {
 ////        ThongTinSuDungDAL dal = new ThongTinSuDungDAL();
