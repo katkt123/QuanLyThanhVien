@@ -60,10 +60,12 @@ public class ThietBiBLL {
     
     public String KiemTraTruocKhiXoa(DefaultTableModel model){
         ArrayList<String> list = new ArrayList<>();
+        int dem = 0;
         for (int i = 0; i < model.getRowCount();i++){
             boolean trangthai = (boolean) model.getValueAt(i, 0);
             if (trangthai){
                 int ID = (int) model.getValueAt(i, 1);
+                dem++;
                 if (CheckMuon(ID)){
                     list.add(ID + " " +  model.getValueAt(i, 2));
                 }
@@ -81,8 +83,14 @@ public class ThietBiBLL {
             }
             return result;
         }
-        
-        return "Xóa thất bại"; 
+        else{
+            if (dem == 0){
+                return "Hãy chọn các thiết bị muốn xóa"; 
+            }
+            else{
+                return "Xóa thành công";
+            }
+        }
     }   
    
     
