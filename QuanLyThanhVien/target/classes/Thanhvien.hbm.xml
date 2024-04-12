@@ -12,8 +12,7 @@
       </meta>
       
 
-      <id name = "MaTV" type = "int" column = "MaTV">
-         </id>
+      <id name = "MaTV" type = "int" column = "MaTV"></id>
       
       <property name = "HoTen" column = "HoTen" type = "string"/>
       <property name="Khoa" column="Khoa" type="string"/>
