@@ -40,7 +40,7 @@ public class ThongTinSuDungDTO {
     
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="MaTB",nullable=true,foreignKey=@ForeignKey(name="fk_ThongTinSuDungDTO_ThietBiDTO"))
-    private ThietBiDTO MaTB; // đặt lên lỏ thật
+    private ThietBiDTO MaTB;
 
     
     @Column(name = "TGVao")

@@ -48,6 +48,9 @@ public class ThietBiGUI extends javax.swing.JPanel {
     public String TenTB;
     public String MoTaTB;
     
+    
+    private int DoubleClick = -1;
+    
     public ThietBiGUI() {
         initComponents();
         
@@ -353,6 +356,11 @@ public class ThietBiGUI extends javax.swing.JPanel {
         jTableThietBi.setMaximumSize(new java.awt.Dimension(2147483647, 200));
         jTableThietBi.setMinimumSize(new java.awt.Dimension(90, 200));
         jTableThietBi.setRowHeight(50);
+        jTableThietBi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableThietBiMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableThietBi);
         if (jTableThietBi.getColumnModel().getColumnCount() > 0) {
             jTableThietBi.getColumnModel().getColumn(0).setPreferredWidth(70);
@@ -406,7 +414,7 @@ public class ThietBiGUI extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(jTableThietBi, thietBiBLL.XoaTB(modelTB));
+        JOptionPane.showMessageDialog(jScrollPane2, thietBiBLL.KiemTraTruocKhiXoa(modelTB));
         loadThietBi();
         
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -539,6 +547,22 @@ public class ThietBiGUI extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnExcelActionPerformed
+
+    private void jTableThietBiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableThietBiMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTableThietBi.getSelectedRow();
+        
+        if (selectedRow != DoubleClick){
+            DoubleClick = selectedRow;
+        }
+        else{
+            int ID = (int) modelTB.getValueAt(selectedRow, 1);
+            ImageIcon icon = new ImageIcon("src\\main\\java\\Image\\user.png");
+            JOptionPane.showMessageDialog(jScrollPane2, thietBiBLL.HienChiTiet(ID),"Thông tin mượn", HEIGHT, icon);
+            DoubleClick = -1;
+        }
+        
+    }//GEN-LAST:event_jTableThietBiMouseClicked
     // Phương thức để kiểm tra xem tập tin có phải là tập tin Excel (.xlsx) không
     public static boolean isExcelFile(String filePath) {
         // Kiểm tra phần mở rộng của tập tin

@@ -34,4 +34,6 @@ public class ThongTinSuDungBLL {
     public void MuonThietBi(ThongTinSuDungDTO tt){
         ttDAL.MuonThietBi(tt);
     }
+    
+    
 }

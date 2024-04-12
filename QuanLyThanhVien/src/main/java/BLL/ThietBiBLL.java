@@ -5,7 +5,9 @@
 package BLL;
 
 import DAL.ThietBiDAL;
+import DTO.ThanhVienDTO;
 import DTO.ThietBiDTO;
+import DTO.ThongTinSuDungDTO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,25 +46,44 @@ public class ThietBiBLL {
         tbDAL.updateThietBi(tb);
     }
     
-    public String XoaTB(DefaultTableModel model){
-        int dem = 0;
+    public boolean CheckMuon(int ID){
+        ArrayList<ThongTinSuDungDTO> list = new ThongTinSuDungBLL().listThongTinSuDung();
+        for (ThongTinSuDungDTO s : list){
+            if (s.getMaTB() != null){
+                if (s.getMaTB().getMaTB() == ID){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public String KiemTraTruocKhiXoa(DefaultTableModel model){
+        ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < model.getRowCount();i++){
             boolean trangthai = (boolean) model.getValueAt(i, 0);
             if (trangthai){
-                tbDAL.deleteThietBi((int) model.getValueAt(i, 1));
-                dem++;
+                int ID = (int) model.getValueAt(i, 1);
+                if (CheckMuon(ID)){
+                    list.add(ID + " " +  model.getValueAt(i, 2));
+                }
+                else{
+                    tbDAL.deleteThietBi(ID);
+                }
+
             }
         }
-        if (dem!=0){
-            return "Xóa thành công";
-        }
-        else if(dem == 0){
-            return "Hãy tick vào các đối tượng muốn xóa";
+        
+        if (list.size() != 0){
+            String result = "Mã thiết bị đang mượn: ";
+            for (String i : list){
+                result += "\n" + i;
+            }
+            return result;
         }
         
         return "Xóa thất bại"; 
-    }
-    
+    }   
    
     
     
@@ -167,6 +188,25 @@ public class ThietBiBLL {
     }
     public ThietBiDTO getThietBiById(int id){
         return tbDAL.getThietBiById(id);
+    }
+    
+    
+    public String HienChiTiet(int ID){
+        ArrayList<ThongTinSuDungDTO> list = new ThongTinSuDungBLL().listThongTinSuDung();
+        String message = "";
+        for (ThongTinSuDungDTO s : list){
+            if (s.getMaTB() != null){
+                if (s.getMaTB().getMaTB() == ID){
+                    ThanhVienDTO temp = new ThanhVienBLL().getThanhVienByID(s.getMaTV().getMaTV());
+                    message += "\nMã thành viên: " + s.getMaTV().getMaTV();
+                    message += "\nTên người mượn: " + temp.getHoTen();
+                    message += "\nNgày mượn: " + s.getTGMuon().toString();
+                    message += "\nNgày trả: " + s.getTGTra().toString();
+                    return message;
+                }
+            }
+        }
+        return "Thiết bị chưa được mượn";
     }
     
 }

@@ -118,6 +118,7 @@ public class ThongTinSuDungDAL {
             session.close();
         }
     }
+    
     public void MuonThietBi(ThongTinSuDungDTO tt){
         Session session = factory.openSession();
         Transaction tx=null;
