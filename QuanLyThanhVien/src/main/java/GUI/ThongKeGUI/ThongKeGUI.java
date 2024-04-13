@@ -95,8 +95,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
         tvBLL= new ThanhVienBLL();
         
         for (ThongTinSuDungDTO t: tinSuDungBLL.listThongTinSuDung()) {       
-            if (t.getMaTB() != null)
-                continue;
             String khoa = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getKhoa();
              switch (khoa.toUpperCase(Locale.ROOT)) {
                 case "SP KHXH":
