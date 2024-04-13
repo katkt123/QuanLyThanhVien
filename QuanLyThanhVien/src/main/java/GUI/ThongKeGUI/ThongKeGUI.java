@@ -32,7 +32,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
      */
     public ThongKeGUI() {
         initComponents();
-        setBackground(new Color(255, 255, 255));
         
         tinSuDungBLL = new ThongTinSuDungBLL();
         ArrayList<Object[]> dataList = new ArrayList<>();
@@ -78,6 +77,14 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
         jPanel2.add(jScrollPane1, BorderLayout.CENTER);
         
+        
+        
+        jPanel1.setBackground(new Color(255, 255, 255));
+        pieChart1.setPreferredSize(new Dimension(400, 400));
+        pieChart1.setChartType(PieChart.PeiChartType.DONUT_CHART);
+        pieChart2.setPreferredSize(new Dimension(400, 400));
+        pieChart2.setChartType(PieChart.PeiChartType.DEFAULT);
+        
         int SP_KHXH = 0;
         int SP_KHTN = 0;
         int NGOAI_NGU = 0;
@@ -88,7 +95,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         tvBLL= new ThanhVienBLL();
         
         for (ThongTinSuDungDTO t: tinSuDungBLL.listThongTinSuDung()) {       
-            if (t.getMaTV() == null)
+            if (t.getMaTB() != null)
                 continue;
             String khoa = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getKhoa();
              switch (khoa.toUpperCase(Locale.ROOT)) {
@@ -118,8 +125,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
             }
         }
         
-        pieChart1.setPreferredSize(new Dimension(0, 400));
-        pieChart1.setChartType(PieChart.PeiChartType.DONUT_CHART);
         if (SP_KHXH > 0)
             pieChart1.addData(new ModelPieChart("SP KHXH", SP_KHXH, new Color(23, 126, 238)));
         if (SP_KHTN > 0)
@@ -134,7 +139,61 @@ public class ThongKeGUI extends javax.swing.JPanel {
             pieChart1.addData(new ModelPieChart("TOÁN UD", TOAN_UD, new Color(254,0,230)));
         if (CNTT > 0)
             pieChart1.addData(new ModelPieChart("CNTT", CNTT, new Color(46,204,217)));
+        SP_KHXH = 0;
+        SP_KHTN = 0;
+        NGOAI_NGU = 0;
+        QTKD = 0;
+        QLGD = 0;
+        TOAN_UD = 0;
+        CNTT = 0;
+        
+        for (ThongTinSuDungDTO t: tinSuDungBLL.listThongTinSuDung()) {       
+            if (t.getMaTB() == null)
+                continue;
+            String khoa = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getKhoa();
+             switch (khoa.toUpperCase(Locale.ROOT)) {
+                case "SP KHXH":
+                    SP_KHXH += 1;
+                    break;
+                case "SP KHTN":
+                    SP_KHTN += 1;
+                    break;
+                case "NGOẠI NGỮ":
+                    NGOAI_NGU += 1;
+                    break;
+                case "QTKD":
+                    QTKD += 1;
+                    break;
+                case "QLGD":
+                    QLGD += 1;
+                    break;
+                case "TOÁN UD":
+                    TOAN_UD += 1;
+                    break;
+                case "CNTT":
+                    CNTT += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (SP_KHXH > 0)
+            pieChart2.addData(new ModelPieChart("SP KHXH", SP_KHXH, new Color(23, 126, 238)));
+        if (SP_KHTN > 0)
+            pieChart2.addData(new ModelPieChart("SP KHTN", SP_KHTN, new Color(221, 65, 65)));
+        if (NGOAI_NGU > 0)
+            pieChart2.addData(new ModelPieChart("NGOẠI NGỮ", NGOAI_NGU, new Color(47, 157, 64)));
+        if (QTKD > 0)
+            pieChart2.addData(new ModelPieChart("QTKD", QTKD, new Color(187,78,255)));
+        if (QLGD > 0)
+            pieChart2.addData(new ModelPieChart("QLGD", QLGD, new Color(255,144,18)));
+        if (TOAN_UD > 0)
+            pieChart2.addData(new ModelPieChart("TOÁN UD", TOAN_UD, new Color(254,0,230)));
+        if (CNTT > 0)
+            pieChart2.addData(new ModelPieChart("CNTT", CNTT, new Color(46,204,217)));
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -145,20 +204,31 @@ public class ThongKeGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pieChart1 = new GUI.ThongKeGUI.PieChart();
         jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        pieChart1 = new GUI.ThongKeGUI.PieChart();
+        pieChart2 = new GUI.ThongKeGUI.PieChart();
 
         setLayout(new java.awt.BorderLayout());
-        add(pieChart1, java.awt.BorderLayout.CENTER);
 
         jPanel2.setLayout(new java.awt.BorderLayout());
         add(jPanel2, java.awt.BorderLayout.PAGE_END);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        pieChart1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(pieChart1, java.awt.BorderLayout.CENTER);
+        jPanel1.add(pieChart2, java.awt.BorderLayout.LINE_START);
+
+        add(jPanel1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private GUI.ThongKeGUI.PieChart pieChart1;
+    private GUI.ThongKeGUI.PieChart pieChart2;
     // End of variables declaration//GEN-END:variables
     private JTable jTable1;
     private JScrollPane jScrollPane1;
