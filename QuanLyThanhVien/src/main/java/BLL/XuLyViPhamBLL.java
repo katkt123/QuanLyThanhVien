@@ -19,6 +19,18 @@ public class XuLyViPhamBLL {
     public ArrayList<XuLyViPhamDTO> listxlvp(){
         return xlDAL.listXuLyViPham();
     }
-            
+    
+    public boolean checkVP(int id){
+        ArrayList<XuLyViPhamDTO> arr = xlDAL.listXuLyViPham();
+        for(XuLyViPhamDTO a:arr){
+            if(a.getMaTV().getMaTV()==id && a.getTrangThaiXL()==0){
+                return false;
+                
+            }
+           
+        }
+        return true;
+        
+    }
     
 }

@@ -6,6 +6,7 @@ package GUI.ThanhVien;
 
 import BLL.ThanhVienBLL;
 import BLL.ThongTinSuDungBLL;
+import BLL.XuLyViPhamBLL;
 import DAL.ThanhVienDAL;
 import DTO.ThanhVienDTO;
 import java.awt.Color;
@@ -25,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 public class ThanhVienGUI extends javax.swing.JPanel {
     ThanhVienBLL tvBLL = new ThanhVienBLL();
     ThongTinSuDungBLL ttBLL= new ThongTinSuDungBLL();
+    XuLyViPhamBLL xlBLL = new XuLyViPhamBLL();
     
     public static int id;
     public static String name;
@@ -477,11 +479,16 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn thành viên vào khu vực học tập!!!!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-        } else {
+        } else{
             id = (int) jTable_ThanhVien.getValueAt(selectedRow, 0);
-            ttBLL.VaoKhuVucHocTap(id);
-            JOptionPane.showMessageDialog(this, "Thành viên đã checkin thành công!!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-           
+            if(xlBLL.checkVP(id)){
+                ttBLL.VaoKhuVucHocTap(id);
+                JOptionPane.showMessageDialog(this, "Thành viên đã checkin thành công!!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Thành viên đang thuộc trong biên chế xử lý . KHÔNG THỂ VÀO KHU VỰC HỌC TẬP!!!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+            
         }
     }//GEN-LAST:event_jButton_VaoKhuVucActionPerformed
 

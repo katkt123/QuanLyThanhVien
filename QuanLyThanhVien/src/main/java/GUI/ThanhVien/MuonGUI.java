@@ -7,6 +7,7 @@ package GUI.ThanhVien;
 import BLL.ThanhVienBLL;
 import BLL.ThietBiBLL;
 import BLL.ThongTinSuDungBLL;
+import BLL.XuLyViPhamBLL;
 import DTO.ThanhVienDTO;
 import DTO.ThietBiDTO;
 import DTO.ThongTinSuDungDTO;
@@ -24,6 +25,7 @@ public class MuonGUI extends javax.swing.JFrame {
     ThanhVienBLL tvBLL = new ThanhVienBLL();
     ThietBiBLL tbBLL= new ThietBiBLL();
     ThongTinSuDungBLL ttBLL=new ThongTinSuDungBLL();
+    XuLyViPhamBLL xlBLL = new XuLyViPhamBLL();
     
     ArrayList<ThongTinSuDungDTO> list = new ArrayList<>();
     /**
@@ -78,7 +80,12 @@ public class MuonGUI extends javax.swing.JFrame {
         Date traDate = jDateChooser_tgtra.getDate();
         return muonDate.before(traDate);
     }
-    
+    public boolean checkInit(){
+        if(jComboBox_ThanhVien.getSelectedItem()!=null && jComboBox_ThietBi.getSelectedItem()!=null && jDateChooser_tgmuon.getDate()!=null && jDateChooser_tgtra.getDate()!=null){
+            return true;
+        }
+        return false;
+    }
     public boolean checkThietBi(int ID){
         for (ThongTinSuDungDTO s : list){
             if ( s.getMaTB() != null){
@@ -238,7 +245,8 @@ public class MuonGUI extends javax.swing.JFrame {
 
     private void jButton_CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CreateActionPerformed
         // TODO add your handling code here:
-        if (checkDate()) {
+        if(checkInit()){
+            if (checkDate()) {
             int id=0;
             String name= jComboBox_ThanhVien.getSelectedItem().toString();
             String thietbi = jComboBox_ThietBi.getSelectedItem().toString();
@@ -251,14 +259,24 @@ public class MuonGUI extends javax.swing.JFrame {
             String[] part = thietbi.split(" - ");
             int idtb= Integer.parseInt(part[1]);
             ThietBiDTO idTB= tbBLL.getThietBiById(idtb);
-            
-            ThongTinSuDungDTO tt = new ThongTinSuDungDTO(id,idTV,idTB,tgmuon,tgtra);
-            ttBLL.MuonThietBi(tt);
-            JOptionPane.showMessageDialog(null, "Mượn thành công !!!", "Mượn Thiết Bị", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Thời gian trả vui lòng lớn hơn thời gian mượn !!!", "Mượn Thiết Bị", JOptionPane.INFORMATION_MESSAGE);            
+            if(xlBLL.checkVP(idtv)){
+                    ThongTinSuDungDTO tt = new ThongTinSuDungDTO(id,idTV,idTB,tgmuon,tgtra);
+                    ttBLL.MuonThietBi(tt);
+                    JOptionPane.showMessageDialog(null, "Mượn thành công !!!", "Mượn Thiết Bị", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Thành viên đang thuộc biên chế xử lý. KHÔNG THỂ MƯỢN THIẾT BỊ!!!!", "Mượn Thiết Bị", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Thời gian trả vui lòng lớn hơn thời gian mượn !!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);            
+            }
         }
+        else{
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin !!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);            
+        }
+        
         
     }//GEN-LAST:event_jButton_CreateActionPerformed
 
