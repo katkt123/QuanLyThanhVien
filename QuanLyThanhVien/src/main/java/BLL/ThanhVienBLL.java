@@ -120,81 +120,81 @@ public class ThanhVienBLL {
         }
         return result;
     }
-    public String HienThiChiTiet(int id){
+    public String HienThiChiTiet(int id) {
         ThanhVienDTO s =  tvDAL.getThanhVienById(id);
         String message = "";
-        message += "\nMã thành viên: " + s.getMaTV();
-        message += "\nHọ Tên: " + s.getHoTen();
-        message += "\nKhoa: " + s.getKhoa();
-        message += "\nNgành: " + s.getNganh();
-        message += "\n\n\n";
-        message += "-Thông tin mượn thiết bị: ";
 
+        // Thông tin thành viên
+        message += "Mã thành viên: \t" + s.getMaTV() + "\n";
+        message += "Họ Tên: \t" + s.getHoTen() + "\n";
+        message += "Khoa: \t" + s.getKhoa() + "\n";
+        message += "Ngành: \t" + s.getNganh() + "\n\n\n";
+
+        // Thông tin mượn thiết bị
+        message += "-Thông tin mượn thiết bị: \n";
         ArrayList<ThongTinSuDungDTO> listThietBi = getMuon(id);
         boolean coThongTinMuonThietBi = false;
-        int i=1;
-        for (ThongTinSuDungDTO temp : listThietBi){
+        int i = 1;
+        for (ThongTinSuDungDTO temp : listThietBi) {
             coThongTinMuonThietBi = true;
-            message += "\n--------------"+i+"--------------";
+            message += "--------------" + i + "--------------\n";
             ThietBiDTO temp1 = tbDAL.getThietBiById(temp.getMaTB().getMaTB());
-            message += "\nMã thành viên: " + id;
-            message += "\nTên : " + s.getHoTen();
-            message += "\nTên Thiết Bị: " + temp1.getTenTB();
-            message += "\nNgày mượn: " + temp.getTGMuon().toString();
-            message += "\nNgày trả: " + temp.getTGTra().toString();  
-            message += "\n";
-            
+            message += "Mã thành viên: \t" + id + "\n";
+            message += "Tên : \t" + s.getHoTen() + "\n";
+            message += "Tên Thiết Bị: \t" + temp1.getTenTB() + "\n";
+            message += "Ngày mượn: \t" + temp.getTGMuon().toString() + "\n";
+            message += "Ngày trả: \t" + temp.getTGTra().toString() + "\n\n";
             i++;
         }
         if (!coThongTinMuonThietBi) {
-            message += "\nKhông có thông tin mượn thiết bị";
+            message += "Không có thông tin mượn thiết bị\n";
         }
 
-        message += "\n\n\n-Thông tin vào khu vực học tập: ";
+        // Thông tin vào khu vực học tập
+        message += "-Thông tin vào khu vực học tập: \n";
         ArrayList<ThongTinSuDungDTO> listKhuVuc = getKhuVuc(id);
         boolean coThongTinVaoKhuVuc = false;
-        int j=1;
-        for (ThongTinSuDungDTO temp : listKhuVuc){
+        int j = 1;
+        for (ThongTinSuDungDTO temp : listKhuVuc) {
             coThongTinVaoKhuVuc = true;
-            message += "\n--------------"+j+"--------------";
-            message += "\nMã thành viên: " + id;
-            message += "\nTên : " + s.getHoTen();
-            message += "\nThời gian vào khu vực học tập: " + temp.getTGVao().toString();
-            message += "\n";
+            message += "--------------" + j + "--------------\n";
+            message += "Mã thành viên: \t" + id + "\n";
+            message += "Tên : \t" + s.getHoTen() + "\n";
+            message += "Thời gian vào khu vực học tập: \t" + temp.getTGVao().toString() + "\n\n";
             j++;
         }
         if (!coThongTinVaoKhuVuc) {
-            message += "\nKhông có thông tin vào khu vực học tập";
+            message += "Không có thông tin vào khu vực học tập\n";
         }
-        
-        message += "\n\n\n-Những vi phạm: ";
-        ArrayList<XuLyViPhamDTO> listVP= getViPham(id);
-        boolean VIPHAM=false;
-        int k=1;
-        for(XuLyViPhamDTO a:listVP){
-            VIPHAM=true;
-            message += "\n--------------"+k+"--------------";
-            message += "\nMã thành viên: " + id;
-            message += "\nTên : " + s.getHoTen();
-            message += "\nHình thức xử lý: "+a.getHinhThucXL();
-            String tien=Integer.toString(a.getSoTien());
-            message += "\nTiền trả: " +tien;
-            message += "\nNgày xử lý: "+a.getNgayXL().toString();
-            if(a.getTrangThaiXL()==0){
-                message += "\nTình trạng: Đang xử lý ....";
-                
-            }
-            else{
-                message += "\nTình trạng: Đã xử lý";
+
+        // Thông tin vi phạm
+        message += "-Những vi phạm: \n";
+        ArrayList<XuLyViPhamDTO> listVP = getViPham(id);
+        boolean VIPHAM = false;
+        int k = 1;
+        for (XuLyViPhamDTO a : listVP) {
+            VIPHAM = true;
+            message += "--------------" + k + "--------------\n";
+            message += "Mã thành viên: \t" + id + "\n";
+            message += "Tên : \t" + s.getHoTen() + "\n";
+            message += "Hình thức xử lý: \t" + a.getHinhThucXL() + "\n";
+            String tien = Integer.toString(a.getSoTien());
+            message += "Tiền trả: \t" + tien + "\n";
+            message += "Ngày xử lý: \t" + a.getNgayXL().toString() + "\n";
+            if (a.getTrangThaiXL() == 0) {
+                message += "Tình trạng: \tĐang xử lý ....\n";
+            } else {
+                message += "Tình trạng: \tĐã xử lý\n";
             }
             k++;
         }
         if (!VIPHAM) {
-            message += "\nKhông có thông tin vi phạm";
+            message += "Không có thông tin vi phạm\n";
         }
 
-        return message;  
+        return message;
     }
+
 
     public ArrayList<ThanhVienDTO> listThanhVien(){
         return tvDAL.listThanhVien();

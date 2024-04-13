@@ -502,7 +502,8 @@ public class ThanhVienGUI extends javax.swing.JPanel {
         else{
             int ID = (int) modelTV.getValueAt(selectedRow, 0);
             ImageIcon icon = new ImageIcon("src\\main\\java\\Image\\user.png");
-            JOptionPane.showMessageDialog(this, tvBLL.HienThiChiTiet(ID),"Thông Tin Thành Viên", HEIGHT, icon);
+            
+            JOptionPane.showMessageDialog(this, tvBLL.HienThiChiTiet(ID),"Thông Tin Thành Viên", JOptionPane.INFORMATION_MESSAGE, icon);
             DoubleClick = -1;
         }
     }//GEN-LAST:event_jTable_ThanhVienMouseClicked
