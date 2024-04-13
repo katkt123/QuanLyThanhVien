@@ -86,6 +86,7 @@ GUI\ThietBi\ThietBiGUI$13.class
 DTO\ThongTinSuDungDTO.class
 GUI\ThanhVien\ThanhVienGUI.class
 GUI\ThanhVien\ThanhVienGUI$7.class
+GUI\ThongKeGUI\ThongKeGUI$1.class
 GUI\XuLyViPham\XuLyViPhamGUI.class
 GUI\ThietBi\ThietBiGUI$7.class
 GUI\ThanhVien\ThanhVienGUI$10.class
