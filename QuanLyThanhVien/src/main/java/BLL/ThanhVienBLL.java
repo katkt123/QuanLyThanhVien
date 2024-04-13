@@ -7,9 +7,11 @@ package BLL;
 import DAL.ThanhVienDAL;
 import DAL.ThietBiDAL;
 import DAL.ThongTinSuDungDAL;
+import DAL.XuLyViPhamDAL;
 import DTO.ThanhVienDTO;
 import DTO.ThietBiDTO;
 import DTO.ThongTinSuDungDTO;
+import DTO.XuLyViPhamDTO;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,6 +23,7 @@ public class ThanhVienBLL {
     ThanhVienDAL tvDAL =  new ThanhVienDAL();
     ThietBiDAL tbDAL = new ThietBiDAL();
     ThongTinSuDungDAL ttDAL= new ThongTinSuDungDAL();
+    XuLyViPhamDAL xlDAL= new XuLyViPhamDAL();
     
     
     public boolean CheckMuon(int ID){
@@ -34,6 +37,19 @@ public class ThanhVienBLL {
         }
         return true;
     }
+     public boolean checkVP(int id){
+        ArrayList<XuLyViPhamDTO> arr = xlDAL.listXuLyViPham();
+        for(XuLyViPhamDTO a:arr){
+            if(a.getMaTV().getMaTV()==id && a.getTrangThaiXL()==0){
+                return false;
+                
+            }
+           
+        }
+        return true;
+        
+    }
+    
 //    public String HienThiChiTiet(int id){
 //        ThanhVienDTO s =  tvDAL.getThanhVienById(id);
 //        String message = "";
@@ -95,6 +111,15 @@ public class ThanhVienBLL {
         }
         return result;
     }
+    
+    public ArrayList<XuLyViPhamDTO> getViPham(int id){
+        ArrayList<XuLyViPhamDTO> list = xlDAL.listXuLyViPham(); 
+        ArrayList<XuLyViPhamDTO> result = new ArrayList<>();
+        for(XuLyViPhamDTO xl:list){
+            if(xl.getMaTV().getMaTV() == id) result.add(xl);
+        }
+        return result;
+    }
     public String HienThiChiTiet(int id){
         ThanhVienDTO s =  tvDAL.getThanhVienById(id);
         String message = "";
@@ -107,15 +132,19 @@ public class ThanhVienBLL {
 
         ArrayList<ThongTinSuDungDTO> listThietBi = getMuon(id);
         boolean coThongTinMuonThietBi = false;
+        int i=1;
         for (ThongTinSuDungDTO temp : listThietBi){
             coThongTinMuonThietBi = true;
+            message += "\n--------------"+i+"--------------";
             ThietBiDTO temp1 = tbDAL.getThietBiById(temp.getMaTB().getMaTB());
             message += "\nMã thành viên: " + id;
-            message += "\nTên người mượn: " + s.getHoTen();
+            message += "\nTên : " + s.getHoTen();
             message += "\nTên Thiết Bị: " + temp1.getTenTB();
             message += "\nNgày mượn: " + temp.getTGMuon().toString();
             message += "\nNgày trả: " + temp.getTGTra().toString();  
             message += "\n";
+            
+            i++;
         }
         if (!coThongTinMuonThietBi) {
             message += "\nKhông có thông tin mượn thiết bị";
@@ -124,15 +153,44 @@ public class ThanhVienBLL {
         message += "\n\n\n-Thông tin vào khu vực học tập: ";
         ArrayList<ThongTinSuDungDTO> listKhuVuc = getKhuVuc(id);
         boolean coThongTinVaoKhuVuc = false;
+        int j=1;
         for (ThongTinSuDungDTO temp : listKhuVuc){
             coThongTinVaoKhuVuc = true;
+            message += "\n--------------"+j+"--------------";
             message += "\nMã thành viên: " + id;
-            message += "\nTên người mượn: " + s.getHoTen();
+            message += "\nTên : " + s.getHoTen();
             message += "\nThời gian vào khu vực học tập: " + temp.getTGVao().toString();
             message += "\n";
+            j++;
         }
         if (!coThongTinVaoKhuVuc) {
             message += "\nKhông có thông tin vào khu vực học tập";
+        }
+        
+        message += "\n\n\n-Những vi phạm: ";
+        ArrayList<XuLyViPhamDTO> listVP= getViPham(id);
+        boolean VIPHAM=false;
+        int k=1;
+        for(XuLyViPhamDTO a:listVP){
+            VIPHAM=true;
+            message += "\n--------------"+k+"--------------";
+            message += "\nMã thành viên: " + id;
+            message += "\nTên : " + s.getHoTen();
+            message += "\nHình thức xử lý: "+a.getHinhThucXL();
+            String tien=Integer.toString(a.getSoTien());
+            message += "\nTiền trả: " +tien;
+            message += "\nNgày xử lý: "+a.getNgayXL().toString();
+            if(a.getTrangThaiXL()==0){
+                message += "\nTình trạng: Đang xử lý ....";
+                
+            }
+            else{
+                message += "\nTình trạng: Đã xử lý";
+            }
+            k++;
+        }
+        if (!VIPHAM) {
+            message += "\nKhông có thông tin vi phạm";
         }
 
         return message;  
@@ -149,7 +207,7 @@ public class ThanhVienBLL {
         tvDAL.updateThanhVien(tv);
     }
     public boolean deleteThanhVien(int id){
-        if(CheckMuon(id)) {
+        if(CheckMuon(id) && checkVP(id)) {
             tvDAL.deleteThanhVien(id);
             return true;
         }
