@@ -240,6 +240,17 @@ public class PieChart extends JComponent {
     public int getSelectedIndex() {
         return selectedIndex;
     }
+    
+    public String getData() {
+        if (selectedIndex >= 0){
+            return models.get(selectedIndex).getName();
+        }
+        return null;
+    }
+    public String getFirstData() {
+        if (models.size() <= 0) return null;
+        return models.get(0).getName();
+    }
 
     public void setSelectedIndex(int selectedIndex) {
         if (selectedIndex >= -1 && selectedIndex < models.size()) {
