@@ -291,7 +291,11 @@ public class PieChart extends JComponent {
     }
 
     public void clearData() {
+        selectedIndex = -1;
+        repaint();
+        
         models.clear();
+        
         repaint();
     }
 
