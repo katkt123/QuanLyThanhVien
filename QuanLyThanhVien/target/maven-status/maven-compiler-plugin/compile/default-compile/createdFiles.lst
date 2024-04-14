@@ -65,6 +65,7 @@ GUI\XuLyViPham\XuLyViPhamGUI$1.class
 GUI\ThanhVien\ThanhVienGUI$12.class
 GUI\ThanhVien\ThanhVienGUI$5.class
 GUI\ThietBi\ThietBiGUI.class
+GUI\ThongKeGUI\ThongKeGUI$2.class
 GUI\XuLyViPham\XuLyViPhamGUI$4.class
 GUI\ThietBi\ThietBiGUI$8.class
 GUI\ThanhVien\MuonGUI$5.class
@@ -86,6 +87,7 @@ GUI\ThietBi\ThietBiGUI$13.class
 DTO\ThongTinSuDungDTO.class
 GUI\ThanhVien\ThanhVienGUI.class
 GUI\ThanhVien\ThanhVienGUI$7.class
+GUI\ThongKeGUI\ThongKeGUI$1.class
 GUI\XuLyViPham\XuLyViPhamGUI.class
 GUI\ThietBi\ThietBiGUI$7.class
 GUI\ThanhVien\ThanhVienGUI$10.class
