@@ -102,7 +102,7 @@ public class ThanhVienDAL {
             switch (khoa.toUpperCase(Locale.ROOT)) {
                 case "SP KHXH":
                     switch (nganh.toUpperCase(Locale.ROOT)) {
-                        case "ĐÍA":
+                        case "ĐỊA":
                             khoaCode = "11";
                             break;
                         case "SỬ":
