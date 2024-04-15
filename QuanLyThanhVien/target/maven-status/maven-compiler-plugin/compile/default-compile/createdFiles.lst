@@ -26,6 +26,7 @@ GUI\MainGUI.class
 GUI\ThanhVien\TraGUI$2.class
 DTO\ThietBiDTO.class
 GUI\ThongKeGUI\ThongKeGUI.class
+GUI\ThongKeGUI\ThongKeGUI$3.class
 BLL\ThanhVienBLL.class
 GUI\ThietBi\ThietBiGUI$10.class
 GUI\ThietBi\ThietBiGUI$16.class
