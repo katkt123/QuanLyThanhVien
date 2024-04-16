@@ -7,9 +7,13 @@ package GUI.XuLyViPham;
 import BLL.XuLyViPhamBLL;
 import DTO.ThanhVienDTO;
 import DTO.XuLyViPhamDTO;
+import static GUI.ThanhVien.ThanhVienGUI.id;
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +45,8 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
     public XuLyViPhamGUI() {
         initComponents();
         
+        jTable_XuLy.setModel(modelXL);
+        
         modelXL.addColumn("Mã xử lý");
         modelXL.addColumn("Mã Thành viên");
         modelXL.addColumn("Hình thức");
@@ -63,29 +69,61 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         }
         
         loadXuLyViPham();
+        setIconAdd();
+        setIconEdit();
+        setIconRefresh();
+        setIconSearch();
+        setIconDelete();
     }
+    
+        public void setIconAdd(){
+            String imagePath = "src\\main\\java\\Image\\Add.png"; // 
+            ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+            jButton_Add.setIcon(icon);
+        }
+        public void setIconEdit(){
+            String imagePath = "src\\main\\java\\Image\\Edit.png"; // 
+            ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+            jButton_Edit.setIcon(icon);
+        }
+        public void setIconRefresh(){
+            String imagePath = "src\\main\\java\\Image\\Refresh.png"; // 
+            ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+            jButton_Refresh.setIcon(icon);
+        }
+        public void setIconSearch(){
+            String imagePath = "src\\main\\java\\Image\\Search.png"; // 
+            ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+            jLabel1.setIcon(icon);
+        }
+        public void setIconDelete(){
+            String imagePath = "src\\main\\java\\Image\\Delete.png"; // 
+            ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+            jButton_Delete.setIcon(icon);
+        }
 
     public void loadXuLyViPham(){
-        
+
         arrXuLy = xlvpBLL.listxlvp();
 
-        for(int i = modelXL.getRowCount()-1;i>=0;i--)
-            modelXL.removeRow(i);
-        for(int i = 0; i<arrXuLy.size();i++){
-            XuLyViPhamDTO em= arrXuLy.get(i);
-            
-            int idXL= em.getMaXL();
+        // Xóa tất cả các dòng hiện có trong bảng
+        modelXL.setRowCount(0);
+
+        for(int i = 0; i < arrXuLy.size(); i++){
+            XuLyViPhamDTO em = arrXuLy.get(i);
+
+            int idXL = em.getMaXL();
             ThanhVienDTO thanhvien = em.getMaTV();
             String hinhthuc = em.getHinhThucXL();
             int sotien = em.getSoTien();
             Date ngayxl = em.getNgayXL();
             int trangthai = em.getTrangThaiXL();
-//            int a;
-            
-            Object[] row = {idXL, thanhvien.getMaTV() , hinhthuc, sotien, ngayxl, trangthai};
+
+            Object[] row = {idXL, thanhvien.getMaTV(), hinhthuc, sotien, ngayxl, trangthai};
             modelXL.addRow(row);
         }
     }
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -95,6 +133,10 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField_Search = new javax.swing.JTextField();
+        jButton_Add = new javax.swing.JButton();
+        jButton_Edit = new javax.swing.JButton();
+        jButton_Refresh = new javax.swing.JButton();
+        jButton_Delete = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_XuLy = new javax.swing.JTable();
@@ -107,7 +149,6 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         jLabel1.setMinimumSize(new java.awt.Dimension(24, 24));
         jLabel1.setPreferredSize(new java.awt.Dimension(32, 32));
 
-        jTextField_Search.setText("Nhập thông tin tìm kiếm : .....");
         jTextField_Search.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField_SearchFocusGained(evt);
@@ -148,6 +189,31 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jButton_Add.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_AddActionPerformed(evt);
+            }
+        });
+
+        jButton_Edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_EditActionPerformed(evt);
+            }
+        });
+
+        jButton_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_RefreshActionPerformed(evt);
+            }
+        });
+
+        jButton_Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_DeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -155,13 +221,26 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addComponent(jButton_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -178,7 +257,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã xử lý", "Mã thành viên", "Hình thức xử lý", "Số tiền","Ngày xử lý", "Trạng thái xử lý"
             }
         ));
         jTable_XuLy.setGridColor(new java.awt.Color(204, 204, 204));
@@ -189,7 +268,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,28 +318,85 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
 
     private void jTextField_SearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_SearchKeyReleased
         // TODO add your handling code here:
-//        String searchText = jTextField_Search.getText().trim();
-//
-//        // Gọi hàm search với nội dung tìm kiếm
-//        ArrayList<ThanhVienDTO> searchResult = tvBLL.search(searchText);
-//
-//        for(int i = modelTV.getRowCount()-1;i>=0;i--)
-//        modelTV.removeRow(i);
-//        for(int i = 0; i<searchResult.size();i++){
-//            ThanhVienDTO em= searchResult.get(i);
-//            int id= em.getMaTV();
-//            String name= em.getHoTen();
-//            String khoa = em.getKhoa();
-//            String nganh = em.getNganh();
-//            String sdt = em.getSDT();
-//
-//            Object[] row = {id,name,khoa,nganh,sdt};
-//            modelTV.addRow(row);
-//        }
+        String searchText = jTextField_Search.getText().trim();
+
+        // Gọi hàm search với nội dung tìm kiếm
+        ArrayList<XuLyViPhamDTO> searchResult = xlvpBLL.search(searchText);
+
+        for(int i = modelXL.getRowCount()-1;i>=0;i--)
+        modelXL.removeRow(i);
+        for(int i = 0; i<searchResult.size();i++){
+            XuLyViPhamDTO em= searchResult.get(i);
+
+            int idXL = em.getMaXL();
+            ThanhVienDTO thanhvien = em.getMaTV();
+            String hinhthuc = em.getHinhThucXL();
+            int sotien = em.getSoTien();
+            Date ngayxl = em.getNgayXL();
+            int trangthai = em.getTrangThaiXL();
+
+            Object[] row = {idXL, thanhvien.getMaTV(), hinhthuc, sotien, ngayxl, trangthai};
+            modelXL.addRow(row);
+        }
     }//GEN-LAST:event_jTextField_SearchKeyReleased
+
+    private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed
+        // TODO add your handling code here:
+        AddHinhThucXuLyGUI ahtxl = new AddHinhThucXuLyGUI();
+        ahtxl.setVisible(true);
+    }//GEN-LAST:event_jButton_AddActionPerformed
+
+    private int layMaXuLyDuocChon() {
+        int rowIndex = jTable_XuLy.getSelectedRow();
+        if (rowIndex != -1) { // Kiểm tra xem có hàng nào được chọn không
+            // Lấy giá trị ở cột đầu tiên (cột chứa mã thành viên) của hàng được chọn
+            return (int) jTable_XuLy.getValueAt(rowIndex, 0);
+        } else {
+            // Nếu không có hàng nào được chọn, trả về giá trị mặc định (ví dụ: -1)
+            return -1;
+        }
+    }
+    private void jButton_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditActionPerformed
+        // TODO add your handling code here:
+        int maXuLy = layMaXuLyDuocChon();
+        if (maXuLy != -1) {
+            EditHinhThucXuLyGUI exl = new EditHinhThucXuLyGUI();
+            exl.setXuLy(maXuLy);
+            exl.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa đổi.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton_EditActionPerformed
+
+    private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
+        // TODO add your handling code here:
+        loadXuLyViPham();
+    }//GEN-LAST:event_jButton_RefreshActionPerformed
+
+    private void jButton_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteActionPerformed
+        // TODO add your handling code here:
+                int selectedRow = jTable_XuLy.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int maXL = (int) jTable_XuLy.getValueAt(selectedRow, 0);
+        int choice = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa xử lý vi phạm này không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            id = (int) jTable_XuLy.getValueAt(selectedRow, 0);
+            xlvpBLL.xoaXuLyViPham(id);
+            loadXuLyViPham();
+        }
+    }//GEN-LAST:event_jButton_DeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_Add;
+    private javax.swing.JButton jButton_Delete;
+    private javax.swing.JButton jButton_Edit;
+    private javax.swing.JButton jButton_Refresh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;

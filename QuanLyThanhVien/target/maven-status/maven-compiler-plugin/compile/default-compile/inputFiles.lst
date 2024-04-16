@@ -7,6 +7,7 @@ C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DAL\Hiber
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DTO\XuLyViPhamDTO.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DTO\ThanhVienDTO.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThietBi\ThemThietBi.java
+C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\XuLyViPham\EditHinhThucXuLyGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThanhVien\XoaNhieuGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DAL\ThongTinSuDungDAL.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DAL\ThietBiDAL.java
@@ -14,10 +15,12 @@ C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\Thiet
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DTO\ThietBiDTO.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThanhVien\ThanhVienGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThietBi\SuaThietBi.java
+C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\XuLyViPham\AddHinhThucXuLyGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThanhVien\AddThanhVienGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThongKeGUI\ThongKeGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\DTO\ThongTinSuDungDTO.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThanhVien\TraGUI.java
+C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\XuLyViPham\XuLyGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\ThongKeGUI\PieChart.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\GUI\MainGUI.java
 C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon2\QuanLyThanhVien\src\main\java\BLL\ThanhVienBLL.java
