@@ -74,6 +74,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         setIconRefresh();
         setIconSearch();
         setIconDelete();
+        setIconCheck();
     }
     
         public void setIconAdd(){
@@ -101,7 +102,12 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
             jButton_Delete.setIcon(icon);
         }
-
+        
+        public void setIconCheck(){
+            String imagePath = "src\\main\\java\\Image\\check.png"; // 
+            ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+            jButton1.setIcon(icon);
+        }
     public void loadXuLyViPham(){
 
         arrXuLy = xlvpBLL.listxlvp();
@@ -137,6 +143,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         jButton_Edit = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
         jButton_Delete = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_XuLy = new javax.swing.JTable();
@@ -214,6 +221,12 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             }
         });
 
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -221,7 +234,9 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,7 +255,8 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
                     .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -375,7 +391,7 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
 
     private void jButton_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteActionPerformed
         // TODO add your handling code here:
-                int selectedRow = jTable_XuLy.getSelectedRow();
+        int selectedRow = jTable_XuLy.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
@@ -391,8 +407,38 @@ public class XuLyViPhamGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton_DeleteActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable_XuLy.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int maXL = (int) jTable_XuLy.getValueAt(selectedRow, 0);
+//        trangthai = jTable_XuLy.getSelectedRow();
+        int trangthai = (int) jTable_XuLy.getValueAt(selectedRow, 5);
+        if (trangthai == 1){
+            JOptionPane.showMessageDialog(this, "Đã xử lí vi phạm này, vui lòng chọn vi phạm khác.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }else{
+            int trangthaixl = 1;
+
+        
+        XuLyViPhamDTO xuLyViPhamDTO = new XuLyViPhamDTO();
+        xuLyViPhamDTO.setMaXL(maXL);
+        xuLyViPhamDTO.setTrangThaiXL(trangthaixl);
+        
+        xlvpBLL.updateXuLyTrangThai(xuLyViPhamDTO);
+        
+//        if (updated) {
+        JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+        loadXuLyViPham();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_Add;
     private javax.swing.JButton jButton_Delete;
     private javax.swing.JButton jButton_Edit;

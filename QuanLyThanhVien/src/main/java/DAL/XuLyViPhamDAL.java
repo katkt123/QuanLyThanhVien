@@ -170,6 +170,32 @@ public class XuLyViPhamDAL {
         }
     }
 
+        public void updateXuLyTrangThai(XuLyViPhamDTO xuLyViPhamDTO) {
+        Session session = factory.openSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+
+            XuLyViPhamDTO existingXuLyViPham = session.get(XuLyViPhamDTO.class, xuLyViPhamDTO.getMaXL());
+
+            if (existingXuLyViPham != null) {
+                existingXuLyViPham.setTrangThaiXL(xuLyViPhamDTO.getTrangThaiXL());
+                session.update(existingXuLyViPham);
+
+                transaction.commit();
+            } else {
+                System.out.println("Không tìm thấy đối tượng cần cập nhật.");
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 
 
     public XuLyViPhamDTO getXuLyViPhamByMaXL(int maXL) {

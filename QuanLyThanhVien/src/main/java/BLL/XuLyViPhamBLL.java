@@ -58,6 +58,10 @@ public class XuLyViPhamBLL {
         xlDAL.updateXuLyViPham(xuLyViPhamDTO);
     }
     
+    public void updateXuLyTrangThai(XuLyViPhamDTO xuLyViPhamDTO) {
+        xlDAL.updateXuLyTrangThai(xuLyViPhamDTO);
+    }
+    
     public XuLyViPhamDTO getXuLyViPhamByMaXL(int maXL) {
         return xlDAL.getXuLyViPhamByMaXL(maXL);
     }

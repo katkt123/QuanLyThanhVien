@@ -231,7 +231,7 @@ public class XuLyGUI extends javax.swing.JFrame {
 
         String hinhThucXuLy = (String) jComboBox1.getSelectedItem(); 
         int soTien = jTextField1.getText().isEmpty() ? 0 : Integer.parseInt(jTextField1.getText()); 
-        int trangThaiXuLy = 1;
+        int trangThaiXuLy = 0;
         Date ngayXuLy = new Date();
 
 
