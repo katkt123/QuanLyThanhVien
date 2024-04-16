@@ -21,6 +21,7 @@ GUI\ThietBi\ThemThietBi$3.class
 GUI\ThanhVien\AddThanhVienGUI$2.class
 GUI\MainGUI$2.class
 GUI\ThanhVien\UpdateThanhVienGUI$2.class
+GUI\ThongKeGUI\PieChart.class
 GUI\ThietBi\ThietBiGUI$3.class
 GUI\MainGUI.class
 GUI\ThanhVien\TraGUI$2.class
@@ -44,6 +45,7 @@ GUI\ThanhVien\ThanhVienGUI$4.class
 GUI\ThietBi\ThemThietBi$1.class
 GUI\XuLyViPham\XuLyViPhamGUI$2.class
 GUI\ThanhVien\AddThanhVienGUI$7.class
+GUI\ThongKeGUI\PieChart$1.class
 GUI\ThietBi\ThemThietBi$2.class
 GUI\ThietBi\SuaThietBi$2.class
 DAL\ThanhVienDAL.class
@@ -73,6 +75,7 @@ GUI\ThanhVien\TraGUI$3.class
 GUI\ThietBi\ThietBiGUI$5.class
 BLL\ThietBiBLL.class
 GUI\ThanhVien\XoaNhieuGUI$2.class
+GUI\ThongKeGUI\ModelPieChart.class
 GUI\ThanhVien\ThanhVienGUI$1.class
 GUI\ThanhVien\ThanhVienGUI$8.class
 GUI\ThanhVien\ThanhVienGUI$11.class
@@ -88,6 +91,7 @@ DTO\ThongTinSuDungDTO.class
 GUI\ThanhVien\ThanhVienGUI.class
 GUI\ThanhVien\ThanhVienGUI$7.class
 GUI\ThongKeGUI\ThongKeGUI$1.class
+GUI\ThongKeGUI\PieChart$PeiChartType.class
 GUI\XuLyViPham\XuLyViPhamGUI.class
 GUI\ThietBi\ThietBiGUI$7.class
 GUI\ThanhVien\ThanhVienGUI$10.class

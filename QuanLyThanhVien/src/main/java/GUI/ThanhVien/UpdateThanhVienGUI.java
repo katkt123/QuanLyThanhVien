@@ -42,7 +42,7 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
 
         // Tạo một DefaultComboBoxModel và thêm các giá trị từ mảng vào model
         DefaultComboBoxModel<String> model1 = new DefaultComboBoxModel<>(items1);
-        jComboBox_Khoa1.setModel(model1);
+        jComboBox_Khoa.setModel(model1);
         model1.addElement(khoa);
         
         
@@ -65,17 +65,18 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
     
     public boolean check(){
         String name = jTextField_Name.getText().toString();
-        
-        
-        String sdt=jTextField_SDT.getText().toString();
-        
-        // Sử dụng equals để so sánh chuỗi
-        if (name.equals(Name) && sdt.equals(SDT) ){
-            return false;
+        String sdt = jTextField_SDT.getText().toString();
+
+        // Kiểm tra xem hai giá trị có rỗng không
+        if (name.isEmpty() || sdt.isEmpty()) {
+            return false; // Một trong hai giá trị rỗng
+        } else if (name.equals(Name) && sdt.equals(SDT)) {
+            return false; // Cả hai giá trị đều giống giá trị ban đầu
         } else {
-            return true;
+            return true; // Có sự thay đổi trong giá trị
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -240,7 +241,7 @@ public class UpdateThanhVienGUI extends javax.swing.JFrame {
             dispose();
         }
         else {
-            JOptionPane.showMessageDialog(null, "Thông tin không có thay đổi !!!", "ERROR !!!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Thông tin không có thay đổi hoặc bị rỗng !!!", "ERROR !!!", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton_UpdateActionPerformed
 

@@ -27,7 +27,7 @@ public class ThanhVienBLL {
     
     
     public boolean CheckMuon(int ID){
-        ArrayList<ThongTinSuDungDTO> list = new ThongTinSuDungBLL().listThongTinSuDung();
+        ArrayList<ThongTinSuDungDTO> list = new ThongTinSuDungDAL().listThongTinSuDung();
         for (ThongTinSuDungDTO s : list){
             if (s.getMaTV() != null){
                 if (s.getMaTV().getMaTV() == ID){
@@ -218,7 +218,7 @@ public class ThanhVienBLL {
         ArrayList<ThanhVienDTO> list= tvDAL.XoaTheoNam(khoa);
         ArrayList<String> listtb = new ArrayList<>();
         for(ThanhVienDTO tvien : list){
-            if(CheckMuon(tvien.getMaTV())){
+            if(CheckMuon(tvien.getMaTV()) && checkVP(tvien.getMaTV())){
                 
                 tvDAL.deleteThanhVien(tvien.getMaTV());
             }
@@ -227,7 +227,7 @@ public class ThanhVienBLL {
             }  
         }
         if (listtb.size() != 0){
-            String result = "Thành viên đang mượn thiết bị : ";
+            String result = "Thành viên đang mượn thiết bị hoặc đang bị xử lý : ";
             for (String i : listtb){
                 result += "\n" + i;
             }
