@@ -268,8 +268,10 @@ public class ThongKeGUI extends javax.swing.JPanel {
         panelShadow1.setColorGradient(new java.awt.Color(17, 38, 47));
         panelShadow1.setLayout(new java.awt.BorderLayout());
 
+        curveLineChart1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         curveLineChart1.setForeground(new java.awt.Color(237, 237, 237));
         curveLineChart1.setFillColor(true);
+        curveLineChart1.setTitle("Bảng Cột theo tháng");
         panelShadow1.add(curveLineChart1, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(panelShadow1, java.awt.BorderLayout.CENTER);
