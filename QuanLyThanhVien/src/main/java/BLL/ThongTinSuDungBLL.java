@@ -7,6 +7,7 @@ package BLL;
 import DAL.ThongTinSuDungDAL;
 import DTO.ThongTinSuDungDTO;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -36,6 +37,9 @@ public class ThongTinSuDungBLL {
     
     public void MuonThietBi(ThongTinSuDungDTO tt){
         ttDAL.MuonThietBi(tt);
+    }
+    public List<Object[]> getThongKeThang() {
+        return ttDAL.getThongKeThang();
     }
     
     

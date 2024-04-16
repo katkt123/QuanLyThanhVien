@@ -6,6 +6,7 @@ import DTO.ThongTinSuDungDTO;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -162,6 +163,22 @@ public class ThongTinSuDungDAL {
             e.printStackTrace();
         } finally {
             session.close();
+        }
+    }
+    public List<Object[]> getThongKeThang() {
+        try (Session session = factory.openSession()) {
+            String sql = "SELECT DATE_FORMAT(TGVao, '%d-%m') AS Ngay, " +
+                         "COUNT(TGVao) AS SoLuongThoiGianVao, " +
+                         "COUNT(TGMuon) AS SoLuongThoiGianMuon " +
+                         "FROM ThongTinSuDungDTO " +
+                         "GROUP BY DATE_FORMAT(TGVao, '%d-%m')";
+            
+            Query<Object[]> query = session.createQuery(sql);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
     

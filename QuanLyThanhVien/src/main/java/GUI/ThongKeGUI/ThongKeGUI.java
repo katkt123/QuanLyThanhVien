@@ -114,8 +114,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane1.setViewportView(jTable1);
         jPanel2.add(jScrollPane1, BorderLayout.CENTER);
-        jPanel1.setBackground(new Color(255, 255, 255));
-        jPanel3.setBackground(new Color(255, 255, 255)); 
         pieChart1.setPreferredSize(new Dimension(300, 300));
         pieChart2.setPreferredSize(new Dimension(300, 300));
         pieChart1.setChartType(PieChart.PeiChartType.DONUT_CHART);
@@ -149,15 +147,13 @@ public class ThongKeGUI extends javax.swing.JPanel {
         System.out.println("GUI.ThongKe" + (parent.getHeight() - pieChart1.getHeight()));
         curveLineChart1.setPreferredSize(new Dimension(0,parent.getHeight() - 300 - 70));
         
-        curveLineChart1.addLegend("Amount", Color.decode("#7b4397"), Color.decode("#dc2430"));
-        curveLineChart1.addLegend("Cost", Color.decode("#e65c00"), Color.decode("#F9D423"));
-        curveLineChart1.addLegend("Profit", Color.decode("#0099F7"), Color.decode("#F11712"));
+        curveLineChart1.addLegend("Vào", Color.decode("#B2E4CD"), Color.decode("#B2E4B4"));
+        curveLineChart1.addLegend("Mượn", Color.decode("#e65c00"), Color.decode("#F9D423"));
         
         curveLineChart1.clear();
-        curveLineChart1.addData(new ModelChart("January", new double[]{500, 50, 100}));
-        curveLineChart1.addData(new ModelChart("February", new double[]{600, 300, 150}));
-        curveLineChart1.addData(new ModelChart("March", new double[]{200, 50, 900}));
-        curveLineChart1.addData(new ModelChart("April", new double[]{480, 700, 100}));
+        for (Object[] t:tinSuDungBLL.getThongKeThang()){
+            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+        }
         curveLineChart1.start();
         
         
@@ -256,22 +252,26 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
+        pieChart1.setBackground(new java.awt.Color(255, 255, 255));
         pieChart1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel4.add(pieChart1);
+
+        pieChart2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.add(pieChart2);
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
-        panelShadow1.setBackground(new java.awt.Color(34, 59, 69));
-        panelShadow1.setColorGradient(new java.awt.Color(17, 38, 47));
+        panelShadow1.setBackground(new java.awt.Color(51, 153, 255));
+        panelShadow1.setColorGradient(new java.awt.Color(51, 51, 255));
         panelShadow1.setLayout(new java.awt.BorderLayout());
 
         curveLineChart1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         curveLineChart1.setForeground(new java.awt.Color(237, 237, 237));
         curveLineChart1.setFillColor(true);
-        curveLineChart1.setTitle("Bảng Cột theo tháng");
+        curveLineChart1.setTitle("Bảng Cột Theo Ngày");
         panelShadow1.add(curveLineChart1, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(panelShadow1, java.awt.BorderLayout.CENTER);
