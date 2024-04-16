@@ -46,7 +46,13 @@ public class ThongKeGUI extends javax.swing.JPanel {
                 t.getTGTra() != null ? t.getTGTra():"NULL"});           
         }
         
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Make all cells non-editable
+                return false;
+            }
+        };
         
         model.addColumn("MaTT");
         model.addColumn("MaTV");
@@ -77,6 +83,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         };
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane1.setViewportView(jTable1);
+       
         jPanel2.add(jScrollPane1, BorderLayout.CENTER);
         
         
@@ -198,7 +205,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
             if (dem > 0)
                 pieChart2.addData(new ModelPieChart(dataNganh[khoa_in][i], dem, color_pie[i]));
         }
-        
     }
     
     
