@@ -8,23 +8,38 @@ import BLL.ThanhVienBLL;
 import BLL.ThongTinSuDungBLL;
 import DTO.ThanhVienDTO;
 import DTO.ThongTinSuDungDTO;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import raven.chart.ModelChart;
+import raven.datechooser.DateBetween;
+import raven.datechooser.DateChooser;
+import raven.datechooser.DateSelectable;
+import raven.datechooser.listener.DateChooserAction;
+import raven.datechooser.listener.DateChooserAdapter;
 
 /**
  *
@@ -33,6 +48,8 @@ import raven.chart.ModelChart;
 public class ThongKeGUI extends javax.swing.JPanel {
     ThongTinSuDungBLL tinSuDungBLL;
     ThanhVienBLL tvBLL;
+    DateChooser ch;
+    ArrayList<ThongTinSuDungDTO> dataforPie2;
 
     /**
      * Creates new form ThongKeGUI
@@ -66,6 +83,35 @@ public class ThongKeGUI extends javax.swing.JPanel {
         initComponents();
         tinSuDungBLL = new ThongTinSuDungBLL();
         tvBLL = new ThanhVienBLL();
+        String listMonth[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        String listDays[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        UIManager.put("DateChooser.listMonth", listMonth);
+        UIManager.put("DateChooser.listDay", listDays);
+        FlatAnimatedLafChange.showSnapshot();
+        FlatMacLightLaf.setup();
+        FlatLaf.updateUI();
+        FlatAnimatedLafChange.hideSnapshotWithAnimation();
+        ch = new DateChooser();
+        ch.setDateSelectable(new DateSelectable() {
+            @Override
+            public boolean isDateSelectable(Date date) {
+                return date.before(new Date());
+            }
+        });
+        ch.addActionDateChooserListener(
+                new DateChooserAdapter() {
+                    @Override
+                    public void dateChanged(Date date, DateChooserAction action) {
+                        System.out.println("date single selected...");
+                    }
+                    @Override
+                    public void dateBetweenChanged(DateBetween date, DateChooserAction action) {
+                        System.out.println(date);
+                    }
+                });
+        ch.setTextField(jTextField1);
+        ch.setDateSelectionMode(DateChooser.DateSelectionMode.BETWEEN_DATE_SELECTED);
+        
         ArrayList<Object[]> dataList = new ArrayList<>();
         for (ThongTinSuDungDTO t: tinSuDungBLL.listThongTinSuDung()) {       
             dataList.add(new Object[]{t.getMaTT(), 
@@ -114,14 +160,72 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane1.setViewportView(jTable1);
         jPanel2.add(jScrollPane1, BorderLayout.CENTER);
-        pieChart1.setPreferredSize(new Dimension(300, 300));
-        pieChart2.setPreferredSize(new Dimension(300, 300));
-        pieChart1.setChartType(PieChart.PeiChartType.DONUT_CHART);
-        pieChart2.setChartType(PieChart.PeiChartType.DEFAULT);
         
+        dataforPie2 = tinSuDungBLL.listThongTinSuDung();
+        drawPieChart1( dataforPie2);
+        pieChart1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                // Xử lý sự kiện khi chuột được click
+                System.out.println("Mouse clicked! " +  pieChart1.getData());
+                CallPieChart(pieChart1.getData(), dataforPie2);
+            }
+        });
+        CallPieChart(pieChart1.getFirstData(), dataforPie2);
+        System.out.println("GUI.ThongKe" + (parent.getHeight() - pieChart1.getHeight()));
+        
+        curveLineChart1.addLegend("Vào", Color.decode("#B2E4CD"), Color.decode("#B2E4B4"));
+        curveLineChart1.addLegend("Mượn", Color.decode("#e65c00"), Color.decode("#F9D423"));
+        
+        curveLineChart1.clear();
+        for (Object[] t:tinSuDungBLL.getThongKeThang()){
+            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+        }
+        curveLineChart1.start();
+        
+        Map<String, Integer> MuonCounts = new HashMap<>();
+        pieChart3.setPreferredSize(new Dimension(400, 400));
+        pieChart3.setChartType(PieChart.PeiChartType.DONUT_CHART);
+        // Lặp qua danh sách thông tin sử dụng và cập nhật số lượng của từng loại khoa trong Map
+        for (ThongTinSuDungDTO t : dataforPie2) {
+            if (t.getMaTB() == null) continue;
+            String khoa = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getKhoa();
+            khoa = khoa.toUpperCase(Locale.ROOT);
+            MuonCounts.put(khoa, MuonCounts.getOrDefault(khoa, 0) + 1);
+        }
+        // Lặp qua Map và thêm dữ liệu vào biểu đồ
+        for (Map.Entry<String, Integer> entry : MuonCounts.entrySet()) {
+            String khoa = entry.getKey();
+            int count = entry.getValue();
+            Color color = getColorForKhoa(khoa); 
+            pieChart3.addData(new ModelPieChart(khoa, count, color));
+        }
+    }
+    private boolean jtextviewToDateToData(Date inputDate){
+        String dateRange = jTextField1.getText().toString();
+        String startDateStr = dateRange.split(" to ")[0];
+        String endDateStr = dateRange.split(" to ")[1];
+
+        // Chuyển đổi chuỗi ngày bắt đầu và kết thúc thành đối tượng Date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            startDate = dateFormat.parse(startDateStr);
+            endDate = dateFormat.parse(endDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // Kiểm tra xem ngày đầu vào có nằm trong phạm vi không
+       return !(inputDate.before(startDate) || inputDate.after(endDate));
+    }
+    
+    private void drawPieChart1(ArrayList<ThongTinSuDungDTO> listtemp){
+        pieChart1.clearData();
         Map<String, Integer> khoaCounts = new HashMap<>();
         // Lặp qua danh sách thông tin sử dụng và cập nhật số lượng của từng loại khoa trong Map
-        for (ThongTinSuDungDTO t : tinSuDungBLL.listThongTinSuDung()) {
+        for (ThongTinSuDungDTO t : listtemp) {
             String khoa = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getKhoa();
             khoa = khoa.toUpperCase(Locale.ROOT);
             khoaCounts.put(khoa, khoaCounts.getOrDefault(khoa, 0) + 1);
@@ -134,52 +238,8 @@ public class ThongKeGUI extends javax.swing.JPanel {
             Color color = getColorForKhoa(khoa); 
             pieChart1.addData(new ModelPieChart(khoa, count, color));
         }
-        pieChart1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                // Xử lý sự kiện khi chuột được click
-                System.out.println("Mouse clicked! " +  pieChart1.getData());
-                CallPieChart(pieChart1.getData());
-            }
-        });
-        CallPieChart(pieChart1.getFirstData());
-        System.out.println("GUI.ThongKe" + (parent.getHeight() - pieChart1.getHeight()));
-        curveLineChart1.setPreferredSize(new Dimension(0,parent.getHeight() - 300 - 70));
-        
-        curveLineChart1.addLegend("Vào", Color.decode("#B2E4CD"), Color.decode("#B2E4B4"));
-        curveLineChart1.addLegend("Mượn", Color.decode("#e65c00"), Color.decode("#F9D423"));
-        
-        curveLineChart1.clear();
-        for (Object[] t:tinSuDungBLL.getThongKeThang()){
-            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
-        }
-        curveLineChart1.start();
-        
-        
-        
-        
-        
-        Map<String, Integer> MuonCounts = new HashMap<>();
-        pieChart3.setPreferredSize(new Dimension(400, 400));
-        pieChart3.setChartType(PieChart.PeiChartType.DONUT_CHART);
-        // Lặp qua danh sách thông tin sử dụng và cập nhật số lượng của từng loại khoa trong Map
-        for (ThongTinSuDungDTO t : tinSuDungBLL.listThongTinSuDung()) {
-            if (t.getMaTB() == null) continue;
-            String khoa = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getKhoa();
-            khoa = khoa.toUpperCase(Locale.ROOT);
-            MuonCounts.put(khoa, MuonCounts.getOrDefault(khoa, 0) + 1);
-        }
-
-        // Lặp qua Map và thêm dữ liệu vào biểu đồ
-        for (Map.Entry<String, Integer> entry : MuonCounts.entrySet()) {
-            String khoa = entry.getKey();
-            int count = entry.getValue();
-            Color color = getColorForKhoa(khoa); 
-            pieChart3.addData(new ModelPieChart(khoa, count, color));
-        }
     }
-    private void CallPieChart(String khoa) {
+    private void CallPieChart(String khoa, ArrayList<ThongTinSuDungDTO> listtemp) {
         if (khoa == null) return;
         pieChart2.clearData();
 
@@ -214,7 +274,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         for (int i = 0; i < nganhList.size(); i++) {
             String nganh = nganhList.get(i);
             int dem = 0;
-            for (ThongTinSuDungDTO t : tinSuDungBLL.listThongTinSuDung()) {
+            for (ThongTinSuDungDTO t : listtemp) {
                 String nganhTV = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getNganh();
                 if (nganhTV.toUpperCase(Locale.ROOT).equals(nganh)) {
                     dem++;
@@ -236,8 +296,15 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         pieChart1 = new GUI.ThongKeGUI.PieChart();
+        jLabel3 = new javax.swing.JLabel();
         pieChart2 = new GUI.ThongKeGUI.PieChart();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         panelShadow1 = new raven.panel.PanelShadow();
         curveLineChart1 = new raven.chart.CurveLineChart();
         jPanel3 = new javax.swing.JPanel();
@@ -253,19 +320,73 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setPreferredSize(new java.awt.Dimension(600, 350));
+        jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         pieChart1.setBackground(new java.awt.Color(255, 255, 255));
+        pieChart1.setChartType(GUI.ThongKeGUI.PieChart.PeiChartType.DONUT_CHART);
+        pieChart1.setName(""); // NOI18N
+        pieChart1.setPreferredSize(new java.awt.Dimension(350, 350));
         pieChart1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel4.add(pieChart1);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Theo Khoa");
+        pieChart1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 340, -1));
+
+        jPanel6.add(pieChart1);
 
         pieChart2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.add(pieChart2);
+        pieChart2.setPreferredSize(new java.awt.Dimension(350, 350));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Theo Ngành");
+        pieChart2.add(jLabel2);
+        jLabel2.setBounds(0, 320, 350, 16);
+
+        jPanel6.add(pieChart2);
+
+        jPanel4.add(jPanel6, java.awt.BorderLayout.CENTER);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setPreferredSize(new java.awt.Dimension(600, 25));
+        jPanel5.setLayout(null);
+
+        jTextField1.setText("jTextField1");
+        jPanel5.add(jTextField1);
+        jTextField1.setBounds(0, 0, 230, 25);
+
+        jButton1.setText("Selected Date");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton1);
+        jButton1.setBounds(250, 0, 130, 25);
+
+        jButton2.setText("Clear");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton2);
+        jButton2.setBounds(400, 0, 130, 25);
+
+        jPanel4.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
         panelShadow1.setBackground(new java.awt.Color(51, 153, 255));
         panelShadow1.setColorGradient(new java.awt.Color(51, 51, 255));
+        panelShadow1.setPreferredSize(new java.awt.Dimension(184, 270));
         panelShadow1.setLayout(new java.awt.BorderLayout());
 
         curveLineChart1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -291,14 +412,63 @@ public class ThongKeGUI extends javax.swing.JPanel {
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ArrayList<ThongTinSuDungDTO> listtemp = new ArrayList<>();
+        if (jTextField1.getText().toString().length() < 11) return;
+        for (ThongTinSuDungDTO t: tinSuDungBLL.listThongTinSuDung()){
+           if (jtextviewToDateToData(t.getTGVao())){
+               listtemp.add(t);
+           }
+         }
+        if (listtemp.size() < 1){
+            JOptionPane.showMessageDialog(null, "Không có thanh vien trong ngày!");
+            return;
+        }
+        curveLineChart1.clear();
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yy");
+        for (Object[] t:tinSuDungBLL.getThongKeThang()){
+            Date inputDate = null;
+            try {
+                inputDate = inputDateFormat.parse(t[0].toString());
+            } catch (ParseException ex) {
+                Logger.getLogger(ThongKeGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (jtextviewToDateToData(inputDate)) 
+                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+        }
+        curveLineChart1.start();
+        
+        dataforPie2 = listtemp;
+        drawPieChart1(listtemp);
+        CallPieChart(pieChart1.getFirstData(), listtemp);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dataforPie2 = tinSuDungBLL.listThongTinSuDung();
+        drawPieChart1(dataforPie2);
+        CallPieChart(pieChart1.getFirstData(), dataforPie2);
+        curveLineChart1.clear();
+        for (Object[] t: tinSuDungBLL.getThongKeThang()){
+            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+        }
+        curveLineChart1.start();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private raven.chart.CurveLineChart curveLineChart1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField jTextField1;
     private raven.panel.PanelShadow panelShadow1;
     private GUI.ThongKeGUI.PieChart pieChart1;
     private GUI.ThongKeGUI.PieChart pieChart2;

@@ -114,7 +114,7 @@ public class PieChart extends JComponent {
             double angle = data.getValues() * 360 / totalValue;
             //  Draw Text
             double textSize = size / 2 * 0.75f;
-            double textAngle = -(drawAngle - angle / 2);
+            double textAngle = -(drawAngle - angle / 3);
             double cosX = Math.cos(Math.toRadians(textAngle));
             double sinY = Math.sin(Math.toRadians(textAngle));
             String text = getPercentage(data.getValues()) + "%";

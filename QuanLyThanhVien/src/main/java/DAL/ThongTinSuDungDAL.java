@@ -167,11 +167,8 @@ public class ThongTinSuDungDAL {
     }
     public List<Object[]> getThongKeThang() {
         try (Session session = factory.openSession()) {
-            String sql = "SELECT DATE_FORMAT(TGVao, '%d-%m') AS Ngay, " +
-                         "COUNT(TGVao) AS SoLuongThoiGianVao, " +
-                         "COUNT(TGMuon) AS SoLuongThoiGianMuon " +
-                         "FROM ThongTinSuDungDTO " +
-                         "GROUP BY DATE_FORMAT(TGVao, '%d-%m')";
+            String sql = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(TGVao) AS SoLuongThoiGianVao, COUNT(TGMuon) AS SoLuongThoiGianMuon FROM ThongTinSuDungDTO GROUP BY DATE_FORMAT(TGVao, '%d-%m') ORDER BY TGVao ASC";
+
             
             Query<Object[]> query = session.createQuery(sql);
             List<Object[]> results = query.getResultList();
