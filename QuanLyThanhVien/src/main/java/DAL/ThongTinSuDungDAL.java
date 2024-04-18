@@ -169,7 +169,6 @@ public class ThongTinSuDungDAL {
         try (Session session = factory.openSession()) {
             String sql = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(TGVao) AS SoLuongThoiGianVao, COUNT(TGMuon) AS SoLuongThoiGianMuon FROM ThongTinSuDungDTO GROUP BY DATE_FORMAT(TGVao, '%d-%m') ORDER BY TGVao ASC";
 
-            
             Query<Object[]> query = session.createQuery(sql);
             List<Object[]> results = query.getResultList();
             return results;
@@ -178,7 +177,24 @@ public class ThongTinSuDungDAL {
             return null;
         }
     }
-    
+    public List<Object[]> getThongKeNgay(String datefind) {
+        try (Session session = factory.openSession()) {
+            String sql = "SELECT DATE_FORMAT(TGVao, '%H:00') AS Gio, " +
+                                "       COUNT(TGVao) AS SoLuongThoiGianVao, " +
+                                "       COUNT(TGMuon) AS SoLuongThoiGianMuon " +
+                                "FROM ThongTinSuDungDTO " +
+                                "WHERE DATE(TGVao) = '" + datefind + "' " +
+                                "GROUP BY DATE_FORMAT(TGVao, '%H:00') " +
+                                "ORDER BY Gio ASC";
+
+            Query<Object[]> query = session.createQuery(sql);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     
 //    public static void main(String[] args) {
 ////        ThongTinSuDungDAL dal = new ThongTinSuDungDAL();

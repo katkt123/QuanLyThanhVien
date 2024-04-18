@@ -20,6 +20,7 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -183,34 +184,35 @@ public class ThongKeGUI extends javax.swing.JPanel {
             curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
         }
         curveLineChart1.start();
-        
-        Map<String, Integer> MuonCounts = new HashMap<>();
-        pieChart3.setPreferredSize(new Dimension(400, 400));
-        pieChart3.setChartType(PieChart.PeiChartType.DONUT_CHART);
-        // Lặp qua danh sách thông tin sử dụng và cập nhật số lượng của từng loại khoa trong Map
-        for (ThongTinSuDungDTO t : dataforPie2) {
-            if (t.getMaTB() == null) continue;
-            String khoa = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getKhoa();
-            khoa = khoa.toUpperCase(Locale.ROOT);
-            MuonCounts.put(khoa, MuonCounts.getOrDefault(khoa, 0) + 1);
-        }
-        // Lặp qua Map và thêm dữ liệu vào biểu đồ
-        for (Map.Entry<String, Integer> entry : MuonCounts.entrySet()) {
-            String khoa = entry.getKey();
-            int count = entry.getValue();
-            Color color = getColorForKhoa(khoa); 
-            pieChart3.addData(new ModelPieChart(khoa, count, color));
-        }
+    }
+    public boolean isSameDate(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
+                cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
     }
     private boolean jtextviewToDateToData(Date inputDate){
         String dateRange = jTextField1.getText().toString();
-        String startDateStr = dateRange.split(" to ")[0];
-        String endDateStr = dateRange.split(" to ")[1];
-
         // Chuyển đổi chuỗi ngày bắt đầu và kết thúc thành đối tượng Date
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date startDate = null;
         Date endDate = null;
+        
+        if (dateRange.length() < 11)  {
+            try {
+                startDate = dateFormat.parse(dateRange);
+            } catch (ParseException ex) {
+                Logger.getLogger(ThongKeGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return isSameDate(startDate, inputDate);
+        }
+        String startDateStr = dateRange.split(" to ")[0];
+        String endDateStr = dateRange.split(" to ")[1];
+
         try {
             startDate = dateFormat.parse(startDateStr);
             endDate = dateFormat.parse(endDateStr);
@@ -307,8 +309,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         panelShadow1 = new raven.panel.PanelShadow();
         curveLineChart1 = new raven.chart.CurveLineChart();
-        jPanel3 = new javax.swing.JPanel();
-        pieChart3 = new GUI.ThongKeGUI.PieChart();
         jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -399,49 +399,12 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Thời Gian Vào", jPanel1);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setLayout(new java.awt.BorderLayout());
-        jPanel3.add(pieChart3, java.awt.BorderLayout.LINE_START);
-
-        jTabbedPane1.addTab("Mượn", jPanel3);
-
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.BorderLayout());
         jTabbedPane1.addTab("Bảng", jPanel2);
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ArrayList<ThongTinSuDungDTO> listtemp = new ArrayList<>();
-        if (jTextField1.getText().toString().length() < 11) return;
-        for (ThongTinSuDungDTO t: tinSuDungBLL.listThongTinSuDung()){
-           if (jtextviewToDateToData(t.getTGVao())){
-               listtemp.add(t);
-           }
-         }
-        if (listtemp.size() < 1){
-            JOptionPane.showMessageDialog(null, "Không có thanh vien trong ngày!");
-            return;
-        }
-        curveLineChart1.clear();
-        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yy");
-        for (Object[] t:tinSuDungBLL.getThongKeThang()){
-            Date inputDate = null;
-            try {
-                inputDate = inputDateFormat.parse(t[0].toString());
-            } catch (ParseException ex) {
-                Logger.getLogger(ThongKeGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (jtextviewToDateToData(inputDate)) 
-                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
-        }
-        curveLineChart1.start();
-        
-        dataforPie2 = listtemp;
-        drawPieChart1(listtemp);
-        CallPieChart(pieChart1.getFirstData(), listtemp);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dataforPie2 = tinSuDungBLL.listThongTinSuDung();
@@ -454,6 +417,42 @@ public class ThongKeGUI extends javax.swing.JPanel {
         curveLineChart1.start();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ArrayList<ThongTinSuDungDTO> listtemp = new ArrayList<>();
+        for (ThongTinSuDungDTO t: tinSuDungBLL.listThongTinSuDung()){
+            if (jtextviewToDateToData(t.getTGVao())){
+                listtemp.add(t);
+            }
+        }
+        if (listtemp.size() < 1){
+            JOptionPane.showMessageDialog(null, "Không có thanh vien trong ngày!");
+            return;
+        }
+        curveLineChart1.clear();
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yy");
+        if (jTextField1.getText().toString().length() < 11) {
+            for (Object[] t:tinSuDungBLL.getThongKeNgay(jTextField1.getText().toString())){
+                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+            }
+        } else {
+            for (Object[] t:tinSuDungBLL.getThongKeThang()){
+                Date inputDate = null;
+                try {
+                    inputDate = inputDateFormat.parse(t[0].toString());
+                } catch (ParseException ex) {
+                    Logger.getLogger(ThongKeGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (jtextviewToDateToData(inputDate))
+                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+            }
+        }
+        curveLineChart1.start();
+
+        dataforPie2 = listtemp;
+        drawPieChart1(listtemp);
+        CallPieChart(pieChart1.getFirstData(), listtemp);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private raven.chart.CurveLineChart curveLineChart1;
@@ -463,7 +462,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -472,7 +470,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private raven.panel.PanelShadow panelShadow1;
     private GUI.ThongKeGUI.PieChart pieChart1;
     private GUI.ThongKeGUI.PieChart pieChart2;
-    private GUI.ThongKeGUI.PieChart pieChart3;
     // End of variables declaration//GEN-END:variables
     private JTable jTable1;
     private JScrollPane jScrollPane1;

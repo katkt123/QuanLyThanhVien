@@ -6,6 +6,8 @@ package BLL;
 
 import DAL.ThongTinSuDungDAL;
 import DTO.ThongTinSuDungDTO;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +44,18 @@ public class ThongTinSuDungBLL {
         return ttDAL.getThongKeThang();
     }
     
+    public List<Object[]> getThongKeNgay(String datefind) {
+        DateTimeFormatter currentFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        
+        // Định nghĩa định dạng mới của chuỗi ngày
+        DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+        // Chuyển chuỗi ngày sang LocalDate
+        LocalDate date = LocalDate.parse(datefind, currentFormatter);
+        
+        // Đổi định dạng của LocalDate sang chuỗi với định dạng mới
+        String newDateString = date.format(newFormatter);
+        return ttDAL.getThongKeNgay(newDateString);
+    }
     
 }
