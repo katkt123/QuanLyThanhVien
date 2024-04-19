@@ -173,8 +173,6 @@ public class ThongTinSuDungDAL {
     }
     public List<Object[]> getThongKe() {
         List<Object[]> vao = null;
-        List<Object[]> muon = null;
-        List<Object[]> tra = null;
         
         try (Session session = factory.openSession()) {
             String queryVao = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGVao IS NOT NULL GROUP BY DATE(TGVao)";
@@ -184,62 +182,8 @@ public class ThongTinSuDungDAL {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try (Session session = factory.openSession()) {
-            String queryVao = "SELECT DATE_FORMAT(TGMuon, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGMuon IS NOT NULL GROUP BY DATE(TGMuon)";
-            Query<Object[]> query = session.createQuery(queryVao);
-            List<Object[]> results = query.getResultList();
-            muon = results;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        try (Session session = factory.openSession()) {
-            String queryVao = "SELECT DATE_FORMAT(TGTra, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGTra IS NOT NULL GROUP BY DATE(TGTra)";
-            Query<Object[]> query = session.createQuery(queryVao);
-            List<Object[]> results = query.getResultList();
-            tra = results;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
         
-        return mergeTables(vao, muon, tra);
-    }
-    public List<Object[]> mergeTables(List<Object[]> vao, List<Object[]> muon, List<Object[]> tra) {
-        // Tạo một bảng dữ liệu mới với cấu trúc Map sử dụng Ngày làm khóa
-        Map<String, Object[]> mergedTableMap = new HashMap<>();
-
-        // Duyệt qua dữ liệu từ list vao và thêm vào bảng dữ liệu mới
-        for (Object[] row : vao) {
-            String ngay = row[0].toString();
-            mergedTableMap.putIfAbsent(ngay, new Object[]{ngay, row[1], (long) 0,(long) 0});
-        }
-
-        // Duyệt qua dữ liệu từ list muon và cập nhật bảng dữ liệu mới
-        for (Object[] row : muon) {
-            String ngay = row[0].toString();
-            if (mergedTableMap.containsKey(ngay)) {
-                Object[] existingRow = mergedTableMap.get(ngay);
-                existingRow[2] = row[1];
-            } else {
-                mergedTableMap.put(ngay, new Object[]{ngay, (long) 0, row[1], (long) 0});
-            }
-        }
-
-        // Duyệt qua dữ liệu từ list tra và cập nhật bảng dữ liệu mới
-        for (Object[] row : tra) {
-            String ngay = row[0].toString();
-            if (mergedTableMap.containsKey(ngay)) {
-                Object[] existingRow = mergedTableMap.get(ngay);
-                existingRow[3] = row[1];
-            } else {
-                mergedTableMap.put(ngay, new Object[]{ngay, (long) 0, (long) 0, row[1]});
-            }
-        }
-
-        // Chuyển dữ liệu từ bảng Map sang list để trả về
-        List<Object[]> mergedTable = new ArrayList<>(mergedTableMap.values());
-        return  sortTableByDate(mergedTable);
+        return sortTableByDate(vao);
     }
     public static List<Object[]> sortTableByDate(List<Object[]> table) {
         Collections.sort(table, new Comparator<Object[]>() {
@@ -269,8 +213,7 @@ public class ThongTinSuDungDAL {
     public List<Object[]> getThongKeNgay(String datefind) {
         try (Session session = factory.openSession()) {
             String sql = "SELECT DATE_FORMAT(TGVao, '%H:00') AS Gio, " +
-                                "       COUNT(TGVao) AS SoLuongThoiGianVao, " +
-                                "       COUNT(TGMuon) AS SoLuongThoiGianMuon " +
+                                "       COUNT(TGVao) AS SoLuongThoiGianVao  " +
                                 "FROM ThongTinSuDungDTO " +
                                 "WHERE DATE(TGVao) = '" + datefind + "' " +
                                 "GROUP BY DATE_FORMAT(TGVao, '%H:00') " +

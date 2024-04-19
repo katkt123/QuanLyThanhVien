@@ -177,12 +177,10 @@ public class ThongKeGUI extends javax.swing.JPanel {
         System.out.println("GUI.ThongKe" + (parent.getHeight() - pieChart1.getHeight()));
         
         curveLineChart1.addLegend("Vào", Color.decode("#B2E4CD"), Color.decode("#B2E4B4"));
-        curveLineChart1.addLegend("Mượn", Color.decode("#e65c00"), Color.decode("#F9D423"));
-        curveLineChart1.addLegend("Trả", Color.decode("#f26f6f"), Color.decode("#d45050"));
         
         curveLineChart1.clear();
         for (Object[] t:tinSuDungBLL.getThongKeThang()){
-            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2], (long) t[3]}));
+            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1]}));
         }
         curveLineChart1.start();
     }
@@ -420,7 +418,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         CallPieChart(pieChart1.getFirstData(), dataforPie2);
         curveLineChart1.clear();
         for (Object[] t: tinSuDungBLL.getThongKeThang()){
-            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2], (long) t[3]}));
+            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1]}));
         }
         curveLineChart1.start();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -441,7 +439,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yy");
         if (jTextField1.getText().toString().length() < 11) {
             for (Object[] t:tinSuDungBLL.getThongKeNgay(jTextField1.getText().toString())){
-                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2], (long) t[3]}));
+                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1]}));
             }
         } else {
             for (Object[] t:tinSuDungBLL.getThongKeThang()){
@@ -452,7 +450,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
                     Logger.getLogger(ThongKeGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (jtextviewToDateToData(inputDate))
-                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2], (long) t[3]}));
+                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1]}));
             }
         }
         curveLineChart1.start();
