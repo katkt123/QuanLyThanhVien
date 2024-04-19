@@ -174,7 +174,7 @@ public class ThongTinSuDungDAL {
     public List<Object[]> getThongKe() {
         List<Object[]> vao = null;
         try (Session session = factory.openSession()) {
-            String queryVao = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGVao IS NOT NULL GROUP BY DATE(TGVao), TGVao";
+            String queryVao = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGVao IS NOT NULL GROUP BY DATE(TGVao)";
             Query<Object[]> query = session.createQuery(queryVao);
             List<Object[]> results = query.getResultList();
             vao = results;
