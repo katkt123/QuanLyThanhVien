@@ -35,6 +35,7 @@ GUI\ThietBi\ThemThietBi$3.class
 GUI\ThongKeGUI\ThongKeGUI$6.class
 raven\panel\PanelShadow.class
 GUI\ThanhVien\AddThanhVienGUI$2.class
+DAL\ThongTinSuDungDAL$1.class
 raven\datechooser\DateChooser$1.class
 raven\shadow\ShadowRenderer.class
 GUI\MainGUI$2.class

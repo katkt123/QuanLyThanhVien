@@ -178,10 +178,11 @@ public class ThongKeGUI extends javax.swing.JPanel {
         
         curveLineChart1.addLegend("Vào", Color.decode("#B2E4CD"), Color.decode("#B2E4B4"));
         curveLineChart1.addLegend("Mượn", Color.decode("#e65c00"), Color.decode("#F9D423"));
+        curveLineChart1.addLegend("Trả", Color.decode("#f26f6f"), Color.decode("#d45050"));
         
         curveLineChart1.clear();
         for (Object[] t:tinSuDungBLL.getThongKeThang()){
-            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2], (long) t[3]}));
         }
         curveLineChart1.start();
     }
@@ -228,6 +229,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         Map<String, Integer> khoaCounts = new HashMap<>();
         // Lặp qua danh sách thông tin sử dụng và cập nhật số lượng của từng loại khoa trong Map
         for (ThongTinSuDungDTO t : listtemp) {
+            if (t.getTGVao() == null) continue;
             String khoa = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getKhoa();
             khoa = khoa.toUpperCase(Locale.ROOT);
             khoaCounts.put(khoa, khoaCounts.getOrDefault(khoa, 0) + 1);
@@ -240,6 +242,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
             Color color = getColorForKhoa(khoa); 
             pieChart1.addData(new ModelPieChart(khoa, count, color));
         }
+        jLabel3.setText("Theo Khoa (" + listtemp.size() + ")");
     }
     private void CallPieChart(String khoa, ArrayList<ThongTinSuDungDTO> listtemp) {
         if (khoa == null) return;
@@ -271,20 +274,25 @@ public class ThongKeGUI extends javax.swing.JPanel {
                 if (colorIndex >= 4) break;
             }
         }
-
+        int tong = 0;
         // Lặp qua danh sách ngành và thêm dữ liệu vào biểu đồ
         for (int i = 0; i < nganhList.size(); i++) {
             String nganh = nganhList.get(i);
             int dem = 0;
             for (ThongTinSuDungDTO t : listtemp) {
+                if (t.getTGVao() == null) continue;
                 String nganhTV = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getNganh();
                 if (nganhTV.toUpperCase(Locale.ROOT).equals(nganh)) {
                     dem++;
                 }
             }
-            if (dem > 0)
+            if (dem > 0) {
                 pieChart2.addData(new ModelPieChart(nganh, dem, color_pie[i]));
+                tong += dem;
+            }
         }
+        jLabel2.setText("Theo Ngành (" + khoa + ": " + tong + ")");
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -323,32 +331,32 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jPanel4.setLayout(new java.awt.BorderLayout());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setPreferredSize(new java.awt.Dimension(600, 350));
+        jPanel6.setPreferredSize(new java.awt.Dimension(300, 320));
         jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         pieChart1.setBackground(new java.awt.Color(255, 255, 255));
         pieChart1.setChartType(GUI.ThongKeGUI.PieChart.PeiChartType.DONUT_CHART);
         pieChart1.setName(""); // NOI18N
-        pieChart1.setPreferredSize(new java.awt.Dimension(350, 350));
+        pieChart1.setPreferredSize(new java.awt.Dimension(320, 320));
         pieChart1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Theo Khoa");
-        pieChart1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 340, -1));
+        pieChart1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 320, -1));
 
         jPanel6.add(pieChart1);
 
         pieChart2.setBackground(new java.awt.Color(255, 255, 255));
-        pieChart2.setPreferredSize(new java.awt.Dimension(350, 350));
+        pieChart2.setPreferredSize(new java.awt.Dimension(320, 320));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Theo Ngành");
         pieChart2.add(jLabel2);
-        jLabel2.setBounds(0, 320, 350, 16);
+        jLabel2.setBounds(0, 290, 320, 16);
 
         jPanel6.add(pieChart2);
 
@@ -371,7 +379,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jPanel5.add(jButton1);
         jButton1.setBounds(250, 0, 130, 25);
 
-        jButton2.setText("Clear");
+        jButton2.setText("Reload");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -386,7 +394,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         panelShadow1.setBackground(new java.awt.Color(51, 153, 255));
         panelShadow1.setColorGradient(new java.awt.Color(51, 51, 255));
-        panelShadow1.setPreferredSize(new java.awt.Dimension(184, 270));
+        panelShadow1.setPreferredSize(new java.awt.Dimension(184, 300));
         panelShadow1.setLayout(new java.awt.BorderLayout());
 
         curveLineChart1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -412,7 +420,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         CallPieChart(pieChart1.getFirstData(), dataforPie2);
         curveLineChart1.clear();
         for (Object[] t: tinSuDungBLL.getThongKeThang()){
-            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+            curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2], (long) t[3]}));
         }
         curveLineChart1.start();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -420,6 +428,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ArrayList<ThongTinSuDungDTO> listtemp = new ArrayList<>();
         for (ThongTinSuDungDTO t: tinSuDungBLL.listThongTinSuDung()){
+            if (t.getTGVao() == null) continue;
             if (jtextviewToDateToData(t.getTGVao())){
                 listtemp.add(t);
             }
@@ -432,7 +441,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yy");
         if (jTextField1.getText().toString().length() < 11) {
             for (Object[] t:tinSuDungBLL.getThongKeNgay(jTextField1.getText().toString())){
-                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2], (long) t[3]}));
             }
         } else {
             for (Object[] t:tinSuDungBLL.getThongKeThang()){
@@ -443,14 +452,14 @@ public class ThongKeGUI extends javax.swing.JPanel {
                     Logger.getLogger(ThongKeGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (jtextviewToDateToData(inputDate))
-                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2]}));
+                curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1], (long) t[2], (long) t[3]}));
             }
         }
         curveLineChart1.start();
 
         dataforPie2 = listtemp;
-        drawPieChart1(listtemp);
-        CallPieChart(pieChart1.getFirstData(), listtemp);
+//        drawPieChart1(listtemp);
+//        CallPieChart(pieChart1.getFirstData(), listtemp);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

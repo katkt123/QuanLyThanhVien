@@ -41,7 +41,7 @@ public class ThongTinSuDungBLL {
         ttDAL.MuonThietBi(tt);
     }
     public List<Object[]> getThongKeThang() {
-        return ttDAL.getThongKeThang();
+        return ttDAL.getThongKe();
     }
     
     public List<Object[]> getThongKeNgay(String datefind) {
