@@ -245,9 +245,16 @@ public class ThongKeGUI extends javax.swing.JPanel {
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
-        for (Object[] t: tinSuDungBLL.getThongKeMuon()) {
-            tableModel.insertRow(tableModel.getRowCount(), t);
+        if (jComboBox2.getSelectedIndex() == 0) {
+            for (Object[] t: tinSuDungBLL.getThongKeMuon()) {
+                tableModel.insertRow(tableModel.getRowCount(), t);
+            }
+        } else {
+            for (Object[] t: tinSuDungBLL.getThongKeMuonDaTra()) {
+                tableModel.insertRow(tableModel.getRowCount(), t);
+            }
         }
+        
     }
     public boolean isSameDate(Date date1, Date date2) {
         Calendar cal1 = Calendar.getInstance();
@@ -387,6 +394,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -525,7 +533,16 @@ public class ThongKeGUI extends javax.swing.JPanel {
             }
         });
         jPanel7.add(jComboBox1);
-        jComboBox1.setBounds(440, 0, 150, 25);
+        jComboBox1.setBounds(430, 0, 150, 25);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Được mượn", "Đang mượn" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jComboBox2);
+        jComboBox2.setBounds(600, 0, 160, 25);
 
         jPanel3.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
@@ -597,8 +614,14 @@ public class ThongKeGUI extends javax.swing.JPanel {
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
-        for (Object[] t: tinSuDungBLL.getThongKeMuon(datefind)){
-            tableModel.insertRow(tableModel.getRowCount(), t);
+        if (jComboBox2.getSelectedIndex() == 0) {
+            for (Object[] t: tinSuDungBLL.getThongKeMuon(datefind)){
+                tableModel.insertRow(tableModel.getRowCount(), t);
+            }
+        } else {
+            for (Object[] t: tinSuDungBLL.getThongKeMuonDaTra(datefind)){
+                tableModel.insertRow(tableModel.getRowCount(), t);
+            }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -617,6 +640,10 @@ public class ThongKeGUI extends javax.swing.JPanel {
         rowSorter.setRowFilter(RowFilter.regexFilter("^" + selectedIndex, 1)); // Lọc theo cột thứ 2
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        addTableMuon();
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private raven.chart.CurveLineChart curveLineChart1;
@@ -625,6 +652,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

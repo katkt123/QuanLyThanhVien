@@ -221,6 +221,29 @@ public class ThongTinSuDungDAL {
         }
         return null;
     }
+    public List<Object[]> getThongKeMuonDaTra() {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT MaTV.MaTV, MaTB.MaTB, MaTB.TenTB, TGMuon FROM ThongTinSuDungDTO WHERE MaTB is not NULL and TGTra is not null ";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<Object[]> getThongKeMuonDaTra(String datestart, String dateend) {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT MaTV.MaTV, MaTB.MaTB, MaTB.TenTB, TGMuon FROM ThongTinSuDungDTO WHERE MaTB is not NULL and TGTra is not null "
+                    + "AND TGMuon BETWEEN '"+ datestart +"' AND '"+ dateend +"' ";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     
     
     public List<Object[]> getThongKeNgay(String datefind) {

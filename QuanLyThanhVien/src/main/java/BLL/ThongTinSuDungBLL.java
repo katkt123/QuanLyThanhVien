@@ -69,6 +69,15 @@ public class ThongTinSuDungBLL {
         System.out.println("BLL.ThongTinSuDungBLL.getThongKeMuon() + " +chagneDateToIDK(startDateStr) + " " + chagneDateToIDK(endDateStr));
         return ttDAL.getThongKeMuon(chagneDateToIDK(startDateStr) , chagneDateToIDK(endDateStr));
     }
+    public List<Object[]> getThongKeMuonDaTra() {
+        return ttDAL.getThongKeMuonDaTra();
+    }
+    public List<Object[]> getThongKeMuonDaTra(String dateFind) {
+        String startDateStr = dateFind.split(" to ")[0];
+        String endDateStr = dateFind.split(" to ")[1];
+        System.out.println("BLL.ThongTinSuDungBLL.getThongKeMuon() + " +chagneDateToIDK(startDateStr) + " " + chagneDateToIDK(endDateStr));
+        return ttDAL.getThongKeMuonDaTra(chagneDateToIDK(startDateStr) , chagneDateToIDK(endDateStr));
+    }
     
     public String chagneDateToIDK(String datefind) {
         String inputDate = datefind;
