@@ -483,6 +483,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setPreferredSize(new java.awt.Dimension(100, 25));
         jPanel7.setLayout(null);
 
@@ -581,8 +582,8 @@ public class ThongKeGUI extends javax.swing.JPanel {
         curveLineChart1.start();
 
         dataforPie2 = listtemp;
-//        drawPieChart1(listtemp);
-//        CallPieChart(pieChart1.getFirstData(), listtemp);
+        drawPieChart1(listtemp);
+        CallPieChart(pieChart1.getFirstData(), listtemp);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
