@@ -186,6 +186,9 @@ public class ThongKeGUI extends javax.swing.JPanel {
                 return c;
             }
         };
+         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 16));
+        jTable1.setGridColor(new java.awt.Color(204, 204, 204));
+        jTable1.setRowHeight(50);
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane1.setViewportView(jTable1);
         jPanel2.add(jScrollPane1, BorderLayout.CENTER);
@@ -230,15 +233,26 @@ public class ThongKeGUI extends javax.swing.JPanel {
                 return c;
             }
         };
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        
+        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 16));
+        jTable2.setGridColor(new java.awt.Color(204, 204, 204));
+        DefaultTableModel model1 = new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "Mã Thành Viên", "Mã Thiết bị", "Tên thiết bị", "Thời gian mượn"
             }
-        ));
+        ){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Make all cells non-editable
+                return false;
+            }
+        };
+        jTable2.setModel(model1);
+
+        jTable2.setRowHeight(50);
 
         jScrollPane2.setViewportView(jTable2);
 
@@ -670,6 +684,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         curveLineChart1.clear();
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yy");
         if (jTextField1.getText().toString().length() < 11) {
+            curveLineChart1.addData(new ModelChart("00:00", new double[]{ (long) 0}));
             for (Object[] t:tinSuDungBLL.getThongKeNgay(jTextField1.getText().toString())){
                 curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1]}));
             }

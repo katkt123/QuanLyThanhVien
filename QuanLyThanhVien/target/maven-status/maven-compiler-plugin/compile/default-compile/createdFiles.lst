@@ -28,6 +28,7 @@ raven\datechooser\layout\HeaderLayout.class
 DAL\HibernateUtil.class
 GUI\ThietBi\ThietBiGUI$9.class
 raven\datechooser\DateChooserEditorDocumentFilter.class
+GUI\ThongKeGUI\ThongKeGUI$16.class
 GUI\ThietBi\SuaThietBi$1.class
 raven\datechooser\DateChooser$ButtonDate$1.class
 GUI\XuLyViPham\XuLyGUI$3.class
