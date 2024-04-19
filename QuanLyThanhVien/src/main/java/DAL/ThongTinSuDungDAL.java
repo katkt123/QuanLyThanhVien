@@ -4,8 +4,15 @@ import DTO.ThanhVienDTO;
 import DTO.ThietBiDTO;
 import DTO.ThongTinSuDungDTO;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -55,7 +62,7 @@ public class ThongTinSuDungDAL {
             tx = session.beginTransaction();
 
             // Sử dụng câu lệnh HQL để lấy tất cả ThongTinSuDungDTO mà MaTB khác null
-            String hql = "FROM ThongTinSuDungDTO WHERE MaTB IS NOT NULL";
+            String hql = "FROM ThongTinSuDungDTO WHERE MaTB IS NOT NULL AND TGTra IS NOT NULL";
             Query<ThongTinSuDungDTO> query = session.createQuery(hql, ThongTinSuDungDTO.class);
             resultList = (ArrayList<ThongTinSuDungDTO>) query.getResultList();
 
@@ -142,6 +149,28 @@ public class ThongTinSuDungDAL {
             session.close();
         }
     }
+    public ThongTinSuDungDTO getThongTinSuDungById(int id) {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        ThongTinSuDungDTO thongTinSuDung = null;
+
+        try {
+            tx = session.beginTransaction();
+            // Sử dụng phương thức get() để lấy ThongTinSuDungDTO theo ID
+            thongTinSuDung = session.get(ThongTinSuDungDTO.class, id);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return thongTinSuDung;
+    }
+    
+    
     
     public void MuonThietBi(ThongTinSuDungDTO tt){
         Session session = factory.openSession();
@@ -164,7 +193,75 @@ public class ThongTinSuDungDAL {
             session.close();
         }
     }
+    public List<Object[]> getThongKe() {
+        List<Object[]> vao = null;
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGVao IS NOT NULL GROUP BY DATE(TGVao), TGVao";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            vao = results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return sortTableByDate(vao);
+    }
+    public static List<Object[]> sortTableByDate(List<Object[]> table) {
+        Collections.sort(table, new Comparator<Object[]>() {
+            @Override
+            public int compare(Object[] row1, Object[] row2) {
+                String ngay1 = (String) row1[0];
+                String ngay2 = (String) row2[0];
+                // Chuyển đổi từng ngày sang đối tượng LocalDate để so sánh
+                LocalDate date1 = LocalDate.parse(ngay1, DateTimeFormatter.ofPattern("dd/MM/yy"));
+                LocalDate date2 = LocalDate.parse(ngay2, DateTimeFormatter.ofPattern("dd/MM/yy"));
+                return date1.compareTo(date2);
+            }
+        });
+        return table;
+    }
+    public List<Object[]> getThongKeMuon() {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT MaTV.MaTV, MaTB.MaTB, MaTB.TenTB, TGMuon FROM ThongTinSuDungDTO WHERE MaTB is not NULL";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<Object[]> getThongKeMuon(String datestart, String dateend) {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT MaTV.MaTV, MaTB.MaTB, MaTB.TenTB, TGMuon FROM ThongTinSuDungDTO WHERE MaTB is not NULL "
+                    + "AND TGMuon BETWEEN '"+ datestart +"' AND '"+ dateend +"' ";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     
+    
+    public List<Object[]> getThongKeNgay(String datefind) {
+        try (Session session = factory.openSession()) {
+            String sql = "SELECT DATE_FORMAT(TGVao, '%H:00') AS Gio, " +
+                                "       COUNT(TGVao) AS SoLuongThoiGianVao  " +
+                                "FROM ThongTinSuDungDTO " +
+                                "WHERE DATE(TGVao) = '" + datefind + "' " +
+                                "GROUP BY DATE_FORMAT(TGVao, '%H:00') " +
+                                "ORDER BY Gio ASC";
+
+            Query<Object[]> query = session.createQuery(sql);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     
 //    public static void main(String[] args) {
 ////        ThongTinSuDungDAL dal = new ThongTinSuDungDAL();

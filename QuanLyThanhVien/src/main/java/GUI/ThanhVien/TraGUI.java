@@ -215,7 +215,7 @@ public class TraGUI extends javax.swing.JFrame {
         }
         else{
             int id = (int) jTable_Muon.getValueAt(selectedRow, 0);
-            ttBLL.xoaThongTinSuDung(id);
+            ttBLL.TraThietBi(id);
             JOptionPane.showMessageDialog(this, "Trả thành công!!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             dispose();
         }

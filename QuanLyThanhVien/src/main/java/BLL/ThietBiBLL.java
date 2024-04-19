@@ -5,6 +5,7 @@
 package BLL;
 
 import DAL.ThietBiDAL;
+import DAL.ThongTinSuDungDAL;
 import DTO.ThanhVienDTO;
 import DTO.ThietBiDTO;
 import DTO.ThongTinSuDungDTO;
@@ -46,16 +47,16 @@ public class ThietBiBLL {
         tbDAL.updateThietBi(tb);
     }
     
-    public boolean CheckMuon(int ID){
+    public int CheckMuon(int ID){
         ArrayList<ThongTinSuDungDTO> list = new ThongTinSuDungBLL().listThongTinSuDung();
         for (ThongTinSuDungDTO s : list){
             if (s.getMaTB() != null){
-                if (s.getMaTB().getMaTB() == ID){
-                    return true;
+                if (s.getMaTB().getMaTB() == ID && s.getTGTra() != null){
+                    return s.getMaTT();
                 }
             }
         }
-        return false;
+        return 0;
     }
     
     public String KiemTraTruocKhiXoa(DefaultTableModel model){
@@ -66,7 +67,7 @@ public class ThietBiBLL {
             if (trangthai){
                 int ID = (int) model.getValueAt(i, 1);
                 dem++;
-                if (CheckMuon(ID)){
+                if (CheckMuon(ID)!=0){
                     list.add(ID + " " +  model.getValueAt(i, 2));
                 }
                 else{
@@ -200,21 +201,20 @@ public class ThietBiBLL {
     
     
     public String HienChiTiet(int ID){
-        ArrayList<ThongTinSuDungDTO> list = new ThongTinSuDungBLL().listThongTinSuDung();
         String message = "";
-        for (ThongTinSuDungDTO s : list){
-            if (s.getMaTB() != null){
-                if (s.getMaTB().getMaTB() == ID){
+        int ID_TT = CheckMuon(ID);
+        if (ID_TT!=0){
+                    ThongTinSuDungDTO s = new ThongTinSuDungDAL().getThongTinSuDungById(ID_TT);
                     ThanhVienDTO temp = new ThanhVienBLL().getThanhVienByID(s.getMaTV().getMaTV());
                     message += "\nMã thành viên: " + s.getMaTV().getMaTV();
                     message += "\nTên người mượn: " + temp.getHoTen();
                     message += "\nNgày mượn: " + s.getTGMuon().toString();
                     message += "\nNgày trả: " + s.getTGTra().toString();
                     return message;
-                }
-            }
         }
         return "Thiết bị chưa được mượn";
     }
+    
+
     
 }

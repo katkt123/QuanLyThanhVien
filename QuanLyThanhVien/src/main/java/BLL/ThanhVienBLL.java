@@ -94,7 +94,7 @@ public class ThanhVienBLL {
         ArrayList<ThongTinSuDungDTO> list = ttDAL.listThongTinSuDung(); 
         ArrayList<ThongTinSuDungDTO> result = new ArrayList<>();
         for (ThongTinSuDungDTO ttsd : list) {
-            if (ttsd.getMaTB() != null && ttsd.getMaTV().getMaTV() == id) {
+            if (ttsd.getMaTB() != null && ttsd.getMaTV().getMaTV() == id && ttsd.getTGTra() != null) {
                 result.add(ttsd);
             }
         }

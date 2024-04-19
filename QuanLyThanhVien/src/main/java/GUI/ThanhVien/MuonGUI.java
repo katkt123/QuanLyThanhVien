@@ -66,7 +66,7 @@ public class MuonGUI extends javax.swing.JFrame {
             int maTB = thietBi.getMaTB(); // Giả sử có phương thức để lấy mã thành viên
             String matv= String.valueOf(maTB);
             String combinedString1 = hoTen + " - " + matv; // Ghép chuỗi
-            if (checkThietBi(maTB)){
+            if (new ThietBiBLL().CheckMuon(maTB)==0){
                 model.addElement(combinedString1); // Thêm chuỗi đã ghép vào model
             }
         }
@@ -85,17 +85,6 @@ public class MuonGUI extends javax.swing.JFrame {
             return true;
         }
         return false;
-    }
-    public boolean checkThietBi(int ID){
-        for (ThongTinSuDungDTO s : list){
-            if ( s.getMaTB() != null){
-                if (s.getMaTB().getMaTB() == ID){
-                    return false;
-                }
-            }
-        }
-        
-        return true;
     }
     /**
      * This method is called from within the constructor to initialize the form.
