@@ -236,6 +236,52 @@ public class XuLyViPhamDAL {
          }
          return List;
     }
+    public List<Object[]> getThongKeHinhThucXL() {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT HinhThucXL, COUNT(*) AS Tong FROM XuLyViPhamDTO GROUP BY HinhThucXL";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+    public List<Object[]> getThongKeTrangThaiXL() {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT TrangThaiXL, COUNT(*) AS Tong FROM XuLyViPhamDTO GROUP BY TrangThaiXL";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+     public long getThongKeTongTienDaXL() {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT SUM(SoTien) AS TongSoTien FROM XuLyViPhamDTO WHERE TrangThaiXL=1";
+            Query<Object[]> query = session.createQuery(queryVao);
+            Object result = query.uniqueResult();
+            return (long) result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+     public long getThongKeTongTienChuaXL() {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT SUM(SoTien) AS TongSoTien FROM XuLyViPhamDTO WHERE TrangThaiXL=0";
+            Query<Object[]> query = session.createQuery(queryVao);
+            Object result = query.uniqueResult();
+            return (long) result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
     
     public static void main(String[] args) {
         XuLyViPhamDAL a = new XuLyViPhamDAL();

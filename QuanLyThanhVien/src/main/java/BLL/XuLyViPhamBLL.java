@@ -9,6 +9,7 @@ import DTO.ThanhVienDTO;
 import DTO.XuLyViPhamDTO;
 import DTO.ThongTinSuDungDTO;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,6 +76,19 @@ public class XuLyViPhamBLL {
         }
 
         return list;
+    }
+    public List<Object[]> getThongKeHinhThucXL() {
+        return xlDAL.getThongKeHinhThucXL();
+    }
+    public List<Object[]> getThongKeTrangThaiXL() {
+        return xlDAL.getThongKeTrangThaiXL();
+    }
+    
+    public long getThongKeTongTienDaXL() {
+        return xlDAL.getThongKeTongTienDaXL();
+    }
+    public long getThongKeTongTienChuaXL() {
+        return xlDAL.getThongKeTongTienChuaXL();
     }
 
 }

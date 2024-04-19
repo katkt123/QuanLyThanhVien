@@ -6,6 +6,7 @@ package GUI.ThongKeGUI;
 
 import BLL.ThanhVienBLL;
 import BLL.ThongTinSuDungBLL;
+import BLL.XuLyViPhamBLL;
 import DTO.ThanhVienDTO;
 import DTO.ThongTinSuDungDTO;
 import com.formdev.flatlaf.FlatLaf;
@@ -51,6 +52,8 @@ import raven.datechooser.listener.DateChooserAdapter;
 public class ThongKeGUI extends javax.swing.JPanel {
     ThongTinSuDungBLL tinSuDungBLL;
     ThanhVienBLL tvBLL;
+    XuLyViPhamBLL xlBLL;
+    
     DateChooser ch;
     DateChooser ch1;
     ArrayList<ThongTinSuDungDTO> dataforPie2;
@@ -72,7 +75,8 @@ public class ThongKeGUI extends javax.swing.JPanel {
         new Color(255, 0, 0),   // Đỏ
         new Color(47, 157, 64),   // Xanh lá cây
         new Color(0, 0, 255),   // Xanh dương
-        new Color(255, 255, 0)  // Vàng
+        new Color(168, 168, 71),  // Vàng
+        new Color(4, 179, 161)
         // Các màu khác tùy chọn có thể thêm vào đây
     };
 
@@ -87,6 +91,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         initComponents();
         tinSuDungBLL = new ThongTinSuDungBLL();
         tvBLL = new ThanhVienBLL();
+        xlBLL = new XuLyViPhamBLL();
         String listMonth[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         String listDays[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         UIManager.put("DateChooser.listMonth", listMonth);
@@ -238,6 +243,13 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTable2);
 
         addTableMuon();
+        
+        
+        drawPieChart3();
+        drawPieChart4();
+        jLabel6.setText(xlBLL.getThongKeTongTienDaXL() + " VND");
+        jLabel8.setText(xlBLL.getThongKeTongTienChuaXL()+ " VND");
+        
     }
     public void addTableMuon() {
         DefaultTableModel tableModel = (DefaultTableModel) jTable2.getModel();
@@ -397,11 +409,18 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
+        pieChart3 = new GUI.ThongKeGUI.PieChart();
+        jLabel1 = new javax.swing.JLabel();
+        pieChart4 = new GUI.ThongKeGUI.PieChart();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
@@ -554,19 +573,73 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Mượn", jPanel3);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new java.awt.BorderLayout());
-        jTabbedPane1.addTab("Bảng", jPanel2);
-
         jPanel8.setLayout(new java.awt.BorderLayout());
 
-        jPanel9.setLayout(new java.awt.BorderLayout());
-        jPanel9.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setLayout(null);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Tổng tiền đã nhận:");
+        jLabel5.setToolTipText("");
+        jPanel9.add(jLabel5);
+        jLabel5.setBounds(10, 10, 190, 30);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setToolTipText("");
+        jPanel9.add(jLabel6);
+        jLabel6.setBounds(210, 10, 260, 30);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Tổng tiền chưa nhận:");
+        jLabel7.setToolTipText("");
+        jPanel9.add(jLabel7);
+        jLabel7.setBounds(10, 50, 190, 30);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setToolTipText("");
+        jPanel9.add(jLabel8);
+        jLabel8.setBounds(210, 50, 260, 30);
 
         jPanel8.add(jPanel9, java.awt.BorderLayout.CENTER);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setPreferredSize(new java.awt.Dimension(10, 350));
+        jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+
+        pieChart3.setChartType(GUI.ThongKeGUI.PieChart.PeiChartType.DONUT_CHART);
+        pieChart3.setPreferredSize(new java.awt.Dimension(450, 350));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Theo Hình Thức");
+        pieChart3.add(jLabel1);
+        jLabel1.setBounds(0, 320, 450, 16);
+
+        jPanel10.add(pieChart3);
+
+        pieChart4.setPreferredSize(new java.awt.Dimension(350, 350));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Theo Trạng Thái");
+        pieChart4.add(jLabel4);
+        jLabel4.setBounds(0, 320, 350, 16);
+
+        jPanel10.add(pieChart4);
+
         jPanel8.add(jPanel10, java.awt.BorderLayout.PAGE_START);
 
         jTabbedPane1.addTab("Vi phạm", jPanel8);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+        jTabbedPane1.addTab("Bảng Thông tin sữ dụng", jPanel2);
 
         add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -669,8 +742,14 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -682,15 +761,35 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private raven.panel.PanelShadow panelShadow1;
     private GUI.ThongKeGUI.PieChart pieChart1;
     private GUI.ThongKeGUI.PieChart pieChart2;
+    private GUI.ThongKeGUI.PieChart pieChart3;
+    private GUI.ThongKeGUI.PieChart pieChart4;
     // End of variables declaration//GEN-END:variables
     private JTable jTable1;
     private JTable jTable2;
     private JScrollPane jScrollPane1;
+
+    private void drawPieChart3() {
+        pieChart3.clearData();
+        int indexx = 0;
+        for (Object[] t: xlBLL.getThongKeHinhThucXL()) {
+            pieChart3.addData(new ModelPieChart(t[0].toString(), (long) t[1], COLOR_OPTIONS[indexx]));
+            indexx++;
+        }
+    }
+
+    private void drawPieChart4() {
+        pieChart4.clearData();
+        int indexx = 0;
+        for (Object[] t: xlBLL.getThongKeTrangThaiXL()) {
+            String trangthai = t[0].toString().equals("0") ? "Chưa xử lý" : "Đã xử lý";
+            pieChart4.addData(new ModelPieChart(trangthai, (long) t[1], COLOR_OPTIONS[indexx]));
+            indexx++;
+        }
+    }
 }
