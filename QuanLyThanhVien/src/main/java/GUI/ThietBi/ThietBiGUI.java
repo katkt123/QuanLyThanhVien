@@ -414,8 +414,10 @@ public class ThietBiGUI extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(jScrollPane2, thietBiBLL.KiemTraTruocKhiXoa(modelTB));
-        loadThietBi();
+        if (JOptionPane.showConfirmDialog(jScrollPane2, "Bạn có thực sự muốn xóa không") == JOptionPane.YES_OPTION){              
+            JOptionPane.showMessageDialog(jScrollPane2, thietBiBLL.KiemTraTruocKhiXoa(modelTB));
+            loadThietBi();
+        }
         
     }//GEN-LAST:event_btnDeleteActionPerformed
 

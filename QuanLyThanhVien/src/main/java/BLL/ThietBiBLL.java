@@ -212,16 +212,19 @@ public class ThietBiBLL {
     
     
     public String HienChiTiet(int ID){
+        ArrayList<ThongTinSuDungDTO> list = new ThongTinSuDungBLL().listThongTinSuDung();
         String message = "";
-        int ID_TT = CheckMuon(ID);
-        if (ID_TT!=0){
-                    ThongTinSuDungDTO s = new ThongTinSuDungDAL().getThongTinSuDungById(ID_TT);
+        for (ThongTinSuDungDTO s : list){
+            if (s.getMaTB() != null){
+                if (s.getMaTB().getMaTB() == ID && s.getTGTra() != null){
                     ThanhVienDTO temp = new ThanhVienBLL().getThanhVienByID(s.getMaTV().getMaTV());
                     message += "\nMã thành viên: " + s.getMaTV().getMaTV();
                     message += "\nTên người mượn: " + temp.getHoTen();
                     message += "\nNgày mượn: " + s.getTGMuon().toString();
                     message += "\nNgày trả: " + s.getTGTra().toString();
                     return message;
+                }
+            }
         }
         return "Thiết bị chưa được mượn";
     }
