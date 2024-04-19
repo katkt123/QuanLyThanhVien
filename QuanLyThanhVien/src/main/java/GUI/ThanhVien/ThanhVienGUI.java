@@ -129,7 +129,6 @@ public class ThanhVienGUI extends javax.swing.JPanel {
     
     public void loadThanhVien(){
         arrThanhVien = tvBLL.listThanhVien();
-//        int a = arrNCC.size();
         for(int i = modelTV.getRowCount()-1;i>=0;i--)
             modelTV.removeRow(i);
         for(int i = 0; i<arrThanhVien.size();i++){

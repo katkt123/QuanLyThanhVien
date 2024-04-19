@@ -49,6 +49,7 @@ GUI\ThanhVien\AddThanhVienGUI$1.class
 GUI\ThanhVien\XoaNhieuGUI.class
 GUI\XuLyViPham\EditHinhThucXuLyGUI$1.class
 GUI\ThanhVien\TraGUI$1.class
+GUI\XuLyViPham\XuLyViPhamGUI$9.class
 GUI\ThanhVien\MuonGUI$3.class
 DTO\ThanhVienDTO.class
 GUI\ThanhVien\ThanhVienGUI$4.class

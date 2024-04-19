@@ -210,7 +210,7 @@ public class ThanhVienBLL {
         if(CheckMuon(id) && checkVP(id)) {
             tvDAL.deleteThanhVien(id);
             return true;
-        }
+        }   
         else return false;
     
     }
