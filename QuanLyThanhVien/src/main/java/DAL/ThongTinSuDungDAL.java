@@ -196,7 +196,7 @@ public class ThongTinSuDungDAL {
     public List<Object[]> getThongKe() {
         List<Object[]> vao = null;
         try (Session session = factory.openSession()) {
-            String queryVao = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGVao IS NOT NULL GROUP BY DATE(TGVao), TGVao";
+            String queryVao = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGVao IS NOT NULL GROUP BY DATE(TGVao)";
             Query<Object[]> query = session.createQuery(queryVao);
             List<Object[]> results = query.getResultList();
             vao = results;
@@ -234,6 +234,29 @@ public class ThongTinSuDungDAL {
     public List<Object[]> getThongKeMuon(String datestart, String dateend) {
         try (Session session = factory.openSession()) {
             String queryVao = "SELECT MaTV.MaTV, MaTB.MaTB, MaTB.TenTB, TGMuon FROM ThongTinSuDungDTO WHERE MaTB is not NULL "
+                    + "AND TGMuon BETWEEN '"+ datestart +"' AND '"+ dateend +"' ";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<Object[]> getThongKeMuonDaTra() {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT MaTV.MaTV, MaTB.MaTB, MaTB.TenTB, TGMuon FROM ThongTinSuDungDTO WHERE MaTB is not NULL and TGTra is not null ";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<Object[]> getThongKeMuonDaTra(String datestart, String dateend) {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT MaTV.MaTV, MaTB.MaTB, MaTB.TenTB, TGMuon FROM ThongTinSuDungDTO WHERE MaTB is not NULL and TGTra is not null "
                     + "AND TGMuon BETWEEN '"+ datestart +"' AND '"+ dateend +"' ";
             Query<Object[]> query = session.createQuery(queryVao);
             List<Object[]> results = query.getResultList();

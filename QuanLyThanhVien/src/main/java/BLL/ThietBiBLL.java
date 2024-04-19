@@ -61,6 +61,8 @@ public class ThietBiBLL {
     
     public String KiemTraTruocKhiXoa(DefaultTableModel model){
         ArrayList<String> list = new ArrayList<>();
+        ArrayList<ThongTinSuDungDTO> list_ttsd = new ArrayList<>();
+        
         int dem = 0;
         for (int i = 0; i < model.getRowCount();i++){
             boolean trangthai = (boolean) model.getValueAt(i, 0);
@@ -71,6 +73,15 @@ public class ThietBiBLL {
                     list.add(ID + " " +  model.getValueAt(i, 2));
                 }
                 else{
+                    list_ttsd = new ThongTinSuDungDAL().listThongTinSuDung();
+                    for (ThongTinSuDungDTO s : list_ttsd){
+                        if (s.getMaTB() != null){
+                            if (s.getMaTB().getMaTB() == ID) {
+                                new ThongTinSuDungDAL().xoaThongTinSuDung(s.getMaTT());
+                            }
+                        }
+                        
+                    }
                     tbDAL.deleteThietBi(ID);
                 }
 
