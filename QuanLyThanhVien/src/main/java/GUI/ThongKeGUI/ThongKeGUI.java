@@ -298,8 +298,10 @@ public class ThongKeGUI extends javax.swing.JPanel {
         pieChart1.clearData();
         Map<String, Integer> khoaCounts = new HashMap<>();
         // Lặp qua danh sách thông tin sử dụng và cập nhật số lượng của từng loại khoa trong Map
+        int dem= 0;
         for (ThongTinSuDungDTO t : listtemp) {
             if (t.getTGVao() == null) continue;
+            dem++;
             String khoa = tvBLL.getThanhVienByID(t.getMaTV().getMaTV()).getKhoa();
             khoa = khoa.toUpperCase(Locale.ROOT);
             khoaCounts.put(khoa, khoaCounts.getOrDefault(khoa, 0) + 1);
@@ -312,7 +314,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
             Color color = getColorForKhoa(khoa); 
             pieChart1.addData(new ModelPieChart(khoa, count, color));
         }
-        jLabel3.setText("Theo Khoa (" + listtemp.size() + ")");
+        jLabel3.setText("Theo Khoa (" + dem + ")");
     }
     private void CallPieChart(String khoa, ArrayList<ThongTinSuDungDTO> listtemp) {
         if (khoa == null) return;
@@ -396,6 +398,10 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel10 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
@@ -552,6 +558,16 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jPanel2.setLayout(new java.awt.BorderLayout());
         jTabbedPane1.addTab("Bảng", jPanel2);
 
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        jPanel9.setLayout(new java.awt.BorderLayout());
+        jPanel9.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+
+        jPanel8.add(jPanel9, java.awt.BorderLayout.CENTER);
+        jPanel8.add(jPanel10, java.awt.BorderLayout.PAGE_START);
+
+        jTabbedPane1.addTab("Vi phạm", jPanel8);
+
         add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -656,13 +672,17 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
