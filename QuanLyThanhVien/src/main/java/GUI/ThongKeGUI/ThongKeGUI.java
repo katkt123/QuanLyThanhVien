@@ -32,9 +32,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableRowSorter;
 import raven.chart.ModelChart;
 import raven.datechooser.DateBetween;
 import raven.datechooser.DateChooser;
@@ -50,6 +52,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
     ThongTinSuDungBLL tinSuDungBLL;
     ThanhVienBLL tvBLL;
     DateChooser ch;
+    DateChooser ch1;
     ArrayList<ThongTinSuDungDTO> dataforPie2;
 
     /**
@@ -113,6 +116,28 @@ public class ThongKeGUI extends javax.swing.JPanel {
         ch.setTextField(jTextField1);
         ch.setDateSelectionMode(DateChooser.DateSelectionMode.BETWEEN_DATE_SELECTED);
         
+        
+        ch1 = new DateChooser();
+        ch1.setDateSelectable(new DateSelectable() {
+            @Override
+            public boolean isDateSelectable(Date date) {
+                return date.before(new Date());
+            }
+        });
+        ch1.addActionDateChooserListener(
+                new DateChooserAdapter() {
+                    @Override
+                    public void dateChanged(Date date, DateChooserAction action) {
+                        System.out.println("date single selected...");
+                    }
+                    @Override
+                    public void dateBetweenChanged(DateBetween date, DateChooserAction action) {
+                        System.out.println(date);
+                    }
+                });
+        ch1.setTextField(jTextField2);
+        ch1.setDateSelectionMode(DateChooser.DateSelectionMode.BETWEEN_DATE_SELECTED);
+        
         ArrayList<Object[]> dataList = new ArrayList<>();
         for (ThongTinSuDungDTO t: tinSuDungBLL.listThongTinSuDung()) {       
             dataList.add(new Object[]{t.getMaTT(), 
@@ -122,7 +147,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
                 t.getTGMuon() != null ? t.getTGMuon():"NULL", 
                 t.getTGTra() != null ? t.getTGTra():"NULL"});           
         }
-        
         DefaultTableModel model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -130,7 +154,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
                 return false;
             }
         };
-        
         model.addColumn("MaTT");
         model.addColumn("MaTV");
         model.addColumn("MaTB");
@@ -183,6 +206,48 @@ public class ThongKeGUI extends javax.swing.JPanel {
             curveLineChart1.addData(new ModelChart(t[0].toString(), new double[]{ (long) t[1]}));
         }
         curveLineChart1.start();
+        
+        
+        jTable2 = new javax.swing.JTable()
+        {
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
+            {
+                Component c = super.prepareRenderer(renderer, row, column);
+                Object cellValue = jTable2.getValueAt(row, column);
+                //  Alternate row color
+
+                if (cellValue == "NULL") {
+                    c.setForeground(Color.RED);
+                } else {
+                    // Thiết lập màu nền mặc định cho các ô khác
+                    c.setForeground(jTable2.getForeground());
+                }
+                return c;
+            }
+        };
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã Thành Viên", "Mã Thiết bị", "Tên thiết bị", "Thời gian mượn"
+            }
+        ));
+
+        jScrollPane2.setViewportView(jTable2);
+
+        addTableMuon();
+    }
+    public void addTableMuon() {
+        DefaultTableModel tableModel = (DefaultTableModel) jTable2.getModel();
+        
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(0);
+        }
+        for (Object[] t: tinSuDungBLL.getThongKeMuon()) {
+            tableModel.insertRow(tableModel.getRowCount(), t);
+        }
     }
     public boolean isSameDate(Date date1, Date date2) {
         Calendar cal1 = Calendar.getInstance();
@@ -315,6 +380,13 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         panelShadow1 = new raven.panel.PanelShadow();
         curveLineChart1 = new raven.chart.CurveLineChart();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel7 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -405,11 +477,64 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Thời Gian Vào", jPanel1);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanel7.setPreferredSize(new java.awt.Dimension(100, 25));
+        jPanel7.setLayout(null);
+
+        jTextField2.setText("jTextField2");
+        jTextField2.setPreferredSize(new java.awt.Dimension(230, 25));
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jTextField2);
+        jTextField2.setBounds(0, 0, 230, 25);
+
+        jButton3.setText("filed");
+        jButton3.setPreferredSize(new java.awt.Dimension(75, 25));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton3);
+        jButton3.setBounds(250, 0, 75, 25);
+
+        jButton4.setText("Clear");
+        jButton4.setPreferredSize(new java.awt.Dimension(75, 25));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton4);
+        jButton4.setBounds(340, 0, 75, 25);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Micro", "Máy chiếu", "Máy ảnh", "Cassette", "Tivi", "Quạt đứng" }));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(72, 25));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jComboBox1);
+        jComboBox1.setBounds(440, 0, 150, 25);
+
+        jPanel3.add(jPanel7, java.awt.BorderLayout.PAGE_START);
+
+        jTabbedPane1.addTab("Mượn", jPanel3);
+
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.BorderLayout());
         jTabbedPane1.addTab("Bảng", jPanel2);
 
-        add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -460,24 +585,63 @@ public class ThongKeGUI extends javax.swing.JPanel {
 //        CallPieChart(pieChart1.getFirstData(), listtemp);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String datefind = jTextField2.getText().toString();
+        if (datefind.length() < 11) return;
+        DefaultTableModel tableModel = (DefaultTableModel) jTable2.getModel();
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(0);
+        }
+        for (Object[] t: tinSuDungBLL.getThongKeMuon(datefind)){
+            tableModel.insertRow(tableModel.getRowCount(), t);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        addTableMuon();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedIndex = "" +  jComboBox1.getSelectedIndex();
+        if (selectedIndex.equals("0")) {
+            selectedIndex = "";
+        }
+        System.out.println("Selected Item: " + selectedIndex);
+        TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<>((DefaultTableModel) jTable2.getModel());
+        jTable2.setRowSorter(rowSorter);
+        rowSorter.setRowFilter(RowFilter.regexFilter("^" + selectedIndex, 1)); // Lọc theo cột thứ 2
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private raven.chart.CurveLineChart curveLineChart1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private raven.panel.PanelShadow panelShadow1;
     private GUI.ThongKeGUI.PieChart pieChart1;
     private GUI.ThongKeGUI.PieChart pieChart2;
     // End of variables declaration//GEN-END:variables
     private JTable jTable1;
+    private JTable jTable2;
     private JScrollPane jScrollPane1;
 }

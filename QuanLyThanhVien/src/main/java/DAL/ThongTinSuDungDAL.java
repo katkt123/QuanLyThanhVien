@@ -173,9 +173,8 @@ public class ThongTinSuDungDAL {
     }
     public List<Object[]> getThongKe() {
         List<Object[]> vao = null;
-        
         try (Session session = factory.openSession()) {
-            String queryVao = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGVao IS NOT NULL GROUP BY DATE(TGVao)";
+            String queryVao = "SELECT DATE_FORMAT(TGVao, '%d/%m/%y') AS Ngay, COUNT(*) AS SoLuong FROM ThongTinSuDungDTO WHERE TGVao IS NOT NULL GROUP BY DATE(TGVao), TGVao";
             Query<Object[]> query = session.createQuery(queryVao);
             List<Object[]> results = query.getResultList();
             vao = results;
@@ -199,16 +198,30 @@ public class ThongTinSuDungDAL {
         });
         return table;
     }
-    
-    public static void main(String[] args) {
-        
-        ThongTinSuDungDAL dal = new ThongTinSuDungDAL();
-        ThanhVienDAL tdal=new ThanhVienDAL();
-        ThietBiDAL bdal=new ThietBiDAL();
-        for (Object[] t:dal.getThongKe()){
-            System.out.println("DAL.ThongTinSuDungDAL.main() + " + t[0].toString() + " " + t[1].toString() + " " + t[2].toString() + " " + t[3].toString() );
+    public List<Object[]> getThongKeMuon() {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT MaTV.MaTV, MaTB.MaTB, MaTB.TenTB, TGMuon FROM ThongTinSuDungDTO WHERE MaTB is not NULL";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
+    public List<Object[]> getThongKeMuon(String datestart, String dateend) {
+        try (Session session = factory.openSession()) {
+            String queryVao = "SELECT MaTV.MaTV, MaTB.MaTB, MaTB.TenTB, TGMuon FROM ThongTinSuDungDTO WHERE MaTB is not NULL "
+                    + "AND TGMuon BETWEEN '"+ datestart +"' AND '"+ dateend +"' ";
+            Query<Object[]> query = session.createQuery(queryVao);
+            List<Object[]> results = query.getResultList();
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     
     public List<Object[]> getThongKeNgay(String datefind) {
         try (Session session = factory.openSession()) {

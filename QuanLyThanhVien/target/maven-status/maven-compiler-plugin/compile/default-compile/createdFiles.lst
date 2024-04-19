@@ -5,6 +5,7 @@ GUI\ThanhVien\ModifyAddGUI.class
 GUI\ThongKeGUI\Demo.class
 raven\chart\CurveLineChart.class
 GUI\ThanhVien\MuonGUI$1.class
+GUI\ThongKeGUI\ThongKeGUI$10.class
 GUI\ThanhVien\ThanhVienGUI$6.class
 GUI\ThietBi\ThietBiGUI$11.class
 GUI\ThanhVien\ModifyAddGUI$1.class
@@ -21,6 +22,7 @@ BLL\ThongTinSuDungBLL.class
 GUI\ThanhVien\MuonGUI.class
 GUI\XuLyViPham\EditHinhThucXuLyGUI$2.class
 raven\datechooser\ErrorCheck.class
+GUI\ThongKeGUI\ThongKeGUI$13.class
 GUI\ThanhVien\ThanhVienGUI$3.class
 raven\datechooser\layout\HeaderLayout.class
 DAL\HibernateUtil.class
@@ -35,6 +37,7 @@ GUI\ThietBi\ThemThietBi$3.class
 GUI\ThongKeGUI\ThongKeGUI$6.class
 raven\panel\PanelShadow.class
 GUI\ThanhVien\AddThanhVienGUI$2.class
+GUI\ThongKeGUI\ThongKeGUI$9.class
 DAL\ThongTinSuDungDAL$1.class
 raven\datechooser\DateChooser$1.class
 raven\shadow\ShadowRenderer.class
@@ -68,6 +71,7 @@ GUI\ThanhVien\TraGUI.class
 GUI\XuLyViPham\XuLyGUI$1.class
 GUI\ThietBi\ThietBiGUI$4.class
 GUI\MainGUI$1.class
+GUI\ThongKeGUI\ThongKeGUI$11.class
 raven\datechooser\listener\DateChooserListener.class
 DTO\XuLyViPhamDTO.class
 GUI\ThanhVien\AddThanhVienGUI$1.class
@@ -105,6 +109,7 @@ GUI\ThanhVien\UpdateThanhVienGUI$1.class
 GUI\ThongKeGUI\Demo$1.class
 GUI\XuLyViPham\XuLyGUI$2.class
 GUI\ThanhVien\AddThanhVienGUI.class
+GUI\ThongKeGUI\ThongKeGUI$8.class
 raven\datechooser\DateChooser$DateSelectionMode.class
 GUI\ThanhVien\AddThanhVienGUI$6.class
 GUI\ThanhVien\ThanhVienGUI$2.class
@@ -119,6 +124,7 @@ GUI\ThanhVien\ThanhVienGUI$5.class
 GUI\ThietBi\ThietBiGUI.class
 GUI\ThongKeGUI\ThongKeGUI$2.class
 GUI\XuLyViPham\XuLyViPhamGUI$4.class
+GUI\ThongKeGUI\ThongKeGUI$12.class
 raven\datechooser\DateChooserException.class
 GUI\ThietBi\ThietBiGUI$8.class
 GUI\ThanhVien\MuonGUI$5.class
@@ -171,4 +177,5 @@ GUI\ThongKeGUI\ModelData.class
 raven\chart\blankchart\SeriesSize.class
 GUI\ThanhVien\AddThanhVienGUI$4.class
 GUI\ThietBi\ThietBiGUI$14.class
+GUI\ThongKeGUI\ThongKeGUI$14.class
 GUI\ThanhVien\DetailGUI$1.class
