@@ -37,6 +37,36 @@ public class ThongTinSuDungDAL {
         }
     }
     
+
+    public ArrayList<Integer> getIDByMaTV(int id){
+        Session session = factory.openSession();
+        Transaction tx = null;
+        ArrayList<Integer> idList = new ArrayList<>();
+
+        try {
+            tx = session.beginTransaction();
+
+            // Sử dụng tên thuộc tính trong ThongTinSuDungDTO là maTV
+            String hql = "SELECT ttsd.id FROM ThongTinSuDungDTO ttsd WHERE ttsd.MaTV.MaTV = :id AND ttsd.TGVao IS NOT NULL";
+            Query<Integer> query = session.createQuery(hql, Integer.class);
+            query.setParameter("id", id);
+
+            idList = (ArrayList<Integer>) query.getResultList();
+
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return idList;
+    }
+
+
     public ArrayList<ThongTinSuDungDTO> listThongTinSuDung() {
         Session session = factory.openSession();
         ArrayList<ThongTinSuDungDTO> list = new ArrayList<>();

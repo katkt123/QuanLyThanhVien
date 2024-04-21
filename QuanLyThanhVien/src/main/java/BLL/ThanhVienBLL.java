@@ -30,13 +30,24 @@ public class ThanhVienBLL {
         ArrayList<ThongTinSuDungDTO> list = new ThongTinSuDungDAL().listThongTinSuDung();
         for (ThongTinSuDungDTO s : list){
             if (s.getMaTV() != null){
-                if (s.getMaTV().getMaTV() == ID){
+                if (s.getMaTV().getMaTV() == ID && s.getTGVao()==null){
                     return false;
+                }
+            }
+        }
+        for(ThongTinSuDungDTO s:list){
+            if(s.getMaTV()!=null){
+                if(s.getMaTV().getMaTV()==ID && s.getTGVao()!=null){
+                    ArrayList<Integer> arr= ttDAL.getIDByMaTV(ID);
+                    for(Integer idtt:arr){
+                        ttDAL.xoaThongTinSuDung(idtt);
+                    }
                 }
             }
         }
         return true;
     }
+    
      public boolean checkVP(int id){
         ArrayList<XuLyViPhamDTO> arr = xlDAL.listXuLyViPham();
         for(XuLyViPhamDTO a:arr){
